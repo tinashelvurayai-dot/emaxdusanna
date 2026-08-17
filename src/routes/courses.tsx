@@ -100,7 +100,8 @@ function CoursesPage() {
         </div>
       </section>
 
-      {/* Global AHEP shell - the special diploma-only programmes live here */}
+      {/* Global AHEP shell - hidden while searching/filtering so results stay exact */}
+      {!query.trim() && !category && (
       <section className="px-4 sm:px-6 lg:px-8 pb-8">
         <div className="max-w-7xl mx-auto">
           <Link
@@ -124,6 +125,7 @@ function CoursesPage() {
           </Link>
         </div>
       </section>
+      )}
 
       <section className="pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">

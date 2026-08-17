@@ -34,6 +34,9 @@ import { Label } from "@/components/ui/label";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [{ title: "Admin Dashboard | Edusanna" }] }),
+  validateSearch: (search: Record<string, unknown>): { tab?: string } => ({
+    tab: typeof search.tab === "string" ? search.tab : undefined,
+  }),
   component: AdminPage,
 });
 
@@ -89,6 +92,12 @@ function AdminPage() {
 function AdminContent() {
   const fetchStats = useServerFn(getAdminStats);
   const { data: stats } = useQuery({ queryKey: ["admin-stats"], queryFn: () => fetchStats() });
+  const { tab } = Route.useSearch();
+  const validTabs = [
+    "payments", "altPayments", "users", "certificates",
+    "certIds", "schools", "schoolAdmins", "sample",
+  ];
+  const initialTab = tab && validTabs.includes(tab) ? tab : "payments";
 
   return (
     <div className="min-h-screen">
@@ -106,7 +115,7 @@ function AdminContent() {
             <StatCard icon={<Award className="w-5 h-5" />} label="Sent" value={stats?.certificatesSent ?? "…"} />
           </div>
 
-          <Tabs defaultValue="payments">
+          <Tabs defaultValue={initialTab}>
             <TabsList className="mb-6 flex-wrap h-auto">
               <TabsTrigger value="payments">Payments</TabsTrigger>
               <TabsTrigger value="altPayments">Alt Payments</TabsTrigger>
