@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Users, CreditCard, Award, DollarSign, Clock, ShieldAlert, Loader2, School, FileEdit, Trash2,
+  Activity, CheckCircle2, AlertTriangle, XCircle, RefreshCw,
 } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SiteFooter } from "@/components/site-footer";
@@ -28,6 +29,7 @@ import {
 import { createSchoolAdmin, listSchoolAdmins, deleteSchoolAdmin } from "@/lib/school.functions";
 import { listAltPaymentRequests, markAltPaymentReceived } from "@/lib/alt-payment.functions";
 import { listEnrollmentCertificateIds } from "@/lib/tracking.functions";
+import { getBackendHealth, type HealthState } from "@/lib/health.functions";
 import { CertificatePreview, type CertificateData } from "@/components/certificate-preview";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -95,7 +97,7 @@ function AdminContent() {
   const { tab } = Route.useSearch();
   const validTabs = [
     "payments", "altPayments", "users", "certificates",
-    "certIds", "schools", "schoolAdmins", "sample",
+    "certIds", "schools", "schoolAdmins", "sample", "health",
   ];
   const initialTab = tab && validTabs.includes(tab) ? tab : "payments";
 
@@ -125,6 +127,7 @@ function AdminContent() {
               <TabsTrigger value="schools">Schools</TabsTrigger>
               <TabsTrigger value="schoolAdmins">School admins</TabsTrigger>
               <TabsTrigger value="sample">Home Sample</TabsTrigger>
+              <TabsTrigger value="health">Health monitor</TabsTrigger>
             </TabsList>
             <TabsContent value="payments"><PaymentsTab /></TabsContent>
             <TabsContent value="altPayments"><AltPaymentsTab /></TabsContent>
@@ -134,6 +137,7 @@ function AdminContent() {
             <TabsContent value="schools"><SchoolsTab /></TabsContent>
             <TabsContent value="schoolAdmins"><SchoolAdminsTab /></TabsContent>
             <TabsContent value="sample"><SampleCertificateTab /></TabsContent>
+            <TabsContent value="health"><HealthTab /></TabsContent>
           </Tabs>
         </div>
       </section>
