@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { BookOpen, GraduationCap, Trophy, ArrowRight } from "lucide-react";
+import { BookOpen, GraduationCap, Trophy, ArrowRight, Settings } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
@@ -80,8 +80,17 @@ function Dashboard() {
       <SiteNavbar />
       <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-3xl md:text-4xl font-black text-blue-900 mb-1">Welcome back, {firstName}</h1>
-          <p className="text-blue-600 mb-8">Continue where you left off.</p>
+          <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 mb-8 sm:flex sm:justify-between sm:items-center">
+            <div className="min-w-0">
+              <h1 className="text-3xl md:text-4xl font-black text-blue-900 mb-1 truncate">Welcome back, {firstName}</h1>
+              <p className="text-blue-600">Continue where you left off.</p>
+            </div>
+            <Link to="/settings" className="shrink-0">
+              <Button variant="outline" className="min-h-11 border-blue-200 text-blue-700">
+                <Settings className="w-4 h-4 mr-2" aria-hidden="true" /> Settings
+              </Button>
+            </Link>
+          </div>
 
           {profile?.signup_type === "academia" && (
             <div className="mb-8 space-y-3">
