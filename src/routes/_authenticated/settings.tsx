@@ -152,7 +152,6 @@ function SettingsPage() {
               Permanently delete
             </Button>
           </DialogFooter>
-        </DialogFooter>
         </DialogContent>
       </Dialog>
       <SiteFooter />
