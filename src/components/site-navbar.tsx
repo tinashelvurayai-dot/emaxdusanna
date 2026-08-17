@@ -1,5 +1,5 @@
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LayoutDashboard, LogOut, ShieldCheck, Menu, X } from "lucide-react";
+import { LayoutDashboard, LogOut, ShieldCheck, Menu, X, Settings } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -81,6 +81,12 @@ export function SiteNavbar() {
                     </Button>
                   </Link>
                 )}
+                <Link to="/settings">
+                  <Button variant="ghost" aria-label="Account settings" className="text-blue-700 hover:bg-blue-50 text-sm">
+                    <Settings className="w-4 h-4 sm:mr-1.5" />
+                    <span className="hidden sm:inline">Settings</span>
+                  </Button>
+                </Link>
                 <Button onClick={handleSignOut} variant="ghost" className="text-blue-700 hover:bg-blue-50 text-sm">
                   <LogOut className="w-4 h-4 sm:mr-1.5" />
                   <span className="hidden sm:inline">Sign out</span>

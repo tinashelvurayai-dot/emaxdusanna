@@ -16,6 +16,7 @@ import { Toaster } from "../components/ui/sonner";
 import { supabase } from "../integrations/supabase/client";
 import { AuroraBg } from "../components/aurora-bg";
 import { AppErrorBoundary } from "../components/app-error-boundary";
+import { MobileBottomNav } from "../components/mobile-bottom-nav";
 import { initSentry } from "../lib/sentry";
 
 function NotFoundComponent() {
@@ -178,6 +179,7 @@ function RootComponent() {
           <main id="main-content" className="premium-container">
             <Outlet />
           </main>
+          <MobileBottomNav />
         </div>
         <Toaster richColors position="top-center" theme="dark" />
       </AuthProvider>
