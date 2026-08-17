@@ -141,7 +141,7 @@ function Dashboard() {
                     <div className="flex items-center gap-4 mb-4">
                       {image ? (
                         <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-blue-50">
-                          <img src={image} alt="" className="w-full h-full object-cover" />
+                          <img src={image} alt="" loading="lazy" decoding="async" className="w-full h-full object-cover" />
                         </div>
                       ) : (
                         <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} flex items-center justify-center flex-shrink-0`}>
