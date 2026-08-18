@@ -5,6 +5,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Users, CreditCard, Award, DollarSign, Clock, ShieldAlert, Loader2, School, FileEdit, Trash2,
+  Activity, CheckCircle2, AlertTriangle, XCircle, RefreshCw,
 } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SiteFooter } from "@/components/site-footer";
@@ -28,6 +29,7 @@ import {
 import { createSchoolAdmin, listSchoolAdmins, deleteSchoolAdmin } from "@/lib/school.functions";
 import { listAltPaymentRequests, markAltPaymentReceived } from "@/lib/alt-payment.functions";
 import { listEnrollmentCertificateIds } from "@/lib/tracking.functions";
+import { getBackendHealth, type HealthState } from "@/lib/health.functions";
 import { CertificatePreview, type CertificateData } from "@/components/certificate-preview";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -95,7 +97,7 @@ function AdminContent() {
   const { tab } = Route.useSearch();
   const validTabs = [
     "payments", "altPayments", "users", "certificates",
-    "certIds", "schools", "schoolAdmins", "sample",
+    "certIds", "schools", "schoolAdmins", "sample", "health",
   ];
   const initialTab = tab && validTabs.includes(tab) ? tab : "payments";
 
@@ -125,6 +127,7 @@ function AdminContent() {
               <TabsTrigger value="schools">Schools</TabsTrigger>
               <TabsTrigger value="schoolAdmins">School admins</TabsTrigger>
               <TabsTrigger value="sample">Home Sample</TabsTrigger>
+              <TabsTrigger value="health">Health monitor</TabsTrigger>
             </TabsList>
             <TabsContent value="payments"><PaymentsTab /></TabsContent>
             <TabsContent value="altPayments"><AltPaymentsTab /></TabsContent>
@@ -134,6 +137,7 @@ function AdminContent() {
             <TabsContent value="schools"><SchoolsTab /></TabsContent>
             <TabsContent value="schoolAdmins"><SchoolAdminsTab /></TabsContent>
             <TabsContent value="sample"><SampleCertificateTab /></TabsContent>
+            <TabsContent value="health"><HealthTab /></TabsContent>
           </Tabs>
         </div>
       </section>
@@ -937,6 +941,111 @@ function AltPaymentsTab() {
           ))}
         </TableBody>
       </Table>
+    </div>
+  );
+}
+
+// ---------------------------------------------------------------- Health tab
+
+function healthIcon(state: HealthState) {
+  if (state === "ok") return <CheckCircle2 className="w-4 h-4 text-green-600" aria-hidden="true" />;
+  if (state === "warn") return <AlertTriangle className="w-4 h-4 text-amber-600" aria-hidden="true" />;
+  return <XCircle className="w-4 h-4 text-red-600" aria-hidden="true" />;
+}
+
+function healthLabel(state: HealthState) {
+  return state === "ok" ? "Healthy" : state === "warn" ? "Attention" : "Down";
+}
+
+function HealthTab() {
+  const fetchHealth = useServerFn(getBackendHealth);
+  const { data, isLoading, isFetching, refetch, error } = useQuery({
+    queryKey: ["backend-health"],
+    queryFn: () => fetchHealth(),
+    refetchInterval: 60_000,
+  });
+
+  const overall = data?.overall ?? "warn";
+  const banner =
+    overall === "ok"
+      ? "bg-green-50 border-green-300 text-green-800"
+      : overall === "warn"
+        ? "bg-amber-50 border-amber-300 text-amber-900"
+        : "bg-red-50 border-red-300 text-red-800";
+
+  return (
+    <div className="space-y-5">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 sm:flex sm:justify-between">
+        <div className="min-w-0">
+          <h2 className="text-lg font-bold text-blue-900 flex items-center gap-2">
+            <Activity className="w-5 h-5 text-blue-600" aria-hidden="true" /> Backend health monitor
+          </h2>
+          <p className="text-sm text-blue-600">
+            Live checks of the database, auth, credential pipeline and integrations. Refreshes every minute.
+          </p>
+        </div>
+        <Button
+          onClick={() => void refetch()}
+          variant="outline"
+          className="min-h-11 border-blue-200 text-blue-700 shrink-0"
+          disabled={isFetching}
+        >
+          <RefreshCw className={`w-4 h-4 mr-2 ${isFetching ? "animate-spin" : ""}`} aria-hidden="true" />
+          Re-run checks
+        </Button>
+      </div>
+
+      {error && (
+        <div className="rounded-xl border border-red-300 bg-red-50 p-4 text-red-800">
+          Could not run health checks: {error instanceof Error ? error.message : "unknown error"}
+        </div>
+      )}
+
+      {isLoading ? (
+        <p className="text-blue-500 py-8">Running checks…</p>
+      ) : data ? (
+        <>
+          <div className={`rounded-xl border p-4 font-semibold ${banner}`} role="status" aria-live="polite">
+            System status: {healthLabel(overall)} · last checked{" "}
+            {new Date(data.checkedAt).toLocaleTimeString()}
+          </div>
+
+          <div className="rounded-xl border border-blue-100 bg-white overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Check</TableHead>
+                  <TableHead>Status</TableHead>
+                  <TableHead>Detail</TableHead>
+                  <TableHead>Latency</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {data.checks.map((c) => (
+                  <TableRow key={c.id}>
+                    <TableCell className="font-medium text-blue-900">{c.label}</TableCell>
+                    <TableCell>
+                      <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
+                        {healthIcon(c.state)} {healthLabel(c.state)}
+                      </span>
+                    </TableCell>
+                    <TableCell className="text-sm text-blue-700">{c.detail}</TableCell>
+                    <TableCell className="text-sm text-blue-600">{c.ms != null ? `${c.ms} ms` : "—"}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+
+          <div className="rounded-xl border border-blue-100 bg-blue-50/60 p-4 text-sm text-blue-800">
+            <p className="font-semibold mb-1">Error tracking</p>
+            <p>
+              Frontend and server exceptions are reported to Sentry. Any red or amber row above usually
+              appears in Sentry as well — check the Sentry issues feed for stack traces and affected users.
+            </p>
+          </div>
+        </>
+      ) : null}
     </div>
   );
 }

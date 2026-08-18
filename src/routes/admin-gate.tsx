@@ -52,7 +52,7 @@ function AdminGatePage() {
       <div className="w-full max-w-md glass-card-light p-8">
         <SmartBack fallback="/" label="Back" />
         <div className="flex flex-col items-center mb-6">
-          <img src={logo.url} alt="Edusanna logo" className="w-20 h-20 object-contain mb-2" />
+          <img src={logo.url} alt="Edusanna logo" width={80} height={80} className="w-20 h-20 object-contain mb-2" />
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-100 text-purple-700 text-xs font-semibold">
             <ShieldCheck className="w-3.5 h-3.5" /> Restricted Admin Area
           </div>

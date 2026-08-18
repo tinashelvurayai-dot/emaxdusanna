@@ -274,3 +274,57 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Mobile & touch refinements
+   - guarantee 44px tap targets on touch devices
+   - stop iOS zooming on focus by keeping form text at 16px
+   - keep the fixed navbar usable in landscape on short viewports
+   - reserve room for the mobile bottom navigation
+--------------------------------------------------------------------------- */
+@media (pointer: coarse) {
+  button:not([aria-hidden="true"]),
+  a[role="button"],
+  [role="tab"],
+  summary,
+  label[for] {
+    min-height: 44px;
+  }
+
+  input:not([type="checkbox"]):not([type="radio"]),
+  select,
+  textarea {
+    font-size: 16px;
+    min-height: 44px;
+  }
+}
+
+@media (max-height: 480px) and (orientation: landscape) {
+  nav.fixed.top-0 > div > div {
+    height: 3rem;
+  }
+  nav.fixed.top-0 img {
+    width: 2rem;
+    height: 2rem;
+  }
+  nav.fixed.top-0 .gradient-text {
+    font-size: 1rem;
+  }
+  #mobile-nav {
+    max-height: calc(100dvh - 3rem);
+    overflow-y: auto;
+  }
+}
+
+@supports (padding: env(safe-area-inset-bottom)) {
+  .mobile-bottom-nav {
+    padding-bottom: max(0.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Never let long words break the mobile layout. */
+@media (max-width: 480px) {
+  h1, h2, h3 {
+    overflow-wrap: anywhere;
+  }
+}

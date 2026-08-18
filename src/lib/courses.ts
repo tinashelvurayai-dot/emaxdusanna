@@ -9,6 +9,7 @@ import { getCourseSkills } from "./course-skills";
 import { courseContentMeta } from "./generated/course-content-meta";
 import { specialCourseContentMeta } from "./generated/special-course-meta";
 import { courseContentLoaders } from "./generated/course-content-registry";
+import { resolveContentId } from "./course-content-aliases";
 
 export type CourseLevel = "certificate" | "diploma";
 
@@ -39,7 +40,9 @@ export function getCategory(id: string) {
  * certificate and diploma levels share it.
  */
 export function getCourseContent(id: string, _level: CourseLevel): CourseContent | undefined {
-  const meta = specialCourseContentMeta[id] ?? courseContentMeta[id];
+  const contentId = resolveContentId(id);
+  const meta =
+    specialCourseContentMeta[id] ?? courseContentMeta[id] ?? courseContentMeta[contentId];
   if (meta) {
     return {
       id,
@@ -58,7 +61,7 @@ export function getCourseContent(id: string, _level: CourseLevel): CourseContent
     };
   }
   const source = _level === "certificate" ? certificateCourses : diplomaCourses;
-  return source[id];
+  return source[id] ?? source[contentId];
 }
 
 /**
@@ -87,7 +90,7 @@ export function getCourseModules(id: string, level: CourseLevel): CourseContentM
  * Falls back to the generic module outline when no imported content exists.
  */
 export async function loadCourseModules(id: string, level: CourseLevel): Promise<CourseContentModule[]> {
-  const loader = courseContentLoaders[id];
+  const loader = courseContentLoaders[id] ?? courseContentLoaders[resolveContentId(id)];
   if (loader) {
     try {
       const content = await loader();

@@ -101,6 +101,11 @@ function Content({ schoolName, contactName }: { schoolName: string; contactName:
               <h1 className="text-3xl md:text-4xl font-black text-blue-900 leading-tight">{schoolName}</h1>
               <p className="text-blue-600 text-sm">School admin dashboard{contactName ? ` - ${contactName}` : ""}</p>
             </div>
+            <Link to="/settings" className="ml-auto shrink-0">
+              <Button variant="outline" className="min-h-11 border-blue-200 text-blue-700 hover:bg-blue-50">
+                Settings
+              </Button>
+            </Link>
           </div>
 
 
