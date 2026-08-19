@@ -710,7 +710,26 @@ const baseCourseCatalog: CourseCatalogItem[] = [
 ]
 
 // Merge the curated A-Z catalog with the courses imported from the content library.
-export const courseCatalog: CourseCatalogItem[] = [...specialCourseCatalog, ...baseCourseCatalog, ...courseCatalogExtra]
+export const allCourseCatalog: CourseCatalogItem[] = [
+  ...specialCourseCatalog,
+  ...baseCourseCatalog,
+  ...courseCatalogExtra,
+]
+
+/**
+ * A course is only published once real learning content (module bodies +
+ * quizzes) exists for it, either directly in the content registry or through an
+ * alias. Adding the data file + registry entry automatically publishes it.
+ */
+export function hasCourseContent(id: string): boolean {
+  return Boolean(courseContentLoaders[id] ?? courseContentLoaders[resolveContentId(id)])
+}
+
+/** Published catalogue: only courses whose learning content exists. */
+export const courseCatalog: CourseCatalogItem[] = allCourseCatalog.filter((c) => hasCourseContent(c.id))
+
+/** Courses hidden from the catalogue because their content file is missing. */
+export const uncoveredCourses: CourseCatalogItem[] = allCourseCatalog.filter((c) => !hasCourseContent(c.id))
 
 export function getCoursesByLetter(letter: string) {
   return courseCatalog.filter((course) => course.letter === letter)
