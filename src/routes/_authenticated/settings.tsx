@@ -14,6 +14,8 @@ import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyFullName } from "@/lib/profile.functions";
 import { deleteMyAccount } from "@/lib/account.functions";
+import { checkIsAdmin } from "@/lib/admin.functions";
+import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
@@ -31,10 +33,18 @@ function SettingsPage() {
   const queryClient = useQueryClient();
   const fetchName = useServerFn(getMyFullName);
   const deleteAccount = useServerFn(deleteMyAccount);
+  const isAdminFn = useServerFn(checkIsAdmin);
+  const { data: adminCheck } = useQuery({
+    queryKey: ["settings-is-admin", user?.id],
+    enabled: !!user,
+    queryFn: () => isAdminFn(),
+  });
+  const isAdmin = Boolean(adminCheck?.isAdmin);
 
   const [profile, setProfile] = useState<{ fullName: string; signupType: string; schoolName: string | null } | null>(null);
   const [open, setOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
   const [unenrolling, setUnenrolling] = useState<string | null>(null);
 
   useEffect(() => {
@@ -88,9 +98,13 @@ function SettingsPage() {
   };
 
   const handleDelete = async () => {
+    if (confirmText.trim().toUpperCase() !== "DELETE") {
+      toast.error("Please type DELETE to confirm.");
+      return;
+    }
     setDeleting(true);
     try {
-      await deleteAccount({ data: { confirm: "DELETE" } });
+      await deleteAccount({ data: { confirm: confirmText.trim().toUpperCase() } });
       toast.success("Your account and all its data have been deleted.");
       await signOut();
       navigate({ to: "/", replace: true });
