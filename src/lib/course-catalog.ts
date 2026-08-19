@@ -1,6 +1,8 @@
 import type { CourseCatalogItem } from "./course-types"
 import { courseCatalogExtra } from "./generated/course-catalog-extra"
 import { specialCourseCatalog } from "./special-courses"
+import { courseContentLoaders } from "./generated/course-content-registry"
+import { resolveContentId } from "./course-content-aliases"
 
 export const courseCategories = [
   { id: "health", name: "Healthcare & Wellness", color: "from-pink-500 to-rose-500" },
