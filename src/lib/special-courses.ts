@@ -9,7 +9,7 @@ export const GLOBAL_AHEP = {
   name: "Global AHEP",
   tagline: "Certified Plastic Pollution Leadership Program",
   description:
-    "Global AHEP is Edusanna's flagship international diploma shell, delivered with the African Health & Environment Programme. It is offered in English and French, is diploma-only, and carries its own credential fee of $40 USD.",
+    "Global AHEP is Edusanna's flagship international diploma shell, delivered with the African Health & Environment Programme. It is offered in English and French, is diploma-only, and carries its own credential fee of $30 USD.",
 } as const
 
 export const specialCourseCatalog: CourseCatalogItem[] = [

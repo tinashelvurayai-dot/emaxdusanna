@@ -14,6 +14,8 @@ import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyFullName } from "@/lib/profile.functions";
 import { deleteMyAccount } from "@/lib/account.functions";
+import { checkIsAdmin } from "@/lib/admin.functions";
+import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_authenticated/settings")({
   head: () => ({
@@ -31,10 +33,18 @@ function SettingsPage() {
   const queryClient = useQueryClient();
   const fetchName = useServerFn(getMyFullName);
   const deleteAccount = useServerFn(deleteMyAccount);
+  const isAdminFn = useServerFn(checkIsAdmin);
+  const { data: adminCheck } = useQuery({
+    queryKey: ["settings-is-admin", user?.id],
+    enabled: !!user,
+    queryFn: () => isAdminFn(),
+  });
+  const isAdmin = Boolean(adminCheck?.isAdmin);
 
   const [profile, setProfile] = useState<{ fullName: string; signupType: string; schoolName: string | null } | null>(null);
   const [open, setOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [confirmText, setConfirmText] = useState("");
   const [unenrolling, setUnenrolling] = useState<string | null>(null);
 
   useEffect(() => {
@@ -88,9 +98,13 @@ function SettingsPage() {
   };
 
   const handleDelete = async () => {
+    if (confirmText.trim().toUpperCase() !== "DELETE") {
+      toast.error("Please type DELETE to confirm.");
+      return;
+    }
     setDeleting(true);
     try {
-      await deleteAccount({ data: { confirm: "DELETE" } });
+      await deleteAccount({ data: { confirm: confirmText.trim().toUpperCase() } });
       toast.success("Your account and all its data have been deleted.");
       await signOut();
       navigate({ to: "/", replace: true });
@@ -182,25 +196,27 @@ function SettingsPage() {
             </dl>
           </div>
 
-          <div className="glass-card-light p-6 border border-red-200">
-            <div className="flex items-start gap-3 mb-3">
-              <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
-              <div>
-                <h2 className="text-lg font-bold text-red-700">Delete my account</h2>
-                <p className="text-sm text-blue-700 mt-1">
-                  This permanently removes your profile, enrollments, course progress and credential
-                  records. Credentials already issued can no longer be verified. This cannot be undone.
-                </p>
+          {!isAdmin && (
+            <div className="glass-card-light p-6 border border-red-200">
+              <div className="flex items-start gap-3 mb-3">
+                <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <div>
+                  <h2 className="text-lg font-bold text-red-700">Delete my account</h2>
+                  <p className="text-sm text-blue-700 mt-1">
+                    This permanently removes your profile, enrollments, course progress and credential
+                    records. Credentials already issued can no longer be verified. This cannot be undone.
+                  </p>
+                </div>
               </div>
+              <Button
+                onClick={() => setOpen(true)}
+                variant="outline"
+                className="min-h-11 border-red-400 text-red-700 hover:bg-red-50"
+              >
+                <Trash2 className="w-4 h-4 mr-2" aria-hidden="true" /> Delete my account
+              </Button>
             </div>
-            <Button
-              onClick={() => setOpen(true)}
-              variant="outline"
-              className="min-h-11 border-red-400 text-red-700 hover:bg-red-50"
-            >
-              <Trash2 className="w-4 h-4 mr-2" aria-hidden="true" /> Delete my account
-            </Button>
-          </div>
+          )}
         </div>
       </section>
 
@@ -209,17 +225,30 @@ function SettingsPage() {
           <DialogHeader>
             <DialogTitle>Delete your account?</DialogTitle>
             <DialogDescription>
-              Everything tied to {user?.email} will be erased permanently. Press “Confirm & delete” to finish —
-              this cannot be undone.
+              Everything tied to {user?.email} will be erased permanently. Type DELETE below, then press
+              "Confirm &amp; delete". This cannot be undone.
             </DialogDescription>
           </DialogHeader>
+          <div className="space-y-2">
+            <label htmlFor="confirm-delete" className="text-sm font-semibold text-blue-900">
+              Type DELETE to confirm
+            </label>
+            <Input
+              id="confirm-delete"
+              value={confirmText}
+              onChange={(e) => setConfirmText(e.target.value)}
+              placeholder="DELETE"
+              autoComplete="off"
+              className="min-h-11"
+            />
+          </div>
           <DialogFooter>
             <Button variant="outline" className="min-h-11" onClick={() => setOpen(false)} disabled={deleting}>
               Cancel
             </Button>
             <Button
               onClick={handleDelete}
-              disabled={deleting}
+              disabled={deleting || confirmText.trim().toUpperCase() !== "DELETE"}
               className="min-h-11 bg-red-600 text-white hover:bg-red-700"
             >
               {deleting && <Loader2 className="w-4 h-4 mr-2 animate-spin" aria-hidden="true" />}

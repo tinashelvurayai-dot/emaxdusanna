@@ -13,7 +13,7 @@ export const Route = createFileRoute("/global-ahep")({
     pageHead({
       title: "Global AHEP Diploma - Plastic Pollution Leadership | Edusanna",
       description:
-        "Global AHEP is Edusanna's flagship diploma shell on plastic pollution leadership, available in English and French for $40 USD. Diploma only - no certificate version.",
+        "Global AHEP is Edusanna's flagship diploma shell on plastic pollution leadership, available in English and French for $30 USD. Diploma only - no certificate version.",
       path: "/global-ahep",
     }),
   component: GlobalAhepPage,

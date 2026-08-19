@@ -6,7 +6,7 @@ export type PriceLevel = "certificate" | "diploma";
 export const STANDARD_PRICES: Record<PriceLevel, number> = { certificate: 12, diploma: 18 };
 
 /** Global AHEP diploma programmes are priced separately. */
-export const GLOBAL_AHEP_PRICE = 40;
+export const GLOBAL_AHEP_PRICE = 30;
 
 /** Real amount charged for a given course + level. */
 export function getCoursePrice(courseId: string, level: PriceLevel): number {

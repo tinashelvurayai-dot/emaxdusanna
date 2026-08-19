@@ -394,6 +394,39 @@ export type Database = {
         }
         Relationships: []
       }
+      special_program_diplomas: {
+        Row: {
+          course_id: string
+          created_at: string
+          id: string
+          issued: boolean
+          issued_at: string | null
+          issued_by: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          id?: string
+          issued?: boolean
+          issued_at?: string | null
+          issued_by?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          id?: string
+          issued?: boolean
+          issued_at?: string | null
+          issued_by?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
