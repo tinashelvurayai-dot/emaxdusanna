@@ -1,4 +1,4 @@
-import { courseCatalog, courseCategories } from "./course-catalog";
+import { allCourseCatalog, courseCatalog, courseCategories } from "./course-catalog";
 import type { CourseCatalogItem } from "./course-types";
 import type { CourseContent, CourseContentModule } from "./course-content-types";
 import { certificateCourses } from "./lib/courses/lib/courses/certificates";
@@ -21,7 +21,9 @@ export const PRICES: Record<CourseLevel, number> = {
 export { courseCatalog, courseCategories };
 
 export function getCatalogItem(id: string): CourseCatalogItem | undefined {
-  return courseCatalog.find((c) => c.id === id);
+  // Looks in the full catalogue so learners already enrolled in a course that is
+  // currently hidden (missing content file) keep access to it.
+  return allCourseCatalog.find((c) => c.id === id);
 }
 
 export function getCourseTitle(item: CourseCatalogItem, level: CourseLevel): string {

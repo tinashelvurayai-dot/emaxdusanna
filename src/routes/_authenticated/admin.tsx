@@ -33,6 +33,8 @@ import { getBackendHealth, type HealthState } from "@/lib/health.functions";
 import { CertificatePreview, type CertificateData } from "@/components/certificate-preview";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SpecialProgramTab } from "@/components/admin/special-program-tab";
+import { HiddenCoursesTab } from "@/components/admin/hidden-courses-tab";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [{ title: "Admin Dashboard | Edusanna" }] }),
@@ -98,6 +100,7 @@ function AdminContent() {
   const validTabs = [
     "payments", "altPayments", "users", "certificates",
     "certIds", "schools", "schoolAdmins", "sample", "health",
+    "specialProgram", "hiddenCourses",
   ];
   const initialTab = tab && validTabs.includes(tab) ? tab : "payments";
 
@@ -124,6 +127,8 @@ function AdminContent() {
               <TabsTrigger value="users">Users</TabsTrigger>
               <TabsTrigger value="certificates">Certificates</TabsTrigger>
               <TabsTrigger value="certIds">Credential IDs</TabsTrigger>
+              <TabsTrigger value="specialProgram">Special Program</TabsTrigger>
+              <TabsTrigger value="hiddenCourses">Hidden courses</TabsTrigger>
               <TabsTrigger value="schools">Schools</TabsTrigger>
               <TabsTrigger value="schoolAdmins">School admins</TabsTrigger>
               <TabsTrigger value="sample">Home Sample</TabsTrigger>
@@ -134,6 +139,8 @@ function AdminContent() {
             <TabsContent value="users"><UsersTab /></TabsContent>
             <TabsContent value="certificates"><CertificatesTab /></TabsContent>
             <TabsContent value="certIds"><CredentialIdsTab /></TabsContent>
+            <TabsContent value="specialProgram"><SpecialProgramTab /></TabsContent>
+            <TabsContent value="hiddenCourses"><HiddenCoursesTab /></TabsContent>
             <TabsContent value="schools"><SchoolsTab /></TabsContent>
             <TabsContent value="schoolAdmins"><SchoolAdminsTab /></TabsContent>
             <TabsContent value="sample"><SampleCertificateTab /></TabsContent>
