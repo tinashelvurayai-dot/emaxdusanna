@@ -73,7 +73,7 @@ export const deleteMyAccount = createServerFn({ method: "POST" })
     ].map((entry) => ({
       original_user_id: userId,
       kind: entry.kind,
-      payload: entry.payload as unknown as Record<string, unknown>,
+      payload: entry.payload as never,
       retain_until: retainUntil.toISOString(),
     }));
 

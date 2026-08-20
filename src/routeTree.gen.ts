@@ -33,6 +33,7 @@ import { Route as AuthenticatedDashboardRouteImport } from './routes/_authentica
 import { Route as AuthenticatedCertificateSuccessRouteImport } from './routes/_authenticated/certificate-success'
 import { Route as AuthenticatedCertificatePaymentRouteImport } from './routes/_authenticated/certificate-payment'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as ApiPublicCronPurgeRetentionRouteImport } from './routes/api/public/cron/purge-retention'
 import { Route as AuthenticatedLearnCourseIdLevelRouteImport } from './routes/_authenticated/learn.$courseId.$level'
 
 const VerifyRoute = VerifyRouteImport.update({
@@ -157,6 +158,12 @@ const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
   path: '/admin',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const ApiPublicCronPurgeRetentionRoute =
+  ApiPublicCronPurgeRetentionRouteImport.update({
+    id: '/api/public/cron/purge-retention',
+    path: '/api/public/cron/purge-retention',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const AuthenticatedLearnCourseIdLevelRoute =
   AuthenticatedLearnCourseIdLevelRouteImport.update({
     id: '/learn/$courseId/$level',
@@ -189,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/course/$id': typeof CourseIdRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/learn/$courseId/$level': typeof AuthenticatedLearnCourseIdLevelRoute
+  '/api/public/cron/purge-retention': typeof ApiPublicCronPurgeRetentionRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -215,6 +223,7 @@ export interface FileRoutesByTo {
   '/course/$id': typeof CourseIdRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/learn/$courseId/$level': typeof AuthenticatedLearnCourseIdLevelRoute
+  '/api/public/cron/purge-retention': typeof ApiPublicCronPurgeRetentionRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -243,6 +252,7 @@ export interface FileRoutesById {
   '/course/$id': typeof CourseIdRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/_authenticated/learn/$courseId/$level': typeof AuthenticatedLearnCourseIdLevelRoute
+  '/api/public/cron/purge-retention': typeof ApiPublicCronPurgeRetentionRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -271,6 +281,7 @@ export interface FileRouteTypes {
     | '/course/$id'
     | '/dashboard/users'
     | '/learn/$courseId/$level'
+    | '/api/public/cron/purge-retention'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -297,6 +308,7 @@ export interface FileRouteTypes {
     | '/course/$id'
     | '/dashboard/users'
     | '/learn/$courseId/$level'
+    | '/api/public/cron/purge-retention'
   id:
     | '__root__'
     | '/'
@@ -324,6 +336,7 @@ export interface FileRouteTypes {
     | '/course/$id'
     | '/dashboard/users'
     | '/_authenticated/learn/$courseId/$level'
+    | '/api/public/cron/purge-retention'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -345,6 +358,7 @@ export interface RootRouteChildren {
   ApiHealthRoute: typeof ApiHealthRoute
   CourseIdRoute: typeof CourseIdRoute
   DashboardUsersRoute: typeof DashboardUsersRoute
+  ApiPublicCronPurgeRetentionRoute: typeof ApiPublicCronPurgeRetentionRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -517,6 +531,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/api/public/cron/purge-retention': {
+      id: '/api/public/cron/purge-retention'
+      path: '/api/public/cron/purge-retention'
+      fullPath: '/api/public/cron/purge-retention'
+      preLoaderRoute: typeof ApiPublicCronPurgeRetentionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/learn/$courseId/$level': {
       id: '/_authenticated/learn/$courseId/$level'
       path: '/learn/$courseId/$level'
@@ -569,6 +590,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiHealthRoute: ApiHealthRoute,
   CourseIdRoute: CourseIdRoute,
   DashboardUsersRoute: DashboardUsersRoute,
+  ApiPublicCronPurgeRetentionRoute: ApiPublicCronPurgeRetentionRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
