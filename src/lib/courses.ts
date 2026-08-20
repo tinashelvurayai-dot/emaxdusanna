@@ -1,4 +1,4 @@
-import { courseCatalog, courseCategories } from "./course-catalog";
+import { allCourseCatalog, courseCatalog, courseCategories } from "./course-catalog";
 import type { CourseCatalogItem } from "./course-types";
 import type { CourseContent, CourseContentModule } from "./course-content-types";
 import { certificateCourses } from "./lib/courses/lib/courses/certificates";
