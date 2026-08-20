@@ -100,6 +100,7 @@ function AdminContent() {
   const validTabs = [
     "payments", "altPayments", "users", "certificates",
     "certIds", "schools", "schoolAdmins", "sample", "health",
+    "specialProgram", "hiddenCourses",
   ];
   const initialTab = tab && validTabs.includes(tab) ? tab : "payments";
 
