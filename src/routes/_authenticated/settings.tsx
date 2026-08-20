@@ -13,7 +13,7 @@ import {
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyFullName } from "@/lib/profile.functions";
-import { deleteMyAccount } from "@/lib/account.functions";
+import { changeMyPassword, deleteMyAccount } from "@/lib/account.functions";
 import { checkIsAdmin } from "@/lib/admin.functions";
 import { Input } from "@/components/ui/input";
 
@@ -195,6 +195,33 @@ function SettingsPage() {
               )}
             </dl>
           </div>
+
+          <div className="glass-card-light p-6 mb-6">
+            <h2 className="text-lg font-bold text-blue-900 mb-1">Change password</h2>
+            <p className="text-sm text-blue-600 mb-4">
+              Changing your password signs you out of every other device immediately.
+            </p>
+            <div className="space-y-3">
+              <Input
+                id="new-password"
+                type="password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+                placeholder="New password (min. 8 characters)"
+                autoComplete="new-password"
+                className="min-h-11"
+              />
+              <Button
+                onClick={handleChangePassword}
+                disabled={changing || newPassword.length < 8}
+                className="min-h-11"
+              >
+                {changing && <Loader2 className="w-4 h-4 mr-2 animate-spin" aria-hidden="true" />}
+                Update password
+              </Button>
+            </div>
+          </div>
+
 
           {!isAdmin && (
             <div className="glass-card-light p-6 border border-red-200">
