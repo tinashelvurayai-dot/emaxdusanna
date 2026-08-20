@@ -33,6 +33,8 @@ import { getBackendHealth, type HealthState } from "@/lib/health.functions";
 import { CertificatePreview, type CertificateData } from "@/components/certificate-preview";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { SpecialProgramTab } from "@/components/admin/special-program-tab";
+import { HiddenCoursesTab } from "@/components/admin/hidden-courses-tab";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [{ title: "Admin Dashboard | Edusanna" }] }),
