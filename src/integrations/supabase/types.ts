@@ -265,39 +265,81 @@ export type Database = {
       }
       profiles: {
         Row: {
+          anonymized_at: string | null
           city: string | null
           country: string | null
           created_at: string
+          deleted_at: string | null
+          deletion_status: string
           email: string | null
           full_name: string | null
           id: string
+          last_password_change: string
           mobile_number: string | null
           school_name: string | null
           signup_type: string
           updated_at: string
         }
         Insert: {
+          anonymized_at?: string | null
           city?: string | null
           country?: string | null
           created_at?: string
+          deleted_at?: string | null
+          deletion_status?: string
           email?: string | null
           full_name?: string | null
           id: string
+          last_password_change?: string
           mobile_number?: string | null
           school_name?: string | null
           signup_type?: string
           updated_at?: string
         }
         Update: {
+          anonymized_at?: string | null
           city?: string | null
           country?: string | null
           created_at?: string
+          deleted_at?: string | null
+          deletion_status?: string
           email?: string | null
           full_name?: string | null
           id?: string
+          last_password_change?: string
           mobile_number?: string | null
           school_name?: string | null
           signup_type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      retention_archive: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          original_user_id: string
+          payload: Json
+          retain_until: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          original_user_id: string
+          payload?: Json
+          retain_until: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          original_user_id?: string
+          payload?: Json
+          retain_until?: string
           updated_at?: string
         }
         Relationships: []
@@ -463,7 +505,12 @@ export type Database = {
       is_admin: { Args: never; Returns: boolean }
       is_school_contracted: { Args: { _name: string }; Returns: boolean }
       pretty_name_from_email: { Args: { _email: string }; Returns: string }
+      purge_expired_retention_archive: { Args: never; Returns: number }
       school_for_admin: { Args: { _user_id: string }; Returns: string }
+      touch_last_password_change: {
+        Args: { _user_id: string }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "admin" | "moderator" | "user" | "school_admin"
