@@ -68,6 +68,42 @@ export type Database = {
         }
         Relationships: []
       }
+      audit_logs: {
+        Row: {
+          created_at: string
+          event_category: string
+          event_details: Json
+          event_type: string
+          id: string
+          ip_address: string | null
+          severity: string
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_category?: string
+          event_details?: Json
+          event_type: string
+          id?: string
+          ip_address?: string | null
+          severity?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_category?: string
+          event_details?: Json
+          event_type?: string
+          id?: string
+          ip_address?: string | null
+          severity?: string
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       certificate_payments: {
         Row: {
           amount: number
@@ -242,6 +278,39 @@ export type Database = {
         }
         Relationships: []
       }
+      ip_reputation: {
+        Row: {
+          anomaly_count: number
+          banned_until: string | null
+          created_at: string
+          failed_logins: number
+          ip_address: string
+          last_seen_at: string
+          notes: string | null
+          updated_at: string
+        }
+        Insert: {
+          anomaly_count?: number
+          banned_until?: string | null
+          created_at?: string
+          failed_logins?: number
+          ip_address: string
+          last_seen_at?: string
+          notes?: string | null
+          updated_at?: string
+        }
+        Update: {
+          anomaly_count?: number
+          banned_until?: string | null
+          created_at?: string
+          failed_logins?: number
+          ip_address?: string
+          last_seen_at?: string
+          notes?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       notification_log: {
         Row: {
           created_at: string
@@ -272,8 +341,10 @@ export type Database = {
           deleted_at: string | null
           deletion_status: string
           email: string | null
+          engagement_segment: string
           full_name: string | null
           id: string
+          last_active_at: string
           last_password_change: string
           mobile_number: string | null
           school_name: string | null
@@ -288,8 +359,10 @@ export type Database = {
           deleted_at?: string | null
           deletion_status?: string
           email?: string | null
+          engagement_segment?: string
           full_name?: string | null
           id: string
+          last_active_at?: string
           last_password_change?: string
           mobile_number?: string | null
           school_name?: string | null
@@ -304,13 +377,39 @@ export type Database = {
           deleted_at?: string | null
           deletion_status?: string
           email?: string | null
+          engagement_segment?: string
           full_name?: string | null
           id?: string
+          last_active_at?: string
           last_password_change?: string
           mobile_number?: string | null
           school_name?: string | null
           signup_type?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      rate_limit_hits: {
+        Row: {
+          bucket_key: string
+          created_at: string
+          id: string
+          ip_address: string
+          method: string
+        }
+        Insert: {
+          bucket_key: string
+          created_at?: string
+          id?: string
+          ip_address: string
+          method?: string
+        }
+        Update: {
+          bucket_key?: string
+          created_at?: string
+          id?: string
+          ip_address?: string
+          method?: string
         }
         Relationships: []
       }
@@ -415,6 +514,51 @@ export type Database = {
           },
         ]
       }
+      session_anomalies: {
+        Row: {
+          anomaly_type: string
+          created_at: string
+          details: Json
+          id: string
+          ip_address: string | null
+          points: number
+          resolved: boolean
+          resolved_at: string | null
+          resolved_by: string | null
+          session_id: string | null
+          severity: string
+          user_id: string | null
+        }
+        Insert: {
+          anomaly_type: string
+          created_at?: string
+          details?: Json
+          id?: string
+          ip_address?: string | null
+          points?: number
+          resolved?: boolean
+          resolved_at?: string | null
+          resolved_by?: string | null
+          session_id?: string | null
+          severity?: string
+          user_id?: string | null
+        }
+        Update: {
+          anomaly_type?: string
+          created_at?: string
+          details?: Json
+          id?: string
+          ip_address?: string | null
+          points?: number
+          resolved?: boolean
+          resolved_at?: string | null
+          resolved_by?: string | null
+          session_id?: string | null
+          severity?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       site_settings: {
         Row: {
           key: string
@@ -469,6 +613,36 @@ export type Database = {
         }
         Relationships: []
       }
+      user_engagement: {
+        Row: {
+          channel: string
+          created_at: string
+          id: string
+          message: string | null
+          nudge_type: string
+          read_at: string | null
+          user_id: string
+        }
+        Insert: {
+          channel?: string
+          created_at?: string
+          id?: string
+          message?: string | null
+          nudge_type: string
+          read_at?: string | null
+          user_id: string
+        }
+        Update: {
+          channel?: string
+          created_at?: string
+          id?: string
+          message?: string | null
+          nudge_type?: string
+          read_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -490,6 +664,42 @@ export type Database = {
         }
         Relationships: []
       }
+      ux_failures: {
+        Row: {
+          click_count: number
+          created_at: string
+          details: Json
+          element_label: string | null
+          failure_type: string
+          id: string
+          replay_url: string | null
+          route: string | null
+          user_id: string | null
+        }
+        Insert: {
+          click_count?: number
+          created_at?: string
+          details?: Json
+          element_label?: string | null
+          failure_type?: string
+          id?: string
+          replay_url?: string | null
+          route?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          click_count?: number
+          created_at?: string
+          details?: Json
+          element_label?: string | null
+          failure_type?: string
+          id?: string
+          replay_url?: string | null
+          route?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -504,9 +714,37 @@ export type Database = {
       }
       is_admin: { Args: never; Returns: boolean }
       is_school_contracted: { Args: { _name: string }; Returns: boolean }
+      log_audit_event: {
+        Args: {
+          _event_category?: string
+          _event_details?: Json
+          _event_type: string
+          _ip_address?: string
+          _severity?: string
+          _user_agent?: string
+          _user_id: string
+        }
+        Returns: string
+      }
       pretty_name_from_email: { Args: { _email: string }; Returns: string }
       purge_expired_retention_archive: { Args: never; Returns: number }
+      register_rate_limit_hit: {
+        Args: {
+          _bucket_key: string
+          _ip: string
+          _limit: number
+          _method: string
+          _window_seconds: number
+        }
+        Returns: Json
+      }
+      run_engagement_sweep: { Args: never; Returns: Json }
       school_for_admin: { Args: { _user_id: string }; Returns: string }
+      session_risk_score: {
+        Args: { _session_id?: string; _user_id: string }
+        Returns: number
+      }
+      touch_last_active: { Args: never; Returns: undefined }
       touch_last_password_change: {
         Args: { _user_id: string }
         Returns: string
