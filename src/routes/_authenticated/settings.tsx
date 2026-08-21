@@ -33,6 +33,7 @@ function SettingsPage() {
   const queryClient = useQueryClient();
   const fetchName = useServerFn(getMyFullName);
   const deleteAccount = useServerFn(deleteMyAccount);
+  const changePassword = useServerFn(changeMyPassword);
   const isAdminFn = useServerFn(checkIsAdmin);
   const { data: adminCheck } = useQuery({
     queryKey: ["settings-is-admin", user?.id],
@@ -46,6 +47,22 @@ function SettingsPage() {
   const [deleting, setDeleting] = useState(false);
   const [confirmText, setConfirmText] = useState("");
   const [unenrolling, setUnenrolling] = useState<string | null>(null);
+  const [newPassword, setNewPassword] = useState("");
+  const [changing, setChanging] = useState(false);
+
+  const handleChangePassword = async () => {
+    setChanging(true);
+    try {
+      await changePassword({ data: { newPassword } });
+      setNewPassword("");
+      toast.success("Password updated. Other devices have been signed out.");
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not update your password.");
+    } finally {
+      setChanging(false);
+    }
+  };
+
 
   useEffect(() => {
     let active = true;
