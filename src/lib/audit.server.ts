@@ -86,7 +86,7 @@ export async function riskScore(userId: string, sessionId: string | null = null)
   const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
   const { data } = await supabaseAdmin.rpc("session_risk_score", {
     _user_id: userId,
-    _session_id: sessionId,
+    _session_id: sessionId ?? undefined,
   });
   return typeof data === "number" ? data : 0;
 }
