@@ -13,6 +13,8 @@ import { getSampleCertificate } from "@/lib/admin.functions";
 import { CertificatePreview } from "@/components/certificate-preview";
 import { PriceTag } from "@/components/price-tag";
 import { pageHead } from "@/lib/site";
+import { PortalReveal } from "@/components/portal-reveal";
+
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -243,20 +245,23 @@ function Index() {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {platformBenefits.map((category) => (
-              <div key={category.title} className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 border border-blue-100 shadow-md hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-bold text-blue-900 mb-4">{category.title}</h3>
-                <ul className="space-y-3">
-                  {category.benefits.map((benefit, idx) => (
-                    <li key={idx} className="flex gap-3 items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
-                      <span className="text-blue-800">{benefit}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+            {platformBenefits.map((category, i) => (
+              <PortalReveal key={category.title} index={i}>
+                <div className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 border border-blue-100 shadow-md hover:shadow-lg transition-shadow h-full">
+                  <h3 className="text-xl font-bold text-blue-900 mb-4">{category.title}</h3>
+                  <ul className="space-y-3">
+                    {category.benefits.map((benefit, idx) => (
+                      <li key={idx} className="flex gap-3 items-start">
+                        <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <span className="text-blue-800">{benefit}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </PortalReveal>
             ))}
           </div>
+
         </div>
       </section>
 

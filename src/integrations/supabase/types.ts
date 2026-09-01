@@ -10,7 +10,7 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.15"
+    PostgrestVersion: "14.5"
   }
   public: {
     Tables: {
@@ -166,22 +166,31 @@ export type Database = {
           created_at: string
           created_by: string | null
           id: string
+          is_active: boolean
           name: string
           normalized_name: string | null
+          notes: string | null
+          seat_limit: number | null
         }
         Insert: {
           created_at?: string
           created_by?: string | null
           id?: string
+          is_active?: boolean
           name: string
           normalized_name?: string | null
+          notes?: string | null
+          seat_limit?: number | null
         }
         Update: {
           created_at?: string
           created_by?: string | null
           id?: string
+          is_active?: boolean
           name?: string
           normalized_name?: string | null
+          notes?: string | null
+          seat_limit?: number | null
         }
         Relationships: []
       }
@@ -347,6 +356,8 @@ export type Database = {
           last_active_at: string
           last_password_change: string
           mobile_number: string | null
+          normalized_school: string | null
+          school_id: string | null
           school_name: string | null
           signup_type: string
           updated_at: string
@@ -365,6 +376,8 @@ export type Database = {
           last_active_at?: string
           last_password_change?: string
           mobile_number?: string | null
+          normalized_school?: string | null
+          school_id?: string | null
           school_name?: string | null
           signup_type?: string
           updated_at?: string
@@ -383,11 +396,21 @@ export type Database = {
           last_active_at?: string
           last_password_change?: string
           mobile_number?: string | null
+          normalized_school?: string | null
+          school_id?: string | null
           school_name?: string | null
           signup_type?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "contracted_schools"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       rate_limit_hits: {
         Row: {
@@ -450,6 +473,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           normalized_school: string | null
+          school_id: string | null
           school_name: string
           user_id: string
         }
@@ -459,6 +483,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           normalized_school?: string | null
+          school_id?: string | null
           school_name: string
           user_id: string
         }
@@ -468,10 +493,19 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           normalized_school?: string | null
+          school_id?: string | null
           school_name?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "school_admins_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "contracted_schools"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       school_rosters: {
         Row: {
@@ -482,6 +516,7 @@ export type Database = {
           normalized_name: string | null
           normalized_school: string | null
           school_admin_id: string
+          school_id: string | null
           school_name: string
         }
         Insert: {
@@ -492,6 +527,7 @@ export type Database = {
           normalized_name?: string | null
           normalized_school?: string | null
           school_admin_id: string
+          school_id?: string | null
           school_name: string
         }
         Update: {
@@ -502,6 +538,7 @@ export type Database = {
           normalized_name?: string | null
           normalized_school?: string | null
           school_admin_id?: string
+          school_id?: string | null
           school_name?: string
         }
         Relationships: [
@@ -511,6 +548,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "school_admins"
             referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "school_rosters_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "contracted_schools"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -740,10 +784,12 @@ export type Database = {
       }
       run_engagement_sweep: { Args: never; Returns: Json }
       school_for_admin: { Args: { _user_id: string }; Returns: string }
+      school_id_for_admin: { Args: { _user_id: string }; Returns: string }
       session_risk_score: {
         Args: { _session_id?: string; _user_id: string }
         Returns: number
       }
+      system_capacity_snapshot: { Args: never; Returns: Json }
       touch_last_active: { Args: never; Returns: undefined }
       touch_last_password_change: {
         Args: { _user_id: string }

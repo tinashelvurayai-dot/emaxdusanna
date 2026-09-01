@@ -56,19 +56,27 @@ function Dashboard() {
     queryKey: ["dashboard", user?.id],
     enabled: !!user,
     queryFn: async () => {
-      const [enr, prog] = await Promise.all([
+      const [enr, prog, alt, pay] = await Promise.all([
         supabase.from("enrollments").select("id,course_id,level,course_title").eq("user_id", user!.id).order("created_at", { ascending: false }),
         supabase.from("course_progress").select("course_id,level,completed_modules,is_completed").eq("user_id", user!.id),
+        supabase.from("alt_payment_requests").select("course_id,level").eq("user_id", user!.id),
+        supabase.from("certificate_payments").select("course_id,certificate_type").eq("user_id", user!.id),
+      ]);
+      const submitted = new Set<string>([
+        ...(alt.data ?? []).map((r) => `${r.course_id}|${r.level}`),
+        ...(pay.data ?? []).map((r) => `${r.course_id}|${r.certificate_type}`),
       ]);
       return {
         enrollments: (enr.data ?? []) as EnrollmentRow[],
         progress: (prog.data ?? []) as ProgressRow[],
+        submitted,
       };
     },
   });
 
   const enrollments = data?.enrollments ?? [];
   const progress = data?.progress ?? [];
+  const submitted = data?.submitted ?? new Set<string>();
   const completedCount = progress.filter((p) => p.is_completed).length;
 
   const metaName = (user?.user_metadata as { full_name?: string } | undefined)?.full_name;
@@ -162,15 +170,26 @@ function Dashboard() {
                         </Button>
                       </Link>
                       {prog?.is_completed && profile?.signup_type !== "academia" && (
-                        <Link
-                          to="/certificate-payment"
-                          search={{ courseId: enr.course_id, level: enr.level }}
-                          className="flex-shrink-0"
-                        >
-                          <Button variant="outline" className="border-green-500 text-green-700 hover:bg-green-50">
-                            Pay for credential
+                        submitted.has(`${enr.course_id}|${enr.level}`) ? (
+                          <Button
+                            variant="outline"
+                            disabled
+                            aria-disabled="true"
+                            className="flex-shrink-0 border-green-500 text-green-700 disabled:opacity-100 disabled:cursor-not-allowed"
+                          >
+                            COMPLETED
                           </Button>
-                        </Link>
+                        ) : (
+                          <Link
+                            to="/certificate-payment"
+                            search={{ courseId: enr.course_id, level: enr.level }}
+                            className="flex-shrink-0"
+                          >
+                            <Button variant="outline" className="border-green-500 text-green-700 hover:bg-green-50">
+                              Pay for credential
+                            </Button>
+                          </Link>
+                        )
                       )}
                     </div>
                   </div>

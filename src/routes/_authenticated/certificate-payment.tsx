@@ -1,7 +1,8 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Award, ArrowLeft, Loader2, ShieldCheck, UserCheck, GraduationCap, Smartphone, Wallet, MessageCircle, Send, Leaf } from "lucide-react";
+import { Award, ArrowLeft, Loader2, ShieldCheck, UserCheck, GraduationCap, Smartphone, Wallet, Send, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -137,6 +138,8 @@ function CertificatePaymentPage() {
     setAltMethods((prev) => (prev.includes(m) ? prev.filter((x) => x !== m) : [...prev, m]));
   };
 
+  const queryClient = useQueryClient();
+
   const handleAltSubmit = async () => {
     if (!verified) {
       toast.error("Please verify your full name first.");
@@ -189,7 +192,7 @@ function CertificatePaymentPage() {
               <p className="text-xs text-amber-800 mb-3">
                 This is exactly how your name will appear on your certificate. Please double-check the spelling.
               </p>
-              <Label htmlFor="full-name" className="text-xs text-blue-900">Full name</Label>
+              <Label htmlFor="full-name" className="text-xs text-foreground">Full name</Label>
               <Input
                 id="full-name"
                 value={fullName}
@@ -199,7 +202,7 @@ function CertificatePaymentPage() {
                   setVerified(false);
                 }}
                 placeholder="Your full legal name"
-                className="mt-1 mb-3"
+                className="mt-1 mb-3 text-foreground"
               />
               <Button
                 type="button"
@@ -221,7 +224,7 @@ function CertificatePaymentPage() {
                     <span className="text-sm font-bold text-teal-900">AHEP special programme</span>
                   </div>
                   <p className="text-sm text-teal-800">
-                    Submit your details and choose the payment options that suit you. The Edusanna team reviews every request in the admin dashboard and sends you payment guidance.
+                    Submit your details and choose the payment options that suit you. The Edusanna team reviews every request and sends you payment guidance.
                   </p>
                 </div>
                 <p className="text-sm font-bold text-blue-900 mb-1">Flexible payment options</p>
@@ -230,10 +233,8 @@ function CertificatePaymentPage() {
                   {[
                     { id: "ecocash", label: "Ecocash", icon: <Smartphone className="w-4 h-4" /> },
                     { id: "mukuru", label: "Mukuru", icon: <Wallet className="w-4 h-4" /> },
-                    { id: "wechat_pay", label: "WeChat Pay", icon: <MessageCircle className="w-4 h-4" /> },
                     { id: "bank_transfer", label: "Bank transfer", icon: <Wallet className="w-4 h-4" /> },
                     { id: "cash", label: "Cash", icon: <Wallet className="w-4 h-4" /> },
-                    { id: "paypal", label: "PayPal", icon: <ShieldCheck className="w-4 h-4" /> },
                   ].map((m) => (
                     <AltMethodButton
                       key={m.id}
@@ -252,9 +253,6 @@ function CertificatePaymentPage() {
                   {altSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
                   Submit details to Edusanna
                 </Button>
-                <p className="flex items-center justify-center gap-1.5 text-xs text-blue-500 mt-3">
-                  <ShieldCheck className="w-4 h-4" /> Your submission appears in the admin dashboard
-                </p>
               </div>
             ) : isAcademia ? (
               <>
@@ -324,11 +322,12 @@ function CertificatePaymentPage() {
                       label="Mukuru"
                     />
                     <AltMethodButton
-                      active={altMethods.includes("wechat_pay")}
-                      onClick={() => toggleAltMethod("wechat_pay")}
-                      icon={<MessageCircle className="w-4 h-4" />}
-                      label="WeChat Pay"
+                      active={altMethods.includes("bank_transfer")}
+                      onClick={() => toggleAltMethod("bank_transfer")}
+                      icon={<Wallet className="w-4 h-4" />}
+                      label="Bank transfer"
                     />
+
                   </div>
                   <Button
                     onClick={handleAltSubmit}
@@ -363,13 +362,17 @@ function CertificatePaymentPage() {
                     An email from <strong>edusannaonlinelearning@gmail.com</strong> will be sent to you with payment
                     option details. After payment completion you will finally receive your Diploma via email.
                   </p>
-                  <p className="text-xs text-teal-700 mt-3">
+                  <p className="text-xs font-semibold text-purple-700 mt-3">
                     The AHEP diploma is a unique credential issued with the programme's partner logos.
                   </p>
                 </div>
               )}
               <DialogFooter>
-                <Button onClick={() => { setShowAltConfirm(false); navigate({ to: "/dashboard" }); }} className="premium-button">
+                <Button onClick={() => {
+                  setShowAltConfirm(false);
+                  queryClient.invalidateQueries({ queryKey: ["dashboard"] });
+                  navigate({ to: "/dashboard" });
+                }} className="premium-button">
                   Got it
                 </Button>
               </DialogFooter>

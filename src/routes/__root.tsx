@@ -17,7 +17,9 @@ import { supabase } from "../integrations/supabase/client";
 import { AuroraBg } from "../components/aurora-bg";
 import { AppErrorBoundary } from "../components/app-error-boundary";
 import { MobileBottomNav } from "../components/mobile-bottom-nav";
+import { InstallPrompt } from "../components/install-prompt";
 import { initSentry } from "../lib/sentry";
+import { registerServiceWorker } from "../lib/pwa-register";
 
 function NotFoundComponent() {
   useEffect(() => {
@@ -153,6 +155,7 @@ function RootComponent() {
 
   useEffect(() => {
     void initSentry();
+    void registerServiceWorker();
   }, []);
 
   useEffect(() => {
@@ -180,6 +183,8 @@ function RootComponent() {
             <Outlet />
           </main>
           <MobileBottomNav />
+          <InstallPrompt />
+          <div className="app-hairline" aria-hidden="true" />
         </div>
         <Toaster richColors position="top-center" theme="dark" />
       </AuthProvider>
