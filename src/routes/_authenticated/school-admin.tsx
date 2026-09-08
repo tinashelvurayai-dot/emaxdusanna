@@ -672,9 +672,40 @@ function VerifyPaymentTab() {
   const [courseId, setCourseId] = useState("");
   const [level, setLevel] = useState<"certificate" | "diploma">("certificate");
   const [manual, setManual] = useState(false);
+  const [receipt, setReceipt] = useState<PaymentReceipt | null>(null);
+  const [receiptOpen, setReceiptOpen] = useState(false);
 
   const student = students.find((s) => s.id === studentId);
   const amount = level === "diploma" ? 18 : 12;
+
+  // Every school-verified payment on file, newest first, so a receipt can be
+  // re-issued at any time (e.g. the student lost their copy).
+  const schoolPayments = students
+    .flatMap((s) =>
+      (s.payments ?? [])
+        .filter((p: any) => p.source === "school")
+        .map((p: any) => ({ ...p, fullName: s.fullName, email: s.email, className: s.className })),
+    )
+    .sort((a: any, b: any) => String(b.created_at).localeCompare(String(a.created_at)));
+
+  const receiptFor = (p: any): PaymentReceipt => ({
+    receiptNo: `RC-${String(p.certificate_id ?? p.id).replace(/^EDU-SCH-/, "")}`,
+    issuedAt: p.created_at,
+    schoolName: p.school_name ?? "",
+    className: p.class_name ?? p.className ?? null,
+    studentName: p.fullName ?? "(unknown)",
+    email: p.email ?? null,
+    courseName: p.course_name ?? p.course_id,
+    level: p.certificate_type === "diploma" ? "diploma" : "certificate",
+    amount: Number(p.amount ?? 0),
+    certificateId: p.certificate_id ?? "-",
+    method: "Cash (paid at school)",
+  });
+
+  const openReceipt = (r: PaymentReceipt) => {
+    setReceipt(r);
+    setReceiptOpen(true);
+  };
 
   const mutation = useMutation({
     mutationFn: () =>
