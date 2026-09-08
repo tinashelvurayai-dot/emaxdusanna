@@ -832,6 +832,50 @@ function VerifyPaymentTab() {
         </Button>
       </div>
     </div>
+
+    <div className="glass-card-light p-2 sm:p-4 overflow-x-auto">
+      <h3 className="font-bold text-blue-900 px-2 pt-2">Receipts ({schoolPayments.length})</h3>
+      <p className="text-sm text-blue-600 px-2 pb-2">
+        Every payment you have confirmed. Open a receipt to print it or save it as a PDF for the payer.
+      </p>
+      {schoolPayments.length === 0 ? (
+        <p className="text-blue-600 p-6 text-center">No confirmed payments yet.</p>
+      ) : (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Student</TableHead>
+              <TableHead>Course</TableHead>
+              <TableHead>Level</TableHead>
+              <TableHead>Amount</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {schoolPayments.map((p: any) => (
+              <TableRow key={p.id}>
+                <TableCell className="font-medium text-blue-900">{p.fullName}</TableCell>
+                <TableCell>{p.course_name ?? p.course_id}</TableCell>
+                <TableCell><Badge variant="outline">{p.certificate_type}</Badge></TableCell>
+                <TableCell>${Number(p.amount ?? 0).toFixed(2)}</TableCell>
+                <TableCell className="text-sm text-blue-600">
+                  {p.created_at ? new Date(p.created_at).toLocaleDateString() : "-"}
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button variant="outline" size="sm" onClick={() => openReceipt(receiptFor(p))}>
+                    <FileDown className="w-4 h-4 mr-1.5" />Receipt
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </div>
+
+    <PaymentReceiptDialog receipt={receipt} open={receiptOpen} onOpenChange={setReceiptOpen} />
+    </div>
   );
 }
 
