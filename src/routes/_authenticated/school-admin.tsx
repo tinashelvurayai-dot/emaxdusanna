@@ -23,6 +23,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { PaymentReceiptDialog, type PaymentReceipt } from "@/components/payment-receipt";
 import {
   getMySchoolAdmin,
   listSchoolStudents,
@@ -672,9 +673,40 @@ function VerifyPaymentTab() {
   const [courseId, setCourseId] = useState("");
   const [level, setLevel] = useState<"certificate" | "diploma">("certificate");
   const [manual, setManual] = useState(false);
+  const [receipt, setReceipt] = useState<PaymentReceipt | null>(null);
+  const [receiptOpen, setReceiptOpen] = useState(false);
 
   const student = students.find((s) => s.id === studentId);
   const amount = level === "diploma" ? 18 : 12;
+
+  // Every school-verified payment on file, newest first, so a receipt can be
+  // re-issued at any time (e.g. the student lost their copy).
+  const schoolPayments = students
+    .flatMap((s) =>
+      (s.payments ?? [])
+        .filter((p: any) => p.source === "school")
+        .map((p: any) => ({ ...p, fullName: s.fullName, email: s.email, className: s.className })),
+    )
+    .sort((a: any, b: any) => String(b.created_at).localeCompare(String(a.created_at)));
+
+  const receiptFor = (p: any): PaymentReceipt => ({
+    receiptNo: `RC-${String(p.certificate_id ?? p.id).replace(/^EDU-SCH-/, "")}`,
+    issuedAt: p.created_at,
+    schoolName: p.school_name ?? "",
+    className: p.class_name ?? p.className ?? null,
+    studentName: p.fullName ?? "(unknown)",
+    email: p.email ?? null,
+    courseName: p.course_name ?? p.course_id,
+    level: p.certificate_type === "diploma" ? "diploma" : "certificate",
+    amount: Number(p.amount ?? 0),
+    certificateId: p.certificate_id ?? "-",
+    method: "Cash (paid at school)",
+  });
+
+  const openReceipt = (r: PaymentReceipt) => {
+    setReceipt(r);
+    setReceiptOpen(true);
+  };
 
   const mutation = useMutation({
     mutationFn: () =>
@@ -692,15 +724,18 @@ function VerifyPaymentTab() {
         toast.error((res as any).error ?? "Could not verify payment");
         return;
       }
-      toast.success("Payment verified - admin notified on Telegram");
+      toast.success("Payment verified - receipt ready");
       qc.invalidateQueries({ queryKey: ["school-students"] });
       qc.invalidateQueries({ queryKey: ["school-analytics"] });
+      const r = (res as any)?.receipt as PaymentReceipt | undefined;
+      if (r) openReceipt(r);
       setStudentId(""); setCourseId(""); setCourseName(""); setLevel("certificate"); setManual(false); setCourseSelection("");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
 
   return (
+    <div className="space-y-6">
     <div className="glass-card-light p-5 max-w-2xl space-y-4">
       <div>
         <h3 className="font-bold text-blue-900">Verify a cash payment</h3>
@@ -797,6 +832,50 @@ function VerifyPaymentTab() {
           Verify
         </Button>
       </div>
+    </div>
+
+    <div className="glass-card-light p-2 sm:p-4 overflow-x-auto">
+      <h3 className="font-bold text-blue-900 px-2 pt-2">Receipts ({schoolPayments.length})</h3>
+      <p className="text-sm text-blue-600 px-2 pb-2">
+        Every payment you have confirmed. Open a receipt to print it or save it as a PDF for the payer.
+      </p>
+      {schoolPayments.length === 0 ? (
+        <p className="text-blue-600 p-6 text-center">No confirmed payments yet.</p>
+      ) : (
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead>Student</TableHead>
+              <TableHead>Course</TableHead>
+              <TableHead>Level</TableHead>
+              <TableHead>Amount</TableHead>
+              <TableHead>Date</TableHead>
+              <TableHead></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {schoolPayments.map((p: any) => (
+              <TableRow key={p.id}>
+                <TableCell className="font-medium text-blue-900">{p.fullName}</TableCell>
+                <TableCell>{p.course_name ?? p.course_id}</TableCell>
+                <TableCell><Badge variant="outline">{p.certificate_type}</Badge></TableCell>
+                <TableCell>${Number(p.amount ?? 0).toFixed(2)}</TableCell>
+                <TableCell className="text-sm text-blue-600">
+                  {p.created_at ? new Date(p.created_at).toLocaleDateString() : "-"}
+                </TableCell>
+                <TableCell className="text-right">
+                  <Button variant="outline" size="sm" onClick={() => openReceipt(receiptFor(p))}>
+                    <FileDown className="w-4 h-4 mr-1.5" />Receipt
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      )}
+    </div>
+
+    <PaymentReceiptDialog receipt={receipt} open={receiptOpen} onOpenChange={setReceiptOpen} />
     </div>
   );
 }

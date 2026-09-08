@@ -170,7 +170,7 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
       ids.length
         ? supabaseAdmin
             .from("certificate_payments")
-            .select("id, user_id, course_id, course_name, certificate_type, amount, payment_status, created_at")
+            .select("id, user_id, course_id, course_name, certificate_type, amount, payment_status, created_at, certificate_id, source, school_name, class_name")
             .in("user_id", ids)
             .order("created_at", { ascending: false })
         : Promise.resolve({ data: [] as any[], error: null }),
@@ -496,6 +496,22 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
     });
     if (error) throw error;
 
+    // Receipt the school admin can download / print and hand to the payer.
+    const issuedAt = new Date().toISOString();
+    const receipt = {
+      receiptNo: `RC-${certificateId.replace(/^EDU-SCH-/, "")}`,
+      issuedAt,
+      schoolName,
+      className: rosterRow?.class_name ?? null,
+      studentName: profile.full_name ?? "(unknown)",
+      email: profile.email ?? null,
+      courseName: data.courseName,
+      level: data.level,
+      amount: data.amount,
+      certificateId,
+      method: "Cash (paid at school)",
+    };
+
     // Telegram alert (non-blocking)
     try {
       const { notifyAdminTelegram } = await import("@/lib/notify.server");
@@ -513,7 +529,7 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
       /* never block payment recording */
     }
 
-    return { success: true, certificateId };
+    return { success: true, certificateId, receipt };
   });
 
 function escapeHtml(s: string): string {
