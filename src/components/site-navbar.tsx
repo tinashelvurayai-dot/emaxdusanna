@@ -65,6 +65,9 @@ export function SiteNavbar() {
             <Link to="/courses" className="hidden sm:inline">
               <Button variant="ghost" className="text-blue-700 hover:text-blue-800 hover:bg-blue-50 text-sm">Courses</Button>
             </Link>
+            <Link to="/partnership-program-request" className="hidden lg:inline">
+              <Button variant="ghost" className="text-blue-700 hover:text-blue-800 hover:bg-blue-50 text-sm">Partner with us</Button>
+            </Link>
             {user ? (
               <>
                 <Link to="/dashboard">
