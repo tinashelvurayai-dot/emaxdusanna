@@ -53,6 +53,7 @@ function AuthPage() {
   const [signupType, setSignupType] = useState<SignupType | null>(null);
   const [fullName, setFullName] = useState("");
   const [schoolName, setSchoolName] = useState("");
+  const [className, setClassName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -102,6 +103,10 @@ function AuthPage() {
         toast.error("Passwords do not match.");
         return;
       }
+      if (signupType === "academia" && !className.trim()) {
+        toast.error("Please enter your class.");
+        return;
+      }
     }
     if (!checkLimit()) {
       const seconds = Math.ceil(remainingTime() / 1000);
@@ -126,6 +131,7 @@ function AuthPage() {
               mobile_number: fullMobile,
               signup_type: signupType ?? "standard",
               school_name: isAcademia ? schoolName : null,
+              class_name: isAcademia ? className.trim() : null,
             },
           },
         });
@@ -247,6 +253,12 @@ function AuthPage() {
             <div>
               <Label htmlFor="schoolName">School / Institution name</Label>
               <Input id="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} required placeholder="Your school or institution" />
+            </div>
+          )}
+          {mode === "signup" && signupType === "academia" && (
+            <div>
+              <Label htmlFor="className">Class</Label>
+              <Input id="className" value={className} onChange={(e) => setClassName(e.target.value)} required placeholder="e.g. 3A" />
             </div>
           )}
           <div>

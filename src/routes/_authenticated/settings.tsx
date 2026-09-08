@@ -15,6 +15,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getMyFullName } from "@/lib/profile.functions";
 import { changeMyPassword, deleteMyAccount } from "@/lib/account.functions";
 import { checkIsAdmin } from "@/lib/admin.functions";
+import { getMySchoolAdmin } from "@/lib/school.functions";
 import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_authenticated/settings")({
@@ -35,11 +36,18 @@ function SettingsPage() {
   const deleteAccount = useServerFn(deleteMyAccount);
   const changePassword = useServerFn(changeMyPassword);
   const isAdminFn = useServerFn(checkIsAdmin);
+  const schoolAdminFn = useServerFn(getMySchoolAdmin);
   const { data: adminCheck } = useQuery({
     queryKey: ["settings-is-admin", user?.id],
     enabled: !!user,
     queryFn: () => isAdminFn(),
   });
+  const { data: schoolAdminCheck } = useQuery({
+    queryKey: ["settings-is-school-admin", user?.id],
+    enabled: !!user,
+    queryFn: () => schoolAdminFn(),
+  });
+  const isSchoolAdmin = Boolean(schoolAdminCheck?.schoolAdmin);
   const isAdmin = Boolean(adminCheck?.isAdmin);
 
   const [profile, setProfile] = useState<{ fullName: string; signupType: string; schoolName: string | null } | null>(null);
@@ -240,7 +248,7 @@ function SettingsPage() {
           </div>
 
 
-          {!isAdmin && (
+          {!isAdmin && !isSchoolAdmin && (
             <div className="glass-card-light p-6 border border-red-200">
               <div className="flex items-start gap-3 mb-3">
                 <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" aria-hidden="true" />

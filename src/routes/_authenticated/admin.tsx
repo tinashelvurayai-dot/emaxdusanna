@@ -12,6 +12,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { PaymentEmailTab } from "@/components/admin/payment-email-tab";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -34,6 +35,7 @@ import { CertificatePreview, type CertificateData } from "@/components/certifica
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SpecialProgramTab } from "@/components/admin/special-program-tab";
+import { PartnershipReceptionTab } from "@/components/admin/partnership-reception-tab";
 import { HiddenCoursesTab } from "@/components/admin/hidden-courses-tab";
 import { AuthSettingsTab } from "@/components/admin/auth-settings-tab";
 import { SystemTab } from "@/components/admin/system-tab";
@@ -48,26 +50,19 @@ export const Route = createFileRoute("/_authenticated/admin")({
 
 const TAB_GROUPS = [
   {
-    label: "Revenue",
-    tabs: [
-      { value: "payments", label: "Payments" },
-      { value: "altPayments", label: "Alt payments" },
-    ],
-  },
-  {
     label: "People",
     tabs: [
-      { value: "users", label: "Users" },
-      { value: "schools", label: "Schools" },
-      { value: "schoolAdmins", label: "School admins" },
+      { value: "userManagement", label: "User Management" },
+      { value: "schools", label: "Contracted Schools" },
+      { value: "partnershipReception", label: "Partnership & Program Reception" },
     ],
   },
   {
     label: "Credentials",
     tabs: [
       { value: "certificates", label: "Certificates" },
-      { value: "certIds", label: "Credential IDs" },
       { value: "specialProgram", label: "Special program" },
+      { value: "paymentEmail", label: "Payment email" },
     ],
   },
   {
@@ -81,6 +76,7 @@ const TAB_GROUPS = [
     ],
   },
 ] as const;
+
 
 const STATUS_OPTIONS = [
   { value: "paid_pending_admin", label: "Pending" },
@@ -96,6 +92,16 @@ function statusBadge(status: string) {
   };
   const label = STATUS_OPTIONS.find((s) => s.value === status)?.label ?? status;
   return <Badge className={`${map[status] ?? "bg-gray-100 text-gray-700"} border-0`}>{label}</Badge>;
+}
+
+/** Divider used to label merged sections inside a consolidated tab. */
+function SectionHeading({ title, subtitle }: { title: string; subtitle: string }) {
+  return (
+    <div className="border-l-4 border-blue-500 pl-3">
+      <h2 className="text-lg font-bold text-blue-900">{title}</h2>
+      <p className="text-xs text-blue-600">{subtitle}</p>
+    </div>
+  );
 }
 
 function AdminPage() {
@@ -140,11 +146,11 @@ function AdminContent() {
   });
   const { tab } = Route.useSearch();
   const validTabs = [
-    "payments", "altPayments", "users", "certificates",
-    "certIds", "schools", "schoolAdmins", "sample", "health",
-    "specialProgram", "hiddenCourses", "settings", "system",
+    "userManagement", "certificates", "schools", "sample", "health",
+    "specialProgram", "hiddenCourses", "settings", "system", "paymentEmail", "partnershipReception",
   ];
-  const initialTab = tab && validTabs.includes(tab) ? tab : "payments";
+  const initialTab = tab && validTabs.includes(tab) ? tab : "userManagement";
+
 
   return (
     <div className="min-h-screen">
@@ -173,7 +179,7 @@ function AdminContent() {
           </div>
 
           <Tabs defaultValue={initialTab}>
-            <div className="glass-card-light sticky top-24 z-20 mb-6 space-y-3 p-4">
+            <div className="glass-card-light z-20 mb-6 space-y-3 p-4 lg:sticky lg:top-24">
               {TAB_GROUPS.map((group) => (
                 <div key={group.label} className="flex flex-wrap items-center gap-2">
                   <span className="w-24 shrink-0 text-[10px] font-bold uppercase tracking-[0.14em] text-blue-400">
@@ -193,19 +199,36 @@ function AdminContent() {
                 </div>
               ))}
             </div>
-            <TabsContent value="payments"><PaymentsTab /></TabsContent>
-            <TabsContent value="altPayments"><AltPaymentsTab /></TabsContent>
-            <TabsContent value="users"><UsersTab /></TabsContent>
+            <TabsContent value="userManagement">
+              <div className="space-y-8">
+                <SectionHeading title="Learners" subtitle="Every registered account, with smart search." />
+                <UsersTab />
+                <SectionHeading title="Card payments" subtitle="Online credential payments." />
+                <PaymentsTab />
+                <SectionHeading title="Flexible payment requests" subtitle="Ecocash, Mukuru and Western Union submissions." />
+                <AltPaymentsTab />
+                <SectionHeading title="Credential IDs" subtitle="Allocated certificate and diploma identifiers." />
+                <CredentialIdsTab />
+              </div>
+            </TabsContent>
             <TabsContent value="certificates"><CertificatesTab /></TabsContent>
-            <TabsContent value="certIds"><CredentialIdsTab /></TabsContent>
             <TabsContent value="specialProgram"><SpecialProgramTab /></TabsContent>
+            <TabsContent value="partnershipReception"><PartnershipReceptionTab /></TabsContent>
+            <TabsContent value="paymentEmail"><PaymentEmailTab /></TabsContent>
             <TabsContent value="hiddenCourses"><HiddenCoursesTab /></TabsContent>
-            <TabsContent value="schools"><SchoolsTab /></TabsContent>
-            <TabsContent value="schoolAdmins"><SchoolAdminsTab /></TabsContent>
+            <TabsContent value="schools">
+              <div className="space-y-8">
+                <SectionHeading title="Contracted schools" subtitle="Seats, status and learner tallies." />
+                <SchoolsTab />
+                <SectionHeading title="School administrators" subtitle="Accounts that manage each school roster." />
+                <SchoolAdminsTab />
+              </div>
+            </TabsContent>
             <TabsContent value="sample"><SampleCertificateTab /></TabsContent>
             <TabsContent value="health"><HealthTab /></TabsContent>
             <TabsContent value="settings"><AuthSettingsTab /></TabsContent>
             <TabsContent value="system"><SystemTab /></TabsContent>
+
           </Tabs>
         </div>
       </section>
@@ -834,6 +857,7 @@ function SchoolsTab() {
   const patchSchool = useServerFn(updateContractedSchool);
   const { data, isLoading } = useQuery({ queryKey: ["admin-schools"], queryFn: () => fetchSchools() });
   const [name, setName] = useState("");
+  const [logoUrl, setLogoUrl] = useState("");
 
   const invalidate = () => {
     qc.invalidateQueries({ queryKey: ["admin-schools"] });
@@ -841,10 +865,11 @@ function SchoolsTab() {
   };
 
   const add = useMutation({
-    mutationFn: () => addSchool({ data: { name } }),
+    mutationFn: () => addSchool({ data: { name, logoUrl } }),
     onSuccess: () => {
       toast.success("School added");
       setName("");
+      setLogoUrl("");
       invalidate();
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
@@ -860,7 +885,7 @@ function SchoolsTab() {
   });
 
   const update = useMutation({
-    mutationFn: (input: { id: string; isActive?: boolean; seatLimit?: number | null }) =>
+    mutationFn: (input: { id: string; isActive?: boolean; seatLimit?: number | null; logoUrl?: string | null }) =>
       patchSchool({ data: input }),
     onSuccess: () => {
       toast.success("School updated");
@@ -882,13 +907,14 @@ function SchoolsTab() {
           Academia signups are linked to a school record automatically, so pricing, rosters and seat
           limits stay correct even if the school renames later.
         </p>
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row">
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="St. John's High School"
             onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); if (name.trim()) add.mutate(); } }}
           />
+          <Input value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} placeholder="School logo URL (optional)" />
           <Button onClick={() => add.mutate()} disabled={add.isPending || !name.trim()} className="premium-button">
             {add.isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}Add
           </Button>
@@ -1222,7 +1248,7 @@ function AltPaymentsTab() {
     return <p className="text-blue-500 py-6">No alt-payment requests yet.</p>;
 
   const fmtMethod = (m: string) =>
-    m === "wechat_pay" ? "WeChat Pay" : m === "mukuru" ? "Mukuru" : m === "ecocash" ? "Ecocash" : m;
+    m === "western_union" ? "Western Union" : m === "mukuru" ? "Mukuru" : m === "ecocash" ? "Ecocash" : m;
 
   return (
     <div className="glass-card-light p-4 overflow-x-auto">

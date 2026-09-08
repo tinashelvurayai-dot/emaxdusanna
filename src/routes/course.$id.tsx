@@ -10,7 +10,7 @@ import {
   type CourseLevel,
 } from "@/lib/courses";
 import { getCourseIcon } from "@/lib/course-icons";
-import { isSpecialCourse, GLOBAL_AHEP, specialCourseLanguage } from "@/lib/special-courses";
+import { isSpecialCourse, isWasteChemicalsWealthCourse, GLOBAL_AHEP, WASTE_CHEMICALS_WEALTH, specialCourseLanguage } from "@/lib/special-courses";
 import { getCoursePrice } from "@/lib/pricing";
 import { pageHead } from "@/lib/site";
 import { getCourseImage } from "@/lib/course-images";
@@ -31,10 +31,12 @@ export const Route = createFileRoute("/course/$id")({
     }
     const special = isSpecialCourse(item.id);
     const title = special
-      ? `${item.diplomaTitle} | ${GLOBAL_AHEP.name}`
+      ? `${item.diplomaTitle} | ${isWasteChemicalsWealthCourse(item.id) ? WASTE_CHEMICALS_WEALTH.name : GLOBAL_AHEP.name}`
       : `${item.certificateTitle} - Certificate & Diploma | Edusanna`;
     const desc = special
-      ? `Study the ${GLOBAL_AHEP.name} diploma (${specialCourseLanguage[item.id]}) free on Edusanna and claim your official diploma for $${getCoursePrice(item.id, "diploma")}.`
+      ? isWasteChemicalsWealthCourse(item.id)
+        ? `Study the ${WASTE_CHEMICALS_WEALTH.name} certificate course (${specialCourseLanguage[item.id]}) free on Edusanna and claim your official certificate for $${getCoursePrice(item.id, "certificate")}.`
+        : `Study the ${GLOBAL_AHEP.name} diploma (${specialCourseLanguage[item.id]}) free on Edusanna and claim your official diploma for $${getCoursePrice(item.id, "diploma")}.`
       : `Study ${item.certificateTitle} free on Edusanna. Earn a Certificate ($12) or advance to the ${item.diplomaTitle} Diploma ($18).`;
     return pageHead({ title, description: desc, path: `/course/${item.id}`, type: "article" });
   },
@@ -52,7 +54,8 @@ function CoursePage() {
   const { user } = useAuth();
   const navigate = useNavigate();
   const special = isSpecialCourse(item.id);
-  const [level, setLevel] = useState<CourseLevel>(special ? "diploma" : "certificate");
+  const certificateProgram = isWasteChemicalsWealthCourse(item.id);
+  const [level, setLevel] = useState<CourseLevel>(certificateProgram ? "certificate" : special ? "diploma" : "certificate");
   const price = getCoursePrice(item.id, level);
   const [enrolling, setEnrolling] = useState(false);
 
@@ -124,15 +127,14 @@ function CoursePage() {
             {special ? (
               <div className="mt-8 rounded-xl border-2 border-teal-200 bg-teal-50/60 p-4">
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-blue-900">{GLOBAL_AHEP.name} Diploma</span>
+                  <span className="font-bold text-blue-900">{certificateProgram ? WASTE_CHEMICALS_WEALTH.name : `${GLOBAL_AHEP.name} Diploma`}</span>
                   <span className="font-black text-blue-700">${price}</span>
                 </div>
                 <p className="text-xs text-blue-600 mt-1">
-                  {specialCourseLanguage[item.id]} - diploma only, no certificate version. Flexible payment options available.
+                  {certificateProgram ? `${specialCourseLanguage[item.id]} - certificate only.` : `${specialCourseLanguage[item.id]} - diploma only, no certificate version. Flexible payment options available.`}
                 </p>
-                <Link to="/global-ahep" className="text-xs font-semibold text-teal-700 underline mt-2 inline-block">
-                  About {GLOBAL_AHEP.name}
-                </Link>
+                {!certificateProgram && <Link to="/global-ahep" className="text-xs font-semibold text-teal-700 underline mt-2 inline-block">About {GLOBAL_AHEP.name}</Link>}
+                {certificateProgram && <Link to="/waste-chemicals-wealth" className="text-xs font-semibold text-emerald-700 underline mt-2 inline-block">About {WASTE_CHEMICALS_WEALTH.name}</Link>}
               </div>
             ) : (
             <div className="flex gap-3 mt-8">
