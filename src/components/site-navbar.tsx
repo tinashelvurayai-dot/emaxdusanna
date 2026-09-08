@@ -65,6 +65,9 @@ export function SiteNavbar() {
             <Link to="/courses" className="hidden sm:inline">
               <Button variant="ghost" className="text-blue-700 hover:text-blue-800 hover:bg-blue-50 text-sm">Courses</Button>
             </Link>
+            <Link to="/partnership-request" className="hidden lg:inline">
+              <Button variant="ghost" className="text-purple-700 hover:bg-purple-50 text-sm">Partner with us</Button>
+            </Link>
             {user ? (
               <>
                 <Link to="/dashboard">
@@ -137,6 +140,9 @@ export function SiteNavbar() {
             </Link>
             <Link to="/verify" className={mobileLink} onClick={() => setMobileMenuOpen(false)}>
               Verify Certificate
+            </Link>
+            <Link to="/partnership-request" className={mobileLink} onClick={() => setMobileMenuOpen(false)}>
+              Partnership &amp; Program Request
             </Link>
             <Link
               to="/auth"

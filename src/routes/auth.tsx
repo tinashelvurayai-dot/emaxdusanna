@@ -1,5 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { validateAcademiaSchool } from "@/lib/admin.functions";
 import { pageHead } from "@/lib/site";
 import { Loader2, Building2, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -53,6 +55,7 @@ function AuthPage() {
   const [legalOpen, setLegalOpen] = useState<"privacy" | "terms" | null>(null);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const { checkLimit, remainingTime } = useRateLimit(5, 60_000);
+  const validateSchool = useServerFn(validateAcademiaSchool);
 
   useEffect(() => {
     if (loading || !user) return;
@@ -102,6 +105,10 @@ function AuthPage() {
     try {
       if (mode === "signup") {
         const isAcademia = signupType === "academia";
+        if (isAcademia) {
+          const school = await validateSchool({ data: { name: schoolName } });
+          if (!school.valid) throw new Error("Academia sign up is available only to students of a contracted school.");
+        }
         const fullMobile = isAcademia && mobile ? `${phoneCountry.dial} ${mobile}` : null;
         const { error } = await supabase.auth.signUp({
           email,

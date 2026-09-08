@@ -2,6 +2,6 @@ import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/admin/users")({
   beforeLoad: () => {
-    throw redirect({ to: "/admin", search: { tab: "users" } });
+    throw redirect({ to: "/admin", search: { tab: "userManagement" } });
   },
 });
