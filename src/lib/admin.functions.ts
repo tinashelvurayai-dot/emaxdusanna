@@ -251,6 +251,75 @@ export const getLearnerCourses = createServerFn({ method: "POST" })
 
 /* ------------------------------ Contracted schools ----------------------------- */
 
+export const validateAcademiaSchool = createServerFn({ method: "POST" })
+  .inputValidator((input: { name: string }) => {
+    const name = (input?.name ?? "").trim();
+    if (name.length < 2 || name.length > 200) throw new Error("School name is required");
+    return { name };
+  })
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: school, error } = await supabaseAdmin
+      .from("contracted_schools")
+      .select("id, name")
+      .eq("normalized_name", data.name.toLowerCase())
+      .eq("is_active", true)
+      .maybeSingle();
+    if (error) throw error;
+    return { valid: Boolean(school), schoolName: school?.name ?? null };
+  });
+
+export const submitPartnershipProgramRequest = createServerFn({ method: "POST" })
+  .inputValidator((input: Record<string, unknown>) => {
+    const required = ["partnerName", "email", "organizationName", "organizationType", "programTitle", "programDescription", "audience"];
+    for (const field of required) {
+      if (typeof input?.[field] !== "string" || !(input[field] as string).trim()) throw new Error("Please complete all required fields.");
+    }
+    return Object.fromEntries(Object.entries(input).map(([key, value]) => [key, typeof value === "string" ? value.trim().slice(0, 2000) : value]));
+  })
+  .handler(async ({ data }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("partnership_program_requests").insert({
+      partner_name: data.partnerName,
+      email: data.email,
+      phone: data.phone || null,
+      organization_name: data.organizationName,
+      organization_type: data.organizationType,
+      website: data.website || null,
+      program_title: data.programTitle,
+      program_description: data.programDescription,
+      audience: data.audience,
+      expected_reach: data.expectedReach || null,
+      message: data.message || null,
+    });
+    if (error) throw error;
+    return { success: true };
+  });
+
+export const listPartnershipProgramRequests = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin.from("partnership_program_requests").select("id, partner_name, email, phone, organization_name, organization_type, website, program_title, program_description, audience, expected_reach, message, status, created_at, updated_at").order("created_at", { ascending: false });
+    if (error) throw error;
+    return { requests: data ?? [] };
+  });
+
+export const updatePartnershipProgramRequestStatus = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { id: string; status: string }) => {
+    if (!input?.id || !["new", "reviewing", "contacted", "approved", "declined"].includes(input.status)) throw new Error("Invalid request status");
+    return input;
+  })
+  .handler(async ({ data, context }) => {
+    await assertAdmin(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("partnership_program_requests").update({ status: data.status }).eq("id", data.id);
+    if (error) throw error;
+    return { success: true };
+  });
+
 export const listContractedSchools = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {

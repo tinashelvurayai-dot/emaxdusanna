@@ -23,6 +23,7 @@ import {
   checkIsAdmin, getAdminStats, listPayments, listUsers, updatePaymentStatus,
   createManualPayment, getLearnerCourses,
   listContractedSchools, addContractedSchool, removeContractedSchool,
+  listPartnershipProgramRequests, updatePartnershipProgramRequestStatus,
   getSampleCertificate, saveSampleCertificate,
   type SampleCertificateValue,
 } from "@/lib/admin.functions";
@@ -98,11 +99,10 @@ function AdminContent() {
   const { data: stats } = useQuery({ queryKey: ["admin-stats"], queryFn: () => fetchStats() });
   const { tab } = Route.useSearch();
   const validTabs = [
-    "payments", "altPayments", "users", "certificates",
-    "certIds", "schools", "schoolAdmins", "sample", "health",
-    "specialProgram", "hiddenCourses",
+    "userManagement", "certificates", "schools", "schoolAdmins", "sample", "health",
+    "specialProgram", "hiddenCourses", "partnershipReception",
   ];
-  const initialTab = tab && validTabs.includes(tab) ? tab : "payments";
+  const initialTab = tab && validTabs.includes(tab) ? tab : "userManagement";
 
   return (
     <div className="min-h-screen">
@@ -122,11 +122,9 @@ function AdminContent() {
 
           <Tabs defaultValue={initialTab}>
             <TabsList className="mb-6 flex-wrap h-auto">
-              <TabsTrigger value="payments">Payments</TabsTrigger>
-              <TabsTrigger value="altPayments">Alt Payments</TabsTrigger>
-              <TabsTrigger value="users">Users</TabsTrigger>
+              <TabsTrigger value="userManagement">User Management</TabsTrigger>
               <TabsTrigger value="certificates">Certificates</TabsTrigger>
-              <TabsTrigger value="certIds">Credential IDs</TabsTrigger>
+              <TabsTrigger value="partnershipReception">Partnership &amp; Program Reception</TabsTrigger>
               <TabsTrigger value="specialProgram">Special Program</TabsTrigger>
               <TabsTrigger value="hiddenCourses">Hidden courses</TabsTrigger>
               <TabsTrigger value="schools">Schools</TabsTrigger>
@@ -134,11 +132,9 @@ function AdminContent() {
               <TabsTrigger value="sample">Home Sample</TabsTrigger>
               <TabsTrigger value="health">Health monitor</TabsTrigger>
             </TabsList>
-            <TabsContent value="payments"><PaymentsTab /></TabsContent>
-            <TabsContent value="altPayments"><AltPaymentsTab /></TabsContent>
-            <TabsContent value="users"><UsersTab /></TabsContent>
+            <TabsContent value="userManagement"><UserManagementTab /></TabsContent>
             <TabsContent value="certificates"><CertificatesTab /></TabsContent>
-            <TabsContent value="certIds"><CredentialIdsTab /></TabsContent>
+            <TabsContent value="partnershipReception"><PartnershipReceptionTab /></TabsContent>
             <TabsContent value="specialProgram"><SpecialProgramTab /></TabsContent>
             <TabsContent value="hiddenCourses"><HiddenCoursesTab /></TabsContent>
             <TabsContent value="schools"><SchoolsTab /></TabsContent>
@@ -151,6 +147,21 @@ function AdminContent() {
       <SiteFooter />
     </div>
   );
+}
+
+function UserManagementTab() {
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Payments</h2><PaymentsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Alternative payments</h2><AltPaymentsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Users</h2><UsersTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Credential IDs</h2><CredentialIdsTab /></section></div>;
+}
+
+function PartnershipReceptionTab() {
+  const fetchRequests = useServerFn(listPartnershipProgramRequests);
+  const updateStatus = useServerFn(updatePartnershipProgramRequestStatus);
+  const qc = useQueryClient();
+  const { data, isLoading } = useQuery({ queryKey: ["partnership-requests"], queryFn: () => fetchRequests() });
+  const mutation = useMutation({ mutationFn: (input: { id: string; status: string }) => updateStatus({ data: input }), onSuccess: () => { toast.success("Request status updated"); qc.invalidateQueries({ queryKey: ["partnership-requests"] }); }, onError: (e) => toast.error(e instanceof Error ? e.message : "Update failed") });
+  if (isLoading) return <p className="text-blue-500 py-8">Loading partnership requests...</p>;
+  const requests = data?.requests ?? [];
+  return <div className="glass-card-light p-2 sm:p-4 overflow-x-auto"><Table><TableHeader><TableRow><TableHead>Partner</TableHead><TableHead>Organization</TableHead><TableHead>Programme</TableHead><TableHead>Audience</TableHead><TableHead>Submitted</TableHead><TableHead>Status</TableHead></TableRow></TableHeader><TableBody>{requests.map((request: any) => <TableRow key={request.id}><TableCell><div className="font-medium text-blue-950">{request.partner_name}</div><div className="text-xs text-blue-500">{request.email}</div></TableCell><TableCell>{request.organization_name}<div className="text-xs text-blue-500">{request.organization_type}</div></TableCell><TableCell className="min-w-[220px]"><div className="font-medium">{request.program_title}</div><p className="text-xs text-blue-600 line-clamp-2">{request.program_description}</p></TableCell><TableCell>{request.audience}</TableCell><TableCell className="text-xs text-blue-500">{new Date(request.created_at).toLocaleDateString()}</TableCell><TableCell><Select value={request.status} onValueChange={(status) => mutation.mutate({ id: request.id, status })}><SelectTrigger className="w-[130px] h-9"><SelectValue /></SelectTrigger><SelectContent>{["new", "reviewing", "contacted", "approved", "declined"].map((status) => <SelectItem key={status} value={status}>{status}</SelectItem>)}</SelectContent></Select></TableCell></TableRow>)}</TableBody></Table>{requests.length === 0 && <p className="p-8 text-center text-blue-600">No partnership requests yet.</p>}</div>;
 }
 
 function PaymentsTab() {
