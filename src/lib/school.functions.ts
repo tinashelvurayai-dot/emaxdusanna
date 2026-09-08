@@ -496,6 +496,22 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
     });
     if (error) throw error;
 
+    // Receipt the school admin can download / print and hand to the payer.
+    const issuedAt = new Date().toISOString();
+    const receipt = {
+      receiptNo: `RC-${certificateId.replace(/^EDU-SCH-/, "")}`,
+      issuedAt,
+      schoolName,
+      className: rosterRow?.class_name ?? null,
+      studentName: profile.full_name ?? "(unknown)",
+      email: profile.email ?? null,
+      courseName: data.courseName,
+      level: data.level,
+      amount: data.amount,
+      certificateId,
+      method: "Cash (paid at school)",
+    };
+
     // Telegram alert (non-blocking)
     try {
       const { notifyAdminTelegram } = await import("@/lib/notify.server");
