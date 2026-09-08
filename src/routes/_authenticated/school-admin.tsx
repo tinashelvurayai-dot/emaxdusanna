@@ -23,6 +23,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { PaymentReceiptDialog, type PaymentReceipt } from "@/components/payment-receipt";
 import {
   getMySchoolAdmin,
   listSchoolStudents,
