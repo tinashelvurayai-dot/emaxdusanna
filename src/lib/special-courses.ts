@@ -1,22 +1,9 @@
 import type { CourseCatalogItem } from "./course-types"
 
 /** Special / partner programmes grouped under the Global AHEP diploma shell. */
-export const specialCourseIds = [
-  "ahep-plastic-pollution",
-  "ahep-pollution-plastique",
-  "waste-chemicals-wealth",
-  "entrepreneuriat-dechets-produits-chimiques",
-] as const
+export const specialCourseIds = ["ahep-plastic-pollution", "ahep-pollution-plastique"] as const
 
 /** The unique diploma shell that hosts the AHEP programmes. */
-export const WASTE_CHEMICALS_WEALTH = {
-  slug: "waste-chemicals-wealth",
-  name: "Certified Waste & Chemicals-to-Wealth Entrepreneurship Program",
-  tagline: "English & Français, certificate",
-  description:
-    "A practical certificate program for turning waste and chemical-resource challenges into safer, sustainable, and income-generating opportunities.",
-} as const
-
 export const GLOBAL_AHEP = {
   slug: "global-ahep",
   name: "Global AHEP",
@@ -44,36 +31,12 @@ export const specialCourseCatalog: CourseCatalogItem[] = [
     icon: "Leaf",
     color: "from-teal-500 to-green-500",
   },
-  {
-    id: "waste-chemicals-wealth",
-    letter: "W",
-    certificateTitle: "Waste & Chemicals-to-Wealth Entrepreneurship (English)",
-    diplomaTitle: "Waste & Chemicals-to-Wealth Entrepreneurship",
-    category: "agriculture",
-    icon: "Recycle",
-    color: "from-emerald-500 to-teal-500",
-  },
-  {
-    id: "entrepreneuriat-dechets-produits-chimiques",
-    letter: "E",
-    certificateTitle: "Entrepreneuriat Déchets & Produits Chimiques vers la Richesse (Français)",
-    diplomaTitle: "Entrepreneuriat Déchets & Produits Chimiques vers la Richesse",
-    category: "agriculture",
-    icon: "Recycle",
-    color: "from-emerald-500 to-teal-500",
-  },
 ]
 
 /** Language label for each Global AHEP programme. */
 export const specialCourseLanguage: Record<string, string> = {
   "ahep-plastic-pollution": "English",
   "ahep-pollution-plastique": "Francais",
-  "waste-chemicals-wealth": "English",
-  "entrepreneuriat-dechets-produits-chimiques": "Français",
-}
-
-export function isWasteChemicalsWealthCourse(id: string): boolean {
-  return id === "waste-chemicals-wealth" || id === "entrepreneuriat-dechets-produits-chimiques"
 }
 
 export function isSpecialCourse(id: string): boolean {

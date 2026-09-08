@@ -202,8 +202,6 @@ export const categoryImagePools: Record<string, string[]> = {
 export const specialCourseImages: Record<string, string> = {
   "ahep-plastic-pollution": "/courses/Chat-GPT-Image-Aug-9-2026-03-14-26-PM.webp",
   "ahep-pollution-plastique": "/courses/Chat-GPT-Image-Aug-9-2026-03-14-26-PM.webp",
-  "waste-chemicals-wealth": "/courses/waste-wealth-en.webp",
-  "entrepreneuriat-dechets-produits-chimiques": "/courses/waste-wealth-fr.webp",
 };
 
 /** First image of each category - used as a lightweight fallback. */

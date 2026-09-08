@@ -15,9 +15,6 @@ import { useRateLimit } from "@/hooks/use-rate-limit";
 const logo = { url: "/logo.webp" };
 import { SmartBack } from "@/components/smart-back";
 import { LegalModal } from "@/components/legal-modal";
-import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { getAuthSettings } from "@/lib/admin.functions";
 
 type AuthMode = "login" | "signup";
 type SignupType = "standard" | "academia";
@@ -43,17 +40,9 @@ function AuthPage() {
   const { user, loading } = useAuth();
   const [submitting, setSubmitting] = useState(false);
 
-  const fetchAuthSettings = useServerFn(getAuthSettings);
-  const { data: authSettings } = useQuery({
-    queryKey: ["auth-settings"],
-    queryFn: () => fetchAuthSettings(),
-  });
-  const googleEnabled = authSettings?.value.googleEnabled ?? true;
-
   const [signupType, setSignupType] = useState<SignupType | null>(null);
   const [fullName, setFullName] = useState("");
   const [schoolName, setSchoolName] = useState("");
-  const [className, setClassName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -103,10 +92,6 @@ function AuthPage() {
         toast.error("Passwords do not match.");
         return;
       }
-      if (signupType === "academia" && !className.trim()) {
-        toast.error("Please enter your class.");
-        return;
-      }
     }
     if (!checkLimit()) {
       const seconds = Math.ceil(remainingTime() / 1000);
@@ -131,7 +116,6 @@ function AuthPage() {
               mobile_number: fullMobile,
               signup_type: signupType ?? "standard",
               school_name: isAcademia ? schoolName : null,
-              class_name: isAcademia ? className.trim() : null,
             },
           },
         });
@@ -228,8 +212,6 @@ function AuthPage() {
           {mode === "signup" ? "Start learning in minutes" : "Log in to continue learning"}
         </p>
 
-        {googleEnabled && (
-        <>
         <Button onClick={handleGoogle} type="button" variant="outline" className="auth-google w-full mb-5 border-blue-200 text-blue-800 hover:bg-blue-50">
           <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.27-4.74 3.27-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.99.66-2.26 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 4.75c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 1.46 14.97.5 12 .5A11 11 0 0 0 2.18 7.06l3.66 2.84C6.71 7.3 9.14 5.37 12 4.75z"/></svg>
           Continue with Google
@@ -239,8 +221,6 @@ function AuthPage() {
           <span className="bg-white px-3 text-xs text-blue-400 relative z-10">or with email</span>
           <div className="absolute inset-x-0 top-1/2 h-px bg-blue-100" />
         </div>
-        </>
-        )}
 
         <form onSubmit={handleSubmit} className={`auth-form space-y-4 ${mode === "signup" && signupType === "academia" ? "academia-signup-form" : ""}`}>
           {mode === "signup" && (
@@ -253,12 +233,6 @@ function AuthPage() {
             <div>
               <Label htmlFor="schoolName">School / Institution name</Label>
               <Input id="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} required placeholder="Your school or institution" />
-            </div>
-          )}
-          {mode === "signup" && signupType === "academia" && (
-            <div>
-              <Label htmlFor="className">Class</Label>
-              <Input id="className" value={className} onChange={(e) => setClassName(e.target.value)} required placeholder="e.g. 3A" />
             </div>
           )}
           <div>

@@ -5,14 +5,13 @@ import { useServerFn } from "@tanstack/react-start";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import {
   Users, CreditCard, Award, DollarSign, Clock, ShieldAlert, Loader2, School, FileEdit, Trash2,
-  Activity, CheckCircle2, AlertTriangle, XCircle, RefreshCw, Search,
+  Activity, CheckCircle2, AlertTriangle, XCircle, RefreshCw,
 } from "lucide-react";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
-import { PaymentEmailTab } from "@/components/admin/payment-email-tab";
 import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow,
 } from "@/components/ui/table";
@@ -23,7 +22,7 @@ import { toast } from "sonner";
 import {
   checkIsAdmin, getAdminStats, listPayments, listUsers, updatePaymentStatus,
   createManualPayment, getLearnerCourses,
-  listContractedSchools, addContractedSchool, removeContractedSchool, updateContractedSchool,
+  listContractedSchools, addContractedSchool, removeContractedSchool,
   getSampleCertificate, saveSampleCertificate,
   type SampleCertificateValue,
 } from "@/lib/admin.functions";
@@ -35,10 +34,7 @@ import { CertificatePreview, type CertificateData } from "@/components/certifica
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SpecialProgramTab } from "@/components/admin/special-program-tab";
-import { PartnershipReceptionTab } from "@/components/admin/partnership-reception-tab";
 import { HiddenCoursesTab } from "@/components/admin/hidden-courses-tab";
-import { AuthSettingsTab } from "@/components/admin/auth-settings-tab";
-import { SystemTab } from "@/components/admin/system-tab";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [{ title: "Admin Dashboard | Edusanna" }] }),
@@ -47,36 +43,6 @@ export const Route = createFileRoute("/_authenticated/admin")({
   }),
   component: AdminPage,
 });
-
-const TAB_GROUPS = [
-  {
-    label: "People",
-    tabs: [
-      { value: "userManagement", label: "User Management" },
-      { value: "schools", label: "Contracted Schools" },
-      { value: "partnershipReception", label: "Partnership & Program Reception" },
-    ],
-  },
-  {
-    label: "Credentials",
-    tabs: [
-      { value: "certificates", label: "Certificates" },
-      { value: "specialProgram", label: "Special program" },
-      { value: "paymentEmail", label: "Payment email" },
-    ],
-  },
-  {
-    label: "Platform",
-    tabs: [
-      { value: "hiddenCourses", label: "Hidden courses" },
-      { value: "sample", label: "Home sample" },
-      { value: "health", label: "Health monitor" },
-      { value: "system", label: "System management" },
-      { value: "settings", label: "Settings" },
-    ],
-  },
-] as const;
-
 
 const STATUS_OPTIONS = [
   { value: "paid_pending_admin", label: "Pending" },
@@ -92,16 +58,6 @@ function statusBadge(status: string) {
   };
   const label = STATUS_OPTIONS.find((s) => s.value === status)?.label ?? status;
   return <Badge className={`${map[status] ?? "bg-gray-100 text-gray-700"} border-0`}>{label}</Badge>;
-}
-
-/** Divider used to label merged sections inside a consolidated tab. */
-function SectionHeading({ title, subtitle }: { title: string; subtitle: string }) {
-  return (
-    <div className="border-l-4 border-blue-500 pl-3">
-      <h2 className="text-lg font-bold text-blue-900">{title}</h2>
-      <p className="text-xs text-blue-600">{subtitle}</p>
-    </div>
-  );
 }
 
 function AdminPage() {
@@ -139,38 +95,24 @@ function AdminPage() {
 
 function AdminContent() {
   const fetchStats = useServerFn(getAdminStats);
-  const { data: stats } = useQuery({
-    queryKey: ["admin-stats"],
-    queryFn: () => fetchStats(),
-    staleTime: 60_000,
-  });
+  const { data: stats } = useQuery({ queryKey: ["admin-stats"], queryFn: () => fetchStats() });
   const { tab } = Route.useSearch();
   const validTabs = [
-    "userManagement", "certificates", "schools", "sample", "health",
-    "specialProgram", "hiddenCourses", "settings", "system", "paymentEmail", "partnershipReception",
+    "payments", "altPayments", "users", "certificates",
+    "certIds", "schools", "schoolAdmins", "sample", "health",
+    "specialProgram", "hiddenCourses",
   ];
-  const initialTab = tab && validTabs.includes(tab) ? tab : "userManagement";
-
+  const initialTab = tab && validTabs.includes(tab) ? tab : "payments";
 
   return (
     <div className="min-h-screen">
       <SiteNavbar />
       <section className="pt-32 pb-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <div className="glass-card-light p-5 sm:p-6 mb-6 flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-blue-500">
-                Edusanna control centre
-              </p>
-              <h1 className="text-3xl md:text-4xl font-black text-blue-900 mt-1">Admin Dashboard</h1>
-              <p className="text-blue-600 mt-1 text-sm">
-                Revenue, learners, credentials, schools and platform health — in one place.
-              </p>
-            </div>
-            <Badge className="border-0 bg-green-100 text-green-700">Live</Badge>
-          </div>
+          <h1 className="text-3xl md:text-4xl font-black text-blue-900 mb-1">Admin Dashboard</h1>
+          <p className="text-blue-600 mb-8">Manage payments, learners and credentials.</p>
 
-          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-8">
+          <div className="grid grid-cols-2 lg:grid-cols-5 gap-4 mb-10">
             <StatCard icon={<Users className="w-5 h-5" />} label="Users" value={stats?.totalUsers ?? "…"} />
             <StatCard icon={<CreditCard className="w-5 h-5" />} label="Payments" value={stats?.totalPayments ?? "…"} />
             <StatCard icon={<DollarSign className="w-5 h-5" />} label="Revenue" value={stats ? `$${stats.totalRevenue.toFixed(2)}` : "…"} />
@@ -179,56 +121,30 @@ function AdminContent() {
           </div>
 
           <Tabs defaultValue={initialTab}>
-            <div className="glass-card-light z-20 mb-6 space-y-3 p-4 lg:sticky lg:top-24">
-              {TAB_GROUPS.map((group) => (
-                <div key={group.label} className="flex flex-wrap items-center gap-2">
-                  <span className="w-24 shrink-0 text-[10px] font-bold uppercase tracking-[0.14em] text-blue-400">
-                    {group.label}
-                  </span>
-                  <TabsList className="h-auto flex-wrap bg-transparent p-0 gap-2">
-                    {group.tabs.map((t) => (
-                      <TabsTrigger
-                        key={t.value}
-                        value={t.value}
-                        className="rounded-full border border-blue-100 bg-white/70 px-3 py-1.5 text-xs data-[state=active]:bg-blue-600 data-[state=active]:text-white"
-                      >
-                        {t.label}
-                      </TabsTrigger>
-                    ))}
-                  </TabsList>
-                </div>
-              ))}
-            </div>
-            <TabsContent value="userManagement">
-              <div className="space-y-8">
-                <SectionHeading title="Learners" subtitle="Every registered account, with smart search." />
-                <UsersTab />
-                <SectionHeading title="Card payments" subtitle="Online credential payments." />
-                <PaymentsTab />
-                <SectionHeading title="Flexible payment requests" subtitle="Ecocash, Mukuru and Western Union submissions." />
-                <AltPaymentsTab />
-                <SectionHeading title="Credential IDs" subtitle="Allocated certificate and diploma identifiers." />
-                <CredentialIdsTab />
-              </div>
-            </TabsContent>
+            <TabsList className="mb-6 flex-wrap h-auto">
+              <TabsTrigger value="payments">Payments</TabsTrigger>
+              <TabsTrigger value="altPayments">Alt Payments</TabsTrigger>
+              <TabsTrigger value="users">Users</TabsTrigger>
+              <TabsTrigger value="certificates">Certificates</TabsTrigger>
+              <TabsTrigger value="certIds">Credential IDs</TabsTrigger>
+              <TabsTrigger value="specialProgram">Special Program</TabsTrigger>
+              <TabsTrigger value="hiddenCourses">Hidden courses</TabsTrigger>
+              <TabsTrigger value="schools">Schools</TabsTrigger>
+              <TabsTrigger value="schoolAdmins">School admins</TabsTrigger>
+              <TabsTrigger value="sample">Home Sample</TabsTrigger>
+              <TabsTrigger value="health">Health monitor</TabsTrigger>
+            </TabsList>
+            <TabsContent value="payments"><PaymentsTab /></TabsContent>
+            <TabsContent value="altPayments"><AltPaymentsTab /></TabsContent>
+            <TabsContent value="users"><UsersTab /></TabsContent>
             <TabsContent value="certificates"><CertificatesTab /></TabsContent>
+            <TabsContent value="certIds"><CredentialIdsTab /></TabsContent>
             <TabsContent value="specialProgram"><SpecialProgramTab /></TabsContent>
-            <TabsContent value="partnershipReception"><PartnershipReceptionTab /></TabsContent>
-            <TabsContent value="paymentEmail"><PaymentEmailTab /></TabsContent>
             <TabsContent value="hiddenCourses"><HiddenCoursesTab /></TabsContent>
-            <TabsContent value="schools">
-              <div className="space-y-8">
-                <SectionHeading title="Contracted schools" subtitle="Seats, status and learner tallies." />
-                <SchoolsTab />
-                <SectionHeading title="School administrators" subtitle="Accounts that manage each school roster." />
-                <SchoolAdminsTab />
-              </div>
-            </TabsContent>
+            <TabsContent value="schools"><SchoolsTab /></TabsContent>
+            <TabsContent value="schoolAdmins"><SchoolAdminsTab /></TabsContent>
             <TabsContent value="sample"><SampleCertificateTab /></TabsContent>
             <TabsContent value="health"><HealthTab /></TabsContent>
-            <TabsContent value="settings"><AuthSettingsTab /></TabsContent>
-            <TabsContent value="system"><SystemTab /></TabsContent>
-
           </Tabs>
         </div>
       </section>
@@ -316,11 +232,7 @@ function CashPaymentForm() {
   const fetchUsers = useServerFn(listUsers);
   const fetchLearnerCourses = useServerFn(getLearnerCourses);
   const recordPayment = useServerFn(createManualPayment);
-  const { data: usersData } = useQuery({
-    queryKey: ["admin-users-picker"],
-    queryFn: () => fetchUsers({ data: { pageSize: 200, sort: "newest" } }),
-    staleTime: 60_000,
-  });
+  const { data: usersData } = useQuery({ queryKey: ["admin-users"], queryFn: () => fetchUsers() });
   const users = usersData?.users ?? [];
 
   const [open, setOpen] = useState(false);
@@ -464,246 +376,57 @@ function CashPaymentForm() {
   );
 }
 
-type UserRow = {
-  id: string;
-  full_name: string | null;
-  email: string | null;
-  country: string | null;
-  city: string | null;
-  signup_type: string | null;
-  school_name: string | null;
-  created_at: string;
-};
-
-/** Smart query language: free text plus `key:value` filters. */
-function matchesSmartQuery(u: UserRow, query: string, contracted: Set<string>) {
-  const tokens = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
-  if (tokens.length === 0) return true;
-  const haystack = [u.full_name, u.email, u.school_name, u.city, u.country, u.signup_type]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-  const isContracted = u.school_name ? contracted.has(u.school_name.trim().toLowerCase()) : false;
-
-  return tokens.every((token) => {
-    const [rawKey, ...rest] = token.split(":");
-    const value = rest.join(":");
-    if (!value) return haystack.includes(token);
-    const field = (v: string | null) => (v ?? "").toLowerCase().includes(value);
-    switch (rawKey) {
-      case "name":
-        return field(u.full_name);
-      case "email":
-        return field(u.email);
-      case "school":
-        return field(u.school_name);
-      case "type":
-        return field(u.signup_type ?? "standard");
-      case "country":
-        return field(u.country);
-      case "city":
-        return field(u.city);
-      case "contracted":
-        return value.startsWith("y") ? isContracted : !isContracted;
-      case "joined":
-        return new Date(u.created_at).toISOString().slice(0, 10).includes(value);
-      default:
-        return haystack.includes(token);
-    }
-  });
-}
-
-const USER_SORTS = [
-  { value: "newest", label: "Newest first" },
-  { value: "oldest", label: "Oldest first" },
-  { value: "name", label: "Name A-Z" },
-  { value: "school", label: "School A-Z" },
-] as const;
-
-const QUICK_FILTERS = [
-  { label: "Academia", query: "type:academia" },
-  { label: "Standard", query: "type:standard" },
-  { label: "Not contracted", query: "type:academia contracted:no" },
-  { label: "No school", query: "" },
-] as const;
-
 function UsersTab() {
   const fetchUsers = useServerFn(listUsers);
   const fetchSchools = useServerFn(listContractedSchools);
-
-  const [query, setQuery] = useState("");
-  const [sort, setSort] = useState<string>("newest");
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(50);
-
-  // Free-text portion is pushed to the database; key:value tokens filter the page.
-  const searchTerm = query
-    .split(/\s+/)
-    .filter((w) => w && !w.includes(":"))
-    .join(" ");
-
-  const { data, isLoading, isFetching } = useQuery({
-    queryKey: ["admin-users", page, pageSize, sort, searchTerm],
-    queryFn: () => fetchUsers({ data: { page, pageSize, sort, search: searchTerm } }),
-    staleTime: 30_000,
-  });
-  const { data: schoolsData } = useQuery({
-    queryKey: ["admin-schools"],
-    queryFn: () => fetchSchools(),
-    staleTime: 300_000,
-  });
+  const { data, isLoading } = useQuery({ queryKey: ["admin-users"], queryFn: () => fetchUsers() });
+  const { data: schoolsData } = useQuery({ queryKey: ["admin-schools"], queryFn: () => fetchSchools() });
   const contracted = new Set((schoolsData?.schools ?? []).map((s: any) => (s.name as string).trim().toLowerCase()));
 
   if (isLoading) return <p className="text-blue-500 py-8">Loading users…</p>;
-  const users = (data?.users ?? []) as UserRow[];
-  const total = data?.total ?? 0;
-  const pageCount = data?.pageCount ?? 1;
-  if (total === 0 && !searchTerm) {
-    return <div className="glass-card-light p-10 text-center text-blue-700">No users yet.</div>;
-  }
-
-  const filtered = users.filter((u) => matchesSmartQuery(u, query, contracted));
-
-
-  const exportCsv = () => {
-    const header = ["Name", "Email", "Type", "School", "City", "Country", "Joined"];
-    const rows = filtered.map((u) => [
-      u.full_name ?? "", u.email ?? "", u.signup_type ?? "standard", u.school_name ?? "",
-      u.city ?? "", u.country ?? "", new Date(u.created_at).toISOString().slice(0, 10),
-    ]);
-    const csv = [header, ...rows]
-      .map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(","))
-      .join("\n");
-    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv" }));
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `edusanna-users-${new Date().toISOString().slice(0, 10)}.csv`;
-    a.click();
-    URL.revokeObjectURL(url);
-  };
+  const users = data?.users ?? [];
+  if (users.length === 0) return <div className="glass-card-light p-10 text-center text-blue-700">No users yet.</div>;
 
   return (
-    <div className="space-y-4">
-      <div className="glass-card-light p-4 space-y-3">
-        <div className="flex flex-wrap items-center gap-2">
-          <div className="relative min-w-[240px] flex-1">
-            <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-blue-400" />
-            <Input
-              value={query}
-              onChange={(e) => { setQuery(e.target.value); setPage(1); }}
-              placeholder="Search name, email, school… or use email:@gmail type:academia contracted:no"
-              aria-label="Search users"
-              className="pl-9 text-blue-900"
-            />
-          </div>
-          <Select value={sort} onValueChange={(v) => { setSort(v); setPage(1); }}>
-            <SelectTrigger className="w-[160px]"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              {USER_SORTS.map((s) => (
-                <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select value={String(pageSize)} onValueChange={(v) => { setPageSize(Number(v)); setPage(1); }}>
-            <SelectTrigger className="w-[110px]"><SelectValue /></SelectTrigger>
-            <SelectContent>
-              {[25, 50, 100, 200].map((n) => (
-                <SelectItem key={n} value={String(n)}>{n} / page</SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Button variant="outline" size="sm" onClick={exportCsv}>Export CSV</Button>
-        </div>
-        <div className="flex flex-wrap items-center gap-2">
-          {QUICK_FILTERS.filter((f) => f.query).map((f) => (
-            <button
-              key={f.label}
-              type="button"
-              onClick={() => { setQuery(f.query); setPage(1); }}
-              className="rounded-full border border-blue-100 bg-white/70 px-3 py-1 text-xs text-blue-700 transition-colors hover:bg-blue-50"
-            >
-              {f.label}
-            </button>
-          ))}
-          {query && (
-            <button
-              type="button"
-              onClick={() => { setQuery(""); setPage(1); }}
-              className="rounded-full border border-blue-100 px-3 py-1 text-xs text-blue-500"
-            >
-              Clear
-            </button>
-          )}
-          <span className="ml-auto text-xs text-blue-500">
-            Showing {filtered.length} on page {page} of {pageCount} · {total.toLocaleString()} learners total
-            {isFetching ? " · updating…" : ""}
-          </span>
-        </div>
-
-      </div>
-
-      <div className="glass-card-light p-2 sm:p-4 overflow-x-auto">
-        {filtered.length === 0 ? (
-          <p className="py-10 text-center text-sm text-blue-600">No learners match that search.</p>
-        ) : (
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead>Email</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>School</TableHead>
-              <TableHead>Location</TableHead>
-              <TableHead>Joined</TableHead>
+    <div className="glass-card-light p-2 sm:p-4 overflow-x-auto">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Name</TableHead>
+            <TableHead>Email</TableHead>
+            <TableHead>Type</TableHead>
+            <TableHead>School</TableHead>
+            <TableHead>Location</TableHead>
+            <TableHead>Joined</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {users.map((u: any) => (
+            <TableRow key={u.id}>
+              <TableCell className="font-medium text-blue-900">{u.full_name ?? "-"}</TableCell>
+              <TableCell className="text-blue-600">{u.email ?? "-"}</TableCell>
+              <TableCell className="capitalize">
+                <Badge className={`border-0 ${u.signup_type === "academia" ? "bg-purple-100 text-purple-700" : "bg-blue-100 text-blue-700"}`}>
+                  {u.signup_type ?? "standard"}
+                </Badge>
+              </TableCell>
+              <TableCell>
+                {u.school_name ? (
+                  <span className="inline-flex items-center gap-2">
+                    {u.school_name}
+                    {u.signup_type === "academia" && !contracted.has(u.school_name.trim().toLowerCase()) && (
+                      <Badge className="border-0 bg-amber-100 text-amber-700">Not contracted</Badge>
+                    )}
+                  </span>
+                ) : "-"}
+              </TableCell>
+              <TableCell className="text-xs text-blue-500">{[u.city, u.country].filter(Boolean).join(", ") || "-"}</TableCell>
+              <TableCell className="text-xs text-blue-500">{new Date(u.created_at).toLocaleDateString()}</TableCell>
             </TableRow>
-          </TableHeader>
-          <TableBody>
-            {filtered.map((u) => (
-              <TableRow key={u.id}>
-                <TableCell className="font-medium text-blue-900">{u.full_name ?? "-"}</TableCell>
-                <TableCell className="text-blue-600">{u.email ?? "-"}</TableCell>
-                <TableCell className="capitalize">
-                  <Badge className={`border-0 ${u.signup_type === "academia" ? "bg-purple-100 text-purple-700" : "bg-blue-100 text-blue-700"}`}>
-                    {u.signup_type ?? "standard"}
-                  </Badge>
-                </TableCell>
-                <TableCell>
-                  {u.school_name ? (
-                    <span className="inline-flex items-center gap-2">
-                      {u.school_name}
-                      {u.signup_type === "academia" && !contracted.has(u.school_name.trim().toLowerCase()) && (
-                        <Badge className="border-0 bg-amber-100 text-amber-700">Not contracted</Badge>
-                      )}
-                    </span>
-                  ) : "-"}
-                </TableCell>
-                <TableCell className="text-xs text-blue-500">{[u.city, u.country].filter(Boolean).join(", ") || "-"}</TableCell>
-                <TableCell className="text-xs text-blue-500">{new Date(u.created_at).toLocaleDateString()}</TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        )}
-      </div>
-
-      {pageCount > 1 && (
-        <div className="flex items-center justify-between gap-3">
-          <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage((p) => Math.max(1, p - 1))}>
-            Previous
-          </Button>
-          <span className="text-xs text-blue-500">Page {page} of {pageCount}</span>
-          <Button
-            variant="outline"
-            size="sm"
-            disabled={page >= pageCount}
-            onClick={() => setPage((p) => Math.min(pageCount, p + 1))}
-          >
-            Next
-          </Button>
-        </div>
-      )}
+          ))}
+        </TableBody>
+      </Table>
     </div>
-
   );
 }
 
@@ -854,23 +577,15 @@ function SchoolsTab() {
   const fetchSchools = useServerFn(listContractedSchools);
   const addSchool = useServerFn(addContractedSchool);
   const removeSchool = useServerFn(removeContractedSchool);
-  const patchSchool = useServerFn(updateContractedSchool);
   const { data, isLoading } = useQuery({ queryKey: ["admin-schools"], queryFn: () => fetchSchools() });
   const [name, setName] = useState("");
-  const [logoUrl, setLogoUrl] = useState("");
-
-  const invalidate = () => {
-    qc.invalidateQueries({ queryKey: ["admin-schools"] });
-    qc.invalidateQueries({ queryKey: ["admin-users"] });
-  };
 
   const add = useMutation({
-    mutationFn: () => addSchool({ data: { name, logoUrl } }),
+    mutationFn: () => addSchool({ data: { name } }),
     onSuccess: () => {
       toast.success("School added");
       setName("");
-      setLogoUrl("");
-      invalidate();
+      qc.invalidateQueries({ queryKey: ["admin-schools"] });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
@@ -879,23 +594,12 @@ function SchoolsTab() {
     mutationFn: (id: string) => removeSchool({ data: { id } }),
     onSuccess: () => {
       toast.success("Removed");
-      invalidate();
+      qc.invalidateQueries({ queryKey: ["admin-schools"] });
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
 
-  const update = useMutation({
-    mutationFn: (input: { id: string; isActive?: boolean; seatLimit?: number | null; logoUrl?: string | null }) =>
-      patchSchool({ data: input }),
-    onSuccess: () => {
-      toast.success("School updated");
-      invalidate();
-    },
-    onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
-  });
-
-  const schools = (data?.schools ?? []) as any[];
-  const unlinkedAdmins = (data?.unlinkedAdmins ?? []) as any[];
+  const schools = data?.schools ?? [];
 
   return (
     <div className="space-y-6">
@@ -904,34 +608,20 @@ function SchoolsTab() {
           <School className="w-5 h-5" /> Add a contracted school
         </h3>
         <p className="text-sm text-blue-600 mb-3">
-          Academia signups are linked to a school record automatically, so pricing, rosters and seat
-          limits stay correct even if the school renames later.
+          Academia signups whose school is on this list are treated as contracted students.
         </p>
-        <div className="flex flex-col gap-2 sm:flex-row">
+        <div className="flex gap-2">
           <Input
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="St. John's High School"
             onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); if (name.trim()) add.mutate(); } }}
           />
-          <Input value={logoUrl} onChange={(e) => setLogoUrl(e.target.value)} placeholder="School logo URL (optional)" />
           <Button onClick={() => add.mutate()} disabled={add.isPending || !name.trim()} className="premium-button">
             {add.isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}Add
           </Button>
         </div>
       </div>
-
-      {unlinkedAdmins.length > 0 && (
-        <div className="glass-card-light p-4 border border-amber-200">
-          <p className="text-sm font-semibold text-amber-700">
-            {unlinkedAdmins.length} school admin account(s) reference a school that is not contracted:
-          </p>
-          <p className="mt-1 text-xs text-amber-600">
-            {unlinkedAdmins.map((a) => a.schoolName).filter(Boolean).join(", ")} — add the school above to link them.
-          </p>
-        </div>
-      )}
-
       {isLoading ? (
         <p className="text-blue-500 py-8">Loading schools…</p>
       ) : schools.length === 0 ? (
@@ -940,56 +630,12 @@ function SchoolsTab() {
         <div className="glass-card-light p-2 sm:p-4 overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow>
-                <TableHead>School</TableHead>
-                <TableHead>Learners</TableHead>
-                <TableHead>Roster</TableHead>
-                <TableHead>Seats</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Added</TableHead>
-                <TableHead></TableHead>
-              </TableRow>
+              <TableRow><TableHead>School</TableHead><TableHead>Added</TableHead><TableHead></TableHead></TableRow>
             </TableHeader>
             <TableBody>
-              {schools.map((s) => (
+              {schools.map((s: any) => (
                 <TableRow key={s.id}>
                   <TableCell className="font-medium text-blue-900">{s.name}</TableCell>
-                  <TableCell className="text-blue-700">{s.learnerCount}</TableCell>
-                  <TableCell className="text-blue-700">{s.rosterCount}</TableCell>
-                  <TableCell>
-                    <div className="flex items-center gap-2">
-                      <Input
-                        type="number"
-                        min={0}
-                        defaultValue={s.seat_limit ?? ""}
-                        placeholder="∞"
-                        className="h-8 w-20 text-blue-900"
-                        onBlur={(e) => {
-                          const raw = e.target.value.trim();
-                          const next = raw === "" ? null : Number(raw);
-                          if (next === (s.seat_limit ?? null)) return;
-                          update.mutate({ id: s.id, seatLimit: next });
-                        }}
-                      />
-                      {s.seatsUsedPct !== null && (
-                        <Badge
-                          className={`border-0 ${s.seatsUsedPct >= 100 ? "bg-red-100 text-red-700" : s.seatsUsedPct >= 80 ? "bg-amber-100 text-amber-700" : "bg-emerald-100 text-emerald-700"}`}
-                        >
-                          {s.seatsUsedPct}%
-                        </Badge>
-                      )}
-                    </div>
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      disabled={update.isPending}
-                      onClick={() => update.mutate({ id: s.id, isActive: !s.is_active })}
-                    >
-                      {s.is_active ? "Active" : "Paused"}
-                    </Button>
-                  </TableCell>
                   <TableCell className="text-xs text-blue-500">{new Date(s.created_at).toLocaleDateString()}</TableCell>
                   <TableCell className="text-right">
                     <Button variant="outline" size="sm" disabled={remove.isPending} onClick={() => remove.mutate(s.id)}>
@@ -1005,7 +651,6 @@ function SchoolsTab() {
     </div>
   );
 }
-
 
 function CredentialIdsTab() {
   const fetchIds = useServerFn(listEnrollmentCertificateIds);
@@ -1248,7 +893,7 @@ function AltPaymentsTab() {
     return <p className="text-blue-500 py-6">No alt-payment requests yet.</p>;
 
   const fmtMethod = (m: string) =>
-    m === "western_union" ? "Western Union" : m === "mukuru" ? "Mukuru" : m === "ecocash" ? "Ecocash" : m;
+    m === "wechat_pay" ? "WeChat Pay" : m === "mukuru" ? "Mukuru" : m === "ecocash" ? "Ecocash" : m;
 
   return (
     <div className="glass-card-light p-4 overflow-x-auto">

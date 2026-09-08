@@ -34,12 +34,9 @@ export function SiteFooter() {
             />
             <span className="text-xl font-bold text-white">EDUSANNA</span>
           </div>
-          <p className="text-sm text-blue-300 max-w-xs leading-relaxed">
-  A global digital learning platform committed to expanding access to knowledge,
-  professional development and lifelong learning. EDUSANNA brings education
-  beyond borders, empowering individuals to learn, grow and thrive in an
-  increasingly connected world.
-</p>
+          <p className="text-sm text-blue-300 max-w-xs">
+            Africa's free online learning platform. Elevate your mind with certificate and diploma programs A-Z.
+          </p>
         </div>
         <div>
           <h4 className="font-semibold text-white mb-3">Explore</h4>
@@ -47,7 +44,6 @@ export function SiteFooter() {
             <li><Link to="/" className="hover:text-white transition">Home</Link></li>
             <li><Link to="/courses" className="hover:text-white transition">All Courses</Link></li>
             <li><Link to="/auth" search={{ mode: "signup" }} className="hover:text-white transition">Get Started</Link></li>
-            <li><Link to="/partnership-program-request" className="hover:text-white transition">Partner with us</Link></li>
             <li><Link to="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
             <li><Link to="/terms" className="hover:text-white transition">Terms of Service</Link></li>
           </ul>
@@ -61,9 +57,8 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="max-w-7xl mx-auto mt-10 pt-6 border-t border-blue-900 text-center text-sm text-blue-400">
-  © {new Date().getFullYear()} EDUSANNA Online Learning. Learning without
-  borders. Opportunity without limits. All rights reserved.
-</div>
+        © {new Date().getFullYear()} Edusanna Online Learning. All rights reserved.
+      </div>
     </footer>
   );
 }

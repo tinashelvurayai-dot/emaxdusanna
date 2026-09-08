@@ -15,14 +15,6 @@ export async function resolvePostLoginRoute(userId: string): Promise<"/admin" | 
     const set = new Set((roles ?? []).map((r) => r.role));
     if (set.has("admin")) return "/admin";
     if (set.has("school_admin")) return "/school-admin";
-
-    // Keep school admins out of the learner dashboard even if their role row is delayed.
-    const { data: schoolAdmin } = await supabase
-      .from("school_admins")
-      .select("user_id")
-      .eq("user_id", userId)
-      .maybeSingle();
-    if (schoolAdmin) return "/school-admin";
   } catch {
     /* fall through */
   }

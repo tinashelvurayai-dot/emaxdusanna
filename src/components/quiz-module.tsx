@@ -25,6 +25,7 @@ export function QuizModule({
 
   const submit = () => {
     setSubmitted(true);
+    if (pct >= 70) onPassed(pct);
   };
 
   const reset = () => {
@@ -45,13 +46,7 @@ export function QuizModule({
               <RotateCcw className="w-4 h-4 mr-2" /> Retry quiz
             </Button>
           )}
-          {passed && (
-            <p className="text-sm mt-3 opacity-80">
-              Review the corrections below, then press Next when you are ready.
-            </p>
-          )}
         </div>
-
 
         <div className="space-y-3">
           {questions.map((qq, qi) => {
@@ -70,14 +65,6 @@ export function QuizModule({
             );
           })}
         </div>
-
-        {passed && (
-          <div className="flex justify-end">
-            <Button onClick={() => onPassed(pct)} className="premium-button">
-              Next <ArrowRight className="w-4 h-4 ml-1" />
-            </Button>
-          </div>
-        )}
       </div>
     );
   }

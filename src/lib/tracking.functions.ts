@@ -140,26 +140,5 @@ export const listEnrollmentCertificateIds = createServerFn({ method: "GET" })
       .order("created_at", { ascending: false })
       .limit(1000);
     if (error) throw new Error(error.message);
-
-    const rows = data ?? [];
-    // Older rows were allocated before the learner profile existed, so the stored
-    // name can be empty. Fill it in from the profile so the table never shows "-".
-    const ids = Array.from(new Set(rows.map((r) => r.user_id).filter(Boolean)));
-    let names = new Map<string, string>();
-    if (ids.length) {
-      const { data: profiles } = await supabaseAdmin
-        .from("profiles")
-        .select("id, full_name, email")
-        .in("id", ids);
-      names = new Map(
-        (profiles ?? []).map((p) => [p.id, (p.full_name || p.email || "").trim()]),
-      );
-    }
-
-    return {
-      rows: rows.map((r) => ({
-        ...r,
-        student_name: (r.student_name || names.get(r.user_id) || null) as string | null,
-      })),
-    };
+    return { rows: data ?? [] };
   });

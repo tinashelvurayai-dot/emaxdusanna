@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useMemo, useState } from "react";
-import { Search, Clock } from "lucide-react";
+import { Search, Clock, Globe } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { SiteNavbar } from "@/components/site-navbar";
@@ -9,7 +9,7 @@ import { courseCatalog, courseCategories, searchCourses } from "@/lib/courses";
 import { getCourseIcon } from "@/lib/course-icons";
 import { getCourseImage } from "@/lib/course-images";
 import { PriceTag } from "@/components/price-tag";
-import { GLOBAL_AHEP, WASTE_CHEMICALS_WEALTH, isSpecialCourse } from "@/lib/special-courses";
+import { GLOBAL_AHEP, isSpecialCourse } from "@/lib/special-courses";
 import { GLOBAL_AHEP_PRICE } from "@/lib/pricing";
 import { pageHead } from "@/lib/site";
 
@@ -109,16 +109,9 @@ function CoursesPage() {
             className="glass-card-light p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
           >
             <div className="flex items-start gap-4">
-              <img
-                src={getCourseImage({ id: "ahep-plastic-pollution", category: "agriculture" })}
-                alt="AHEP - African Hub to End Plastic Pollution"
-                className="w-12 h-12 rounded-2xl object-cover object-center flex-shrink-0 ring-1 ring-teal-200"
-                loading="eager"
-                decoding="async"
-                width={96}
-                height={96}
-              />
-
+              <span className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-green-500 flex items-center justify-center flex-shrink-0">
+                <Globe className="w-6 h-6 text-white" aria-hidden="true" />
+              </span>
               <div>
                 <h2 className="text-lg font-bold text-blue-900">{GLOBAL_AHEP.name}</h2>
                 <p className="text-sm text-blue-600">
@@ -129,19 +122,6 @@ function CoursesPage() {
             <span className="text-sm font-bold px-3 py-1.5 rounded-full bg-green-50 text-green-700 self-start sm:self-auto">
               ${GLOBAL_AHEP_PRICE} USD
             </span>
-          </Link>
-          <Link
-            to="/waste-chemicals-wealth"
-            className="glass-card-light p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
-          >
-            <div className="flex items-start gap-4">
-              <img src={getCourseImage({ id: "waste-chemicals-wealth", category: "agriculture" })} alt="Waste and chemicals-to-wealth entrepreneurship" className="w-12 h-12 rounded-2xl object-cover flex-shrink-0 ring-1 ring-emerald-200" loading="lazy" />
-              <div>
-                <h2 className="text-lg font-bold text-blue-900">{WASTE_CHEMICALS_WEALTH.name}</h2>
-                <p className="text-sm text-blue-600">{WASTE_CHEMICALS_WEALTH.tagline}</p>
-              </div>
-            </div>
-            <span className="text-sm font-bold px-3 py-1.5 rounded-full bg-green-50 text-green-700 self-start sm:self-auto">$15 USD</span>
           </Link>
         </div>
       </section>

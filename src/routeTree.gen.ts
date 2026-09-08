@@ -9,13 +9,11 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WasteChemicalsWealthRouteImport } from './routes/waste-chemicals-wealth'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SuccessRouteImport } from './routes/success'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PartnershipProgramRequestRouteImport } from './routes/partnership-program-request'
 import { Route as GlobalAhepRouteImport } from './routes/global-ahep'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as AuthRouteImport } from './routes/auth'
@@ -36,14 +34,8 @@ import { Route as AuthenticatedCertificateSuccessRouteImport } from './routes/_a
 import { Route as AuthenticatedCertificatePaymentRouteImport } from './routes/_authenticated/certificate-payment'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as ApiPublicCronPurgeRetentionRouteImport } from './routes/api/public/cron/purge-retention'
-import { Route as ApiPublicCronEngagementSweepRouteImport } from './routes/api/public/cron/engagement-sweep'
 import { Route as AuthenticatedLearnCourseIdLevelRouteImport } from './routes/_authenticated/learn.$courseId.$level'
 
-const WasteChemicalsWealthRoute = WasteChemicalsWealthRouteImport.update({
-  id: '/waste-chemicals-wealth',
-  path: '/waste-chemicals-wealth',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const VerifyRoute = VerifyRouteImport.update({
   id: '/verify',
   path: '/verify',
@@ -69,12 +61,6 @@ const PrivacyRoute = PrivacyRouteImport.update({
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PartnershipProgramRequestRoute =
-  PartnershipProgramRequestRouteImport.update({
-    id: '/partnership-program-request',
-    path: '/partnership-program-request',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const GlobalAhepRoute = GlobalAhepRouteImport.update({
   id: '/global-ahep',
   path: '/global-ahep',
@@ -178,12 +164,6 @@ const ApiPublicCronPurgeRetentionRoute =
     path: '/api/public/cron/purge-retention',
     getParentRoute: () => rootRouteImport,
   } as any)
-const ApiPublicCronEngagementSweepRoute =
-  ApiPublicCronEngagementSweepRouteImport.update({
-    id: '/api/public/cron/engagement-sweep',
-    path: '/api/public/cron/engagement-sweep',
-    getParentRoute: () => rootRouteImport,
-  } as any)
 const AuthenticatedLearnCourseIdLevelRoute =
   AuthenticatedLearnCourseIdLevelRouteImport.update({
     id: '/learn/$courseId/$level',
@@ -197,13 +177,11 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/courses': typeof CoursesRoute
   '/global-ahep': typeof GlobalAhepRoute
-  '/partnership-program-request': typeof PartnershipProgramRequestRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
-  '/waste-chemicals-wealth': typeof WasteChemicalsWealthRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/certificate-success': typeof AuthenticatedCertificateSuccessRoute
@@ -218,7 +196,6 @@ export interface FileRoutesByFullPath {
   '/course/$id': typeof CourseIdRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/learn/$courseId/$level': typeof AuthenticatedLearnCourseIdLevelRoute
-  '/api/public/cron/engagement-sweep': typeof ApiPublicCronEngagementSweepRoute
   '/api/public/cron/purge-retention': typeof ApiPublicCronPurgeRetentionRoute
 }
 export interface FileRoutesByTo {
@@ -227,13 +204,11 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/courses': typeof CoursesRoute
   '/global-ahep': typeof GlobalAhepRoute
-  '/partnership-program-request': typeof PartnershipProgramRequestRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
-  '/waste-chemicals-wealth': typeof WasteChemicalsWealthRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/certificate-success': typeof AuthenticatedCertificateSuccessRoute
@@ -248,7 +223,6 @@ export interface FileRoutesByTo {
   '/course/$id': typeof CourseIdRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/learn/$courseId/$level': typeof AuthenticatedLearnCourseIdLevelRoute
-  '/api/public/cron/engagement-sweep': typeof ApiPublicCronEngagementSweepRoute
   '/api/public/cron/purge-retention': typeof ApiPublicCronPurgeRetentionRoute
 }
 export interface FileRoutesById {
@@ -259,13 +233,11 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/courses': typeof CoursesRoute
   '/global-ahep': typeof GlobalAhepRoute
-  '/partnership-program-request': typeof PartnershipProgramRequestRoute
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
-  '/waste-chemicals-wealth': typeof WasteChemicalsWealthRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/_authenticated/certificate-success': typeof AuthenticatedCertificateSuccessRoute
@@ -280,7 +252,6 @@ export interface FileRoutesById {
   '/course/$id': typeof CourseIdRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/_authenticated/learn/$courseId/$level': typeof AuthenticatedLearnCourseIdLevelRoute
-  '/api/public/cron/engagement-sweep': typeof ApiPublicCronEngagementSweepRoute
   '/api/public/cron/purge-retention': typeof ApiPublicCronPurgeRetentionRoute
 }
 export interface FileRouteTypes {
@@ -291,13 +262,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/courses'
     | '/global-ahep'
-    | '/partnership-program-request'
     | '/privacy'
     | '/sitemap.xml'
     | '/success'
     | '/terms'
     | '/verify'
-    | '/waste-chemicals-wealth'
     | '/admin'
     | '/certificate-payment'
     | '/certificate-success'
@@ -312,7 +281,6 @@ export interface FileRouteTypes {
     | '/course/$id'
     | '/dashboard/users'
     | '/learn/$courseId/$level'
-    | '/api/public/cron/engagement-sweep'
     | '/api/public/cron/purge-retention'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -321,13 +289,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/courses'
     | '/global-ahep'
-    | '/partnership-program-request'
     | '/privacy'
     | '/sitemap.xml'
     | '/success'
     | '/terms'
     | '/verify'
-    | '/waste-chemicals-wealth'
     | '/admin'
     | '/certificate-payment'
     | '/certificate-success'
@@ -342,7 +308,6 @@ export interface FileRouteTypes {
     | '/course/$id'
     | '/dashboard/users'
     | '/learn/$courseId/$level'
-    | '/api/public/cron/engagement-sweep'
     | '/api/public/cron/purge-retention'
   id:
     | '__root__'
@@ -352,13 +317,11 @@ export interface FileRouteTypes {
     | '/auth'
     | '/courses'
     | '/global-ahep'
-    | '/partnership-program-request'
     | '/privacy'
     | '/sitemap.xml'
     | '/success'
     | '/terms'
     | '/verify'
-    | '/waste-chemicals-wealth'
     | '/_authenticated/admin'
     | '/_authenticated/certificate-payment'
     | '/_authenticated/certificate-success'
@@ -373,7 +336,6 @@ export interface FileRouteTypes {
     | '/course/$id'
     | '/dashboard/users'
     | '/_authenticated/learn/$courseId/$level'
-    | '/api/public/cron/engagement-sweep'
     | '/api/public/cron/purge-retention'
   fileRoutesById: FileRoutesById
 }
@@ -384,13 +346,11 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   CoursesRoute: typeof CoursesRoute
   GlobalAhepRoute: typeof GlobalAhepRoute
-  PartnershipProgramRequestRoute: typeof PartnershipProgramRequestRoute
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuccessRoute: typeof SuccessRoute
   TermsRoute: typeof TermsRoute
   VerifyRoute: typeof VerifyRoute
-  WasteChemicalsWealthRoute: typeof WasteChemicalsWealthRoute
   AdminCertificatesRoute: typeof AdminCertificatesRoute
   AdminCredentialRequestsRoute: typeof AdminCredentialRequestsRoute
   AdminPaymentsRoute: typeof AdminPaymentsRoute
@@ -398,19 +358,11 @@ export interface RootRouteChildren {
   ApiHealthRoute: typeof ApiHealthRoute
   CourseIdRoute: typeof CourseIdRoute
   DashboardUsersRoute: typeof DashboardUsersRoute
-  ApiPublicCronEngagementSweepRoute: typeof ApiPublicCronEngagementSweepRoute
   ApiPublicCronPurgeRetentionRoute: typeof ApiPublicCronPurgeRetentionRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/waste-chemicals-wealth': {
-      id: '/waste-chemicals-wealth'
-      path: '/waste-chemicals-wealth'
-      fullPath: '/waste-chemicals-wealth'
-      preLoaderRoute: typeof WasteChemicalsWealthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/verify': {
       id: '/verify'
       path: '/verify'
@@ -444,13 +396,6 @@ declare module '@tanstack/react-router' {
       path: '/privacy'
       fullPath: '/privacy'
       preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/partnership-program-request': {
-      id: '/partnership-program-request'
-      path: '/partnership-program-request'
-      fullPath: '/partnership-program-request'
-      preLoaderRoute: typeof PartnershipProgramRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/global-ahep': {
@@ -593,13 +538,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiPublicCronPurgeRetentionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/public/cron/engagement-sweep': {
-      id: '/api/public/cron/engagement-sweep'
-      path: '/api/public/cron/engagement-sweep'
-      fullPath: '/api/public/cron/engagement-sweep'
-      preLoaderRoute: typeof ApiPublicCronEngagementSweepRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/_authenticated/learn/$courseId/$level': {
       id: '/_authenticated/learn/$courseId/$level'
       path: '/learn/$courseId/$level'
@@ -640,13 +578,11 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   CoursesRoute: CoursesRoute,
   GlobalAhepRoute: GlobalAhepRoute,
-  PartnershipProgramRequestRoute: PartnershipProgramRequestRoute,
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuccessRoute: SuccessRoute,
   TermsRoute: TermsRoute,
   VerifyRoute: VerifyRoute,
-  WasteChemicalsWealthRoute: WasteChemicalsWealthRoute,
   AdminCertificatesRoute: AdminCertificatesRoute,
   AdminCredentialRequestsRoute: AdminCredentialRequestsRoute,
   AdminPaymentsRoute: AdminPaymentsRoute,
@@ -654,7 +590,6 @@ const rootRouteChildren: RootRouteChildren = {
   ApiHealthRoute: ApiHealthRoute,
   CourseIdRoute: CourseIdRoute,
   DashboardUsersRoute: DashboardUsersRoute,
-  ApiPublicCronEngagementSweepRoute: ApiPublicCronEngagementSweepRoute,
   ApiPublicCronPurgeRetentionRoute: ApiPublicCronPurgeRetentionRoute,
 }
 export const routeTree = rootRouteImport

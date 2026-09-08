@@ -44,7 +44,7 @@ export function SmartBack({
     <Link
       to={fallback}
       onClick={handleClick}
-      className="inline-flex items-center gap-2 text-sm font-medium text-blue-300 hover:text-blue-100 transition mb-4"
+      className="inline-flex items-center gap-2 text-sm font-medium text-purple-200 hover:text-white transition mb-4"
     >
       <ArrowLeft className="w-4 h-4" />
       {label}

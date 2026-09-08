@@ -3,7 +3,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 import { getCoursePrice, type PriceLevel } from "@/lib/pricing";
 import { isSpecialCourse } from "@/lib/special-courses";
-const ALLOWED_METHODS = ["ecocash", "mukuru", "western_union"] as const;
+const ALLOWED_METHODS = ["ecocash", "mukuru", "wechat_pay", "bank_transfer", "cash", "paypal"] as const;
 type Method = (typeof ALLOWED_METHODS)[number];
 
 /** Standard user submits an alt-payment request after picking 1-3 methods. */
@@ -15,7 +15,6 @@ export const submitAltPaymentRequest = createServerFn({ method: "POST" })
       courseName: string;
       level: "certificate" | "diploma";
       methods: string[];
-      country?: string;
     }) => {
       if (!input?.courseId) throw new Error("Missing course");
       if (!input?.courseName?.trim()) throw new Error("Missing course name");
@@ -24,15 +23,7 @@ export const submitAltPaymentRequest = createServerFn({ method: "POST" })
         new Set((input.methods ?? []).filter((m): m is Method => ALLOWED_METHODS.includes(m as Method))),
       );
       if (methods.length === 0) throw new Error("Pick at least one payment method");
-      const country = (input.country ?? "").trim().slice(0, 80);
-      if (!country) throw new Error("Please select your country");
-      return {
-        courseId: input.courseId,
-        courseName: input.courseName.trim(),
-        level: input.level,
-        methods,
-        country,
-      };
+      return { courseId: input.courseId, courseName: input.courseName.trim(), level: input.level, methods };
     },
   )
   .handler(async ({ data, context }) => {
@@ -44,6 +35,9 @@ export const submitAltPaymentRequest = createServerFn({ method: "POST" })
       .maybeSingle();
     if (!profile) throw new Error("Profile not found.");
     const special = isSpecialCourse(data.courseId);
+    if (!special && (profile.signup_type ?? "standard") !== "standard") {
+      throw new Error("Alt payment is only available for standard learners.");
+    }
 
     // De-dup pending requests for same course+level
     const { data: existing } = await supabaseAdmin
@@ -66,7 +60,6 @@ export const submitAltPaymentRequest = createServerFn({ method: "POST" })
       level: data.level,
       amount: getCoursePrice(data.courseId, data.level as PriceLevel),
       methods: data.methods,
-      country: data.country,
       status: "pending",
     });
     if (error) throw new Error(error.message);
@@ -76,13 +69,16 @@ export const submitAltPaymentRequest = createServerFn({ method: "POST" })
       const { notifyAdminTelegram } = await import("@/lib/notify.server");
       const label = data.level === "diploma" ? "Diploma" : "Certificate";
       const labels: Record<string, string> = {
+        wechat_pay: "WeChat Pay",
         mukuru: "Mukuru",
         ecocash: "Ecocash",
-        western_union: "Western Union",
+        bank_transfer: "Bank transfer",
+        cash: "Cash",
+        paypal: "PayPal",
       };
       const methodLabel = data.methods.map((m) => labels[m] ?? m).join(", ");
       await notifyAdminTelegram(
-        `${special ? "AHEP special programme submission" : "Alt-payment request"}: ${label} for "${data.courseName}" by ${profile.full_name ?? profile.email ?? "learner"} (${profile.email ?? "no email"}). Country: ${data.country}. Preferred: ${methodLabel}. Amount: $${getCoursePrice(data.courseId, data.level as PriceLevel)}.`,
+        `${special ? "AHEP special programme submission" : "Alt-payment request"}: ${label} for "${data.courseName}" by ${profile.full_name ?? profile.email ?? "learner"} (${profile.email ?? "no email"}). Preferred: ${methodLabel}. Amount: $${getCoursePrice(data.courseId, data.level as PriceLevel)}.`,
       );
     } catch {
       /* never block */
@@ -97,7 +93,7 @@ export const listMyAltPaymentRequests = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data, error } = await context.supabase
       .from("alt_payment_requests")
-      .select("id, course_id, course_name, level, methods, status, amount, country, created_at, received_at")
+      .select("id, course_id, course_name, level, methods, status, amount, created_at, received_at")
       .eq("user_id", context.userId)
       .order("created_at", { ascending: false });
     if (error) throw error;

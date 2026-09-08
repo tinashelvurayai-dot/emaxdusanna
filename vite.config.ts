@@ -15,8 +15,22 @@ export default defineConfig({
       injectRegister: null,
       filename: "sw.js",
       devOptions: { enabled: false },
-      includeAssets: ["favicon.ico", "robots.txt", "logo.webp", "icon-192.png", "icon-512.png", "manifest.webmanifest"],
-      manifest: false,
+      includeAssets: ["favicon.ico", "robots.txt"],
+      manifest: {
+        name: "Edusanna — Free Online Learning",
+        short_name: "Edusanna",
+        description:
+          "Africa's free online learning platform. Earn affordable certificates and diplomas.",
+        start_url: "/",
+        scope: "/",
+        display: "standalone",
+        background_color: "#ffffff",
+        theme_color: "#01579B",
+        icons: [
+          { src: "/pwa-192.png", sizes: "192x192", type: "image/png", purpose: "any maskable" },
+          { src: "/pwa-512.png", sizes: "512x512", type: "image/png", purpose: "any maskable" },
+        ],
+      },
       workbox: {
         navigateFallback: "/",
         navigateFallbackDenylist: [/^\/~oauth/, /^\/api\//, /^\/_serverFn/],

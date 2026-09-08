@@ -1,16 +1,15 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Award, ArrowLeft, Loader2, ShieldCheck, UserCheck, GraduationCap, Smartphone, Wallet, Send, Leaf, Globe2 } from "lucide-react";
+import { Award, ArrowLeft, Loader2, ShieldCheck, UserCheck, GraduationCap, Smartphone, Wallet, MessageCircle, Send, Leaf } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SiteFooter } from "@/components/site-footer";
-import { CountrySelect } from "@/components/country-select";
 import { toast } from "sonner";
 import { getCatalogItem, getCourseTitle, PRICES, type CourseLevel } from "@/lib/courses";
+import { createPayPalOrder } from "@/lib/paypal.functions";
 import { getMyFullName, verifyFullName, submitAcademiaCertificate } from "@/lib/profile.functions";
 import { submitAltPaymentRequest } from "@/lib/alt-payment.functions";
 import { isSpecialCourse } from "@/lib/special-courses";
@@ -34,15 +33,10 @@ export const Route = createFileRoute("/_authenticated/certificate-payment")({
   component: CertificatePaymentPage,
 });
 
-const PAYMENT_METHODS = [
-  { id: "ecocash", label: "Ecocash", icon: <Smartphone className="w-4 h-4" /> },
-  { id: "mukuru", label: "Mukuru", icon: <Wallet className="w-4 h-4" /> },
-  { id: "western_union", label: "Western Union", icon: <Globe2 className="w-4 h-4" /> },
-] as const;
-
 function CertificatePaymentPage() {
   const { courseId, level, error } = Route.useSearch();
   const navigate = useNavigate();
+  const createOrder = useServerFn(createPayPalOrder);
   const fetchName = useServerFn(getMyFullName);
   const saveName = useServerFn(verifyFullName);
   const submitAcademia = useServerFn(submitAcademiaCertificate);
@@ -50,7 +44,6 @@ function CertificatePaymentPage() {
   const [loading, setLoading] = useState(false);
   const [nameLoaded, setNameLoaded] = useState(false);
   const [fullName, setFullName] = useState("");
-  const [country, setCountry] = useState("");
   const [signupType, setSignupType] = useState<"standard" | "academia">("standard");
   const [schoolName, setSchoolName] = useState<string | null>(null);
   const [verified, setVerified] = useState(false);
@@ -77,7 +70,6 @@ function CertificatePaymentPage() {
         setFullName(r.fullName ?? "");
         setSignupType(r.signupType === "academia" ? "academia" : "standard");
         setSchoolName(r.schoolName ?? null);
-        if (r.country) setCountry(r.country);
         setNameLoaded(true);
       })
       .catch(() => setNameLoaded(true));
@@ -97,6 +89,27 @@ function CertificatePaymentPage() {
       toast.error(err instanceof Error ? err.message : "Could not save name.");
     } finally {
       setSavingName(false);
+    }
+  };
+
+  const handlePay = async () => {
+    if (!item) {
+      toast.error("Course not found.");
+      return;
+    }
+    if (!verified) {
+      toast.error("Please verify your full name first.");
+      return;
+    }
+    setLoading(true);
+    try {
+      const { approveUrl } = await createOrder({
+        data: { courseId, courseName: title, level },
+      });
+      window.location.href = approveUrl;
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "Could not start PayPal checkout.");
+      setLoading(false);
     }
   };
 
@@ -124,15 +137,9 @@ function CertificatePaymentPage() {
     setAltMethods((prev) => (prev.includes(m) ? prev.filter((x) => x !== m) : [...prev, m]));
   };
 
-  const queryClient = useQueryClient();
-
   const handleAltSubmit = async () => {
     if (!verified) {
       toast.error("Please verify your full name first.");
-      return;
-    }
-    if (!country) {
-      toast.error("Please select your country.");
       return;
     }
     if (altMethods.length === 0) {
@@ -142,7 +149,7 @@ function CertificatePaymentPage() {
     setAltSubmitting(true);
     try {
       const r = await submitAlt({
-        data: { courseId, courseName: title, level, methods: altMethods, country },
+        data: { courseId, courseName: title, level, methods: altMethods },
       });
       if (r.alreadySubmitted) {
         toast.info("You already submitted a request for this course. Our team will be in touch.");
@@ -182,7 +189,7 @@ function CertificatePaymentPage() {
               <p className="text-xs text-amber-800 mb-3">
                 This is exactly how your name will appear on your certificate. Please double-check the spelling.
               </p>
-              <Label htmlFor="full-name" className="text-xs text-black">Full name</Label>
+              <Label htmlFor="full-name" className="text-xs text-blue-900">Full name</Label>
               <Input
                 id="full-name"
                 value={fullName}
@@ -192,7 +199,7 @@ function CertificatePaymentPage() {
                   setVerified(false);
                 }}
                 placeholder="Your full legal name"
-                className="mt-1 mb-3 text-black"
+                className="mt-1 mb-3"
               />
               <Button
                 type="button"
@@ -206,7 +213,50 @@ function CertificatePaymentPage() {
               </Button>
             </div>
 
-            {isAcademia ? (
+            {isSpecial ? (
+              <div className="text-left">
+                <div className="rounded-xl bg-teal-50 border border-teal-100 p-5 mb-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <Leaf className="w-4 h-4 text-teal-700" />
+                    <span className="text-sm font-bold text-teal-900">AHEP special programme</span>
+                  </div>
+                  <p className="text-sm text-teal-800">
+                    Submit your details and choose the payment options that suit you. The Edusanna team reviews every request in the admin dashboard and sends you payment guidance.
+                  </p>
+                </div>
+                <p className="text-sm font-bold text-blue-900 mb-1">Flexible payment options</p>
+                <p className="text-xs text-blue-600 mb-3">Select all the methods you are comfortable with:</p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
+                  {[
+                    { id: "ecocash", label: "Ecocash", icon: <Smartphone className="w-4 h-4" /> },
+                    { id: "mukuru", label: "Mukuru", icon: <Wallet className="w-4 h-4" /> },
+                    { id: "wechat_pay", label: "WeChat Pay", icon: <MessageCircle className="w-4 h-4" /> },
+                    { id: "bank_transfer", label: "Bank transfer", icon: <Wallet className="w-4 h-4" /> },
+                    { id: "cash", label: "Cash", icon: <Wallet className="w-4 h-4" /> },
+                    { id: "paypal", label: "PayPal", icon: <ShieldCheck className="w-4 h-4" /> },
+                  ].map((m) => (
+                    <AltMethodButton
+                      key={m.id}
+                      active={altMethods.includes(m.id)}
+                      onClick={() => toggleAltMethod(m.id)}
+                      icon={m.icon}
+                      label={m.label}
+                    />
+                  ))}
+                </div>
+                <Button
+                  onClick={handleAltSubmit}
+                  disabled={altSubmitting || !verified || altMethods.length === 0}
+                  className="premium-button w-full py-3"
+                >
+                  {altSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
+                  Submit details to Edusanna
+                </Button>
+                <p className="flex items-center justify-center gap-1.5 text-xs text-blue-500 mt-3">
+                  <ShieldCheck className="w-4 h-4" /> Your submission appears in the admin dashboard
+                </p>
+              </div>
+            ) : isAcademia ? (
               <>
                 <div className="rounded-xl bg-purple-50 border border-purple-100 p-5 mb-6 text-left">
                   <div className="flex items-center gap-2 mb-2">
@@ -221,97 +271,105 @@ function CertificatePaymentPage() {
                   {loading ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : null}
                   Submit request
                 </Button>
+                <p className="flex items-center justify-center gap-1.5 text-xs text-blue-500 mt-3">
+                  <ShieldCheck className="w-4 h-4" /> Your request will appear in the admin dashboard
+                </p>
               </>
             ) : (
-              <div className="text-left">
-                <div className="rounded-xl bg-teal-50 border border-teal-100 p-5 mb-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Leaf className="w-4 h-4 text-teal-700" />
-                    <span className="text-sm font-bold text-teal-900">
-                      {isSpecial ? "AHEP special programme" : "Credential request"}
+              <>
+                <div className="rounded-xl bg-blue-50 border border-blue-100 p-5 mb-6 text-left">
+                  <div className="flex justify-between items-center text-blue-800 mb-2">
+                    <span>{level === "diploma" ? "Diploma" : "Certificate"} credential</span>
+                    <span className="inline-flex items-baseline gap-2">
+                      <span className="text-blue-400 line-through text-sm">${level === "diploma" ? 24 : 16}</span>
+                      <span className="font-semibold text-green-700">${price.toFixed(2)}</span>
                     </span>
                   </div>
-                  <p className="text-sm text-teal-800">
-                    Submit your details and choose the payment options that suit you. The Edusanna team reviews every request and sends you payment guidance.
-                  </p>
-                </div>
-
-                <div className="rounded-xl bg-blue-50 border border-blue-100 p-4 mb-6">
-                  <div className="flex justify-between text-blue-900 font-bold">
-                    <span>{level === "diploma" ? "Diploma" : "Certificate"} credential</span>
+                  <div className="text-xs font-semibold text-green-700 mb-3">
+                    You save ${(level === "diploma" ? 24 : 16) - price}.00 - launch pricing
+                  </div>
+                  <div className="flex justify-between text-blue-900 font-bold text-lg border-t border-blue-200 pt-2">
+                    <span>Total</span>
                     <span>${price.toFixed(2)} USD</span>
                   </div>
                 </div>
 
-                <div className="mb-4">
-                  <Label htmlFor="country" className="text-xs text-black">Country</Label>
-                  <div className="mt-1">
-                    <CountrySelect id="country" value={country} onChange={setCountry} />
-                  </div>
-                  <p className="mt-1 text-xs text-blue-600">
-                    Search the list to find your country — this helps us send the right payment instructions.
-                  </p>
-                </div>
-
-                <p className="text-sm font-bold text-blue-900 mb-1">Flexible payment options</p>
-                <p className="text-xs text-blue-600 mb-3">Select all the methods you are comfortable with:</p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
-                  {PAYMENT_METHODS.map((m) => (
-                    <AltMethodButton
-                      key={m.id}
-                      active={altMethods.includes(m.id)}
-                      onClick={() => toggleAltMethod(m.id)}
-                      icon={m.icon}
-                      label={m.label}
-                    />
-                  ))}
-                </div>
-                <Button
-                  onClick={handleAltSubmit}
-                  disabled={altSubmitting || !verified || !country || altMethods.length === 0}
-                  className="premium-button w-full py-3"
-                >
-                  {altSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
-                  Submit details to Edusanna
+                <Button onClick={handlePay} disabled={loading || !verified} className="premium-button w-full py-3 text-lg">
+                  {loading ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : null}
+                  Pay with PayPal
                 </Button>
                 <p className="flex items-center justify-center gap-1.5 text-xs text-blue-500 mt-3">
-                  <ShieldCheck className="w-4 h-4" /> Your details are only shared with the Edusanna credential team
+                  <ShieldCheck className="w-4 h-4" /> Secure checkout via PayPal
                 </p>
-              </div>
+
+                {/* Alt payment methods for users in countries where PayPal is unsuitable */}
+                <div className="mt-8 pt-6 border-t border-blue-100 text-left">
+                  <p className="text-sm font-bold text-blue-900 mb-1">
+                    PayPal Payment Method unsuitable in your Country?
+                  </p>
+                  <p className="text-xs text-blue-600 mb-3">
+                    Select Payment Methods You are suitable with:
+                  </p>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mb-4">
+                    <AltMethodButton
+                      active={altMethods.includes("ecocash")}
+                      onClick={() => toggleAltMethod("ecocash")}
+                      icon={<Smartphone className="w-4 h-4" />}
+                      label="Ecocash"
+                    />
+                    <AltMethodButton
+                      active={altMethods.includes("mukuru")}
+                      onClick={() => toggleAltMethod("mukuru")}
+                      icon={<Wallet className="w-4 h-4" />}
+                      label="Mukuru"
+                    />
+                    <AltMethodButton
+                      active={altMethods.includes("wechat_pay")}
+                      onClick={() => toggleAltMethod("wechat_pay")}
+                      icon={<MessageCircle className="w-4 h-4" />}
+                      label="WeChat Pay"
+                    />
+                  </div>
+                  <Button
+                    onClick={handleAltSubmit}
+                    disabled={altSubmitting || !verified || altMethods.length === 0}
+                    variant="outline"
+                    className="w-full border-blue-300 hover:bg-blue-50 text-blue-700"
+                  >
+                    {altSubmitting ? <Loader2 className="w-4 h-4 mr-2 animate-spin" /> : <Send className="w-4 h-4 mr-2" />}
+                    Send To Edusanna
+                  </Button>
+                </div>
+              </>
             )}
           </div>
 
           <Dialog open={showAltConfirm} onOpenChange={setShowAltConfirm}>
             <DialogContent>
               <DialogHeader>
-                <DialogTitle>Submission successful</DialogTitle>
+                <DialogTitle>{isSpecial ? "Submission successful" : "Request received"}</DialogTitle>
                 <DialogDescription>
-                  Your details have been received by the Edusanna team.
+                  {isSpecial
+                    ? "Your details have been received by the Edusanna team."
+                    : "Edusanna Team will assist you via email instructions with payment guidance details."}
                 </DialogDescription>
               </DialogHeader>
-              <div className="rounded-2xl border border-teal-200 bg-gradient-to-br from-teal-50 to-blue-50 p-5 text-center">
-                {isSpecial && (
+              {isSpecial && (
+                <div className="rounded-2xl border border-teal-200 bg-gradient-to-br from-teal-50 to-blue-50 p-5 text-center">
                   <p className="text-base font-bold text-blue-900 mb-2">
                     Congratulations on completing this Professional Leadership Program <span aria-hidden="true">⭐⭐⭐</span>
                   </p>
-                )}
-                <p className="text-sm text-blue-800 leading-relaxed">
-                  An email from <strong>edusannaonlinelearning@gmail.com</strong> will be sent to you with payment
-                  option details. After payment completion you will finally receive your{" "}
-                  {level === "diploma" ? "Diploma" : "Certificate"} via email.
-                </p>
-                {isSpecial && (
-                  <p className="text-xs font-semibold text-purple-700 mt-3">
+                  <p className="text-sm text-blue-800 leading-relaxed">
+                    An email from <strong>edusannaonlinelearning@gmail.com</strong> will be sent to you with payment
+                    option details. After payment completion you will finally receive your Diploma via email.
+                  </p>
+                  <p className="text-xs text-teal-700 mt-3">
                     The AHEP diploma is a unique credential issued with the programme's partner logos.
                   </p>
-                )}
-              </div>
+                </div>
+              )}
               <DialogFooter>
-                <Button onClick={() => {
-                  setShowAltConfirm(false);
-                  queryClient.invalidateQueries({ queryKey: ["dashboard"] });
-                  navigate({ to: "/dashboard" });
-                }} className="premium-button">
+                <Button onClick={() => { setShowAltConfirm(false); navigate({ to: "/dashboard" }); }} className="premium-button">
                   Got it
                 </Button>
               </DialogFooter>
@@ -330,30 +388,19 @@ function CertificatePaymentPage() {
   );
 }
 
-function AltMethodButton({
-  active,
-  onClick,
-  icon,
-  label,
-}: {
-  active: boolean;
-  onClick: () => void;
-  icon: React.ReactNode;
-  label: string;
-}) {
+function AltMethodButton({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
   return (
     <button
       type="button"
       onClick={onClick}
-      aria-pressed={active}
-      className={`flex items-center justify-center gap-2 rounded-xl border px-3 py-2.5 text-sm font-semibold transition-colors ${
+      className={`flex items-center justify-center gap-2 rounded-xl border-2 px-3 py-3 text-sm font-semibold transition-all ${
         active
-          ? "border-blue-600 bg-blue-600 text-white"
-          : "border-blue-200 bg-white text-blue-700 hover:bg-blue-50"
+          ? "border-blue-600 bg-blue-600 text-white shadow-md scale-[1.02]"
+          : "border-blue-200 bg-white text-blue-700 hover:border-blue-400 hover:bg-blue-50"
       }`}
     >
       {icon}
-      {label}
+      <span>{label}</span>
     </button>
   );
 }

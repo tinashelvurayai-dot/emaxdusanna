@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import {
-  Users, GraduationCap, DollarSign, Trash2, Loader2, ShieldAlert,
+  Users, GraduationCap, DollarSign, Upload, Trash2, Loader2, ShieldAlert,
   ChartBar, CheckCircle2, AlertTriangle, Sparkles, MessageSquare, FileDown, Eye, Search,
 } from "lucide-react";
 import {
@@ -26,13 +26,13 @@ import { toast } from "sonner";
 import {
   getMySchoolAdmin,
   listSchoolStudents,
+  listRoster,
+  bulkAddRoster,
+  removeRosterEntry,
   verifySchoolPayment,
   getSchoolClassAnalytics,
   getSchoolStudentDetail,
   sendClassBroadcast,
-  listRoster,
-  bulkAddRoster,
-  removeRosterEntry,
 } from "@/lib/school.functions";
 
 
@@ -83,10 +83,10 @@ function SchoolAdminPage() {
     );
   }
 
-  return <Content schoolName={data.schoolAdmin.school_name as string} fullName={data.fullName} logoUrl={data.logoUrl} />;
+  return <Content schoolName={data.schoolAdmin.school_name as string} contactName={data.schoolAdmin.contact_name as string | null} />;
 }
 
-function Content({ schoolName, fullName, logoUrl }: { schoolName: string; fullName: string | null; logoUrl: string | null }) {
+function Content({ schoolName, contactName }: { schoolName: string; contactName: string | null }) {
   return (
     <div className="min-h-screen">
       <SiteNavbar />
@@ -95,12 +95,17 @@ function Content({ schoolName, fullName, logoUrl }: { schoolName: string; fullNa
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3 mb-2">
             <div className="w-14 h-14 rounded-2xl bg-white border border-blue-100 shadow-sm flex items-center justify-center overflow-hidden flex-shrink-0">
-              <img src={logoUrl || edusannaLogo.url} alt={`${schoolName} logo`} className="w-10 h-10 object-contain" />
+              <img src={edusannaLogo.url} alt="Edusanna" className="w-10 h-10 object-contain" />
             </div>
             <div>
-              <h1 className="text-3xl md:text-4xl font-black text-blue-900 leading-tight">Welcome back, {fullName || "School Admin"}</h1>
-              <p className="text-blue-600 text-sm">{schoolName} · School admin dashboard</p>
+              <h1 className="text-3xl md:text-4xl font-black text-blue-900 leading-tight">{schoolName}</h1>
+              <p className="text-blue-600 text-sm">School admin dashboard{contactName ? ` - ${contactName}` : ""}</p>
             </div>
+            <Link to="/settings" className="ml-auto shrink-0">
+              <Button variant="outline" className="min-h-11 border-blue-200 text-blue-700 hover:bg-blue-50">
+                Settings
+              </Button>
+            </Link>
           </div>
 
 
@@ -109,10 +114,12 @@ function Content({ schoolName, fullName, logoUrl }: { schoolName: string; fullNa
               <TabsTrigger value="analytics"><ChartBar className="w-4 h-4 mr-1.5" />Analytics</TabsTrigger>
               <TabsTrigger value="students"><Users className="w-4 h-4 mr-1.5" />Students</TabsTrigger>
               <TabsTrigger value="payments"><DollarSign className="w-4 h-4 mr-1.5" />Verify payment</TabsTrigger>
+              <TabsTrigger value="roster"><Upload className="w-4 h-4 mr-1.5" />Roster</TabsTrigger>
             </TabsList>
             <TabsContent value="analytics"><AnalyticsTab schoolName={schoolName} /></TabsContent>
             <TabsContent value="students"><StudentsTab /></TabsContent>
             <TabsContent value="payments"><VerifyPaymentTab /></TabsContent>
+            <TabsContent value="roster"><RosterTab /></TabsContent>
           </Tabs>
         </div>
       </section>
@@ -828,7 +835,11 @@ function RosterTab() {
   const upload = useMutation({
     mutationFn: () => {
       const cls = className.trim();
-      return bulk({ data: { className: cls || undefined, names: parsedEntries } });
+      const entries = parsedEntries.map((name) => ({
+        fullName: name,
+        className: cls || undefined,
+      }));
+      return bulk({ data: { entries } });
     },
     onSuccess: (res) => {
       toast.success(`${(res as any).added ?? 0} students added to ${className || "no class"}`);

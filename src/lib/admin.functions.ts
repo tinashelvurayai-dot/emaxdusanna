@@ -97,59 +97,20 @@ export const updatePaymentStatus = createServerFn({ method: "POST" })
     return { success: true };
   });
 
-/**
- * Paginated list of registered users for the admin users table.
- * Server-side paging + text search keeps this fast at 10k+ learners
- * (never loads the whole profiles table into the browser).
- */
-export const listUsers = createServerFn({ method: "POST" })
+/** List of registered users for the admin users table. */
+export const listUsers = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input?: { page?: number; pageSize?: number; search?: string; sort?: string }) => {
-    const page = Math.max(1, Math.floor(Number(input?.page ?? 1)) || 1);
-    const pageSize = Math.min(200, Math.max(10, Math.floor(Number(input?.pageSize ?? 50)) || 50));
-    return {
-      page,
-      pageSize,
-      search: (input?.search ?? "").trim().slice(0, 120),
-      sort: input?.sort ?? "newest",
-    };
-  })
-  .handler(async ({ data, context }) => {
+  .handler(async ({ context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-
-    let q = supabaseAdmin
+    const { data, error } = await supabaseAdmin
       .from("profiles")
-      .select("id, full_name, email, country, city, signup_type, school_name, school_id, created_at", {
-        count: "exact",
-      });
-
-    // Free-text words (tokens like "type:academia" are applied client-side).
-    const words = data.search
-      .split(/\s+/)
-      .filter((w) => w.length >= 2 && !w.includes(":"))
-      .slice(0, 3);
-    for (const w of words) {
-      const safe = w.replace(/[%,()]/g, "");
-      q = q.or(`full_name.ilike.%${safe}%,email.ilike.%${safe}%,school_name.ilike.%${safe}%`);
-    }
-
-    if (data.sort === "name") q = q.order("full_name", { ascending: true });
-    else if (data.sort === "school") q = q.order("school_name", { ascending: true });
-    else q = q.order("created_at", { ascending: data.sort === "oldest" });
-
-    const from = (data.page - 1) * data.pageSize;
-    const { data: rows, error, count } = await q.range(from, from + data.pageSize - 1);
+      .select("id, full_name, email, country, city, signup_type, school_name, created_at")
+      .order("created_at", { ascending: false })
+      .limit(500);
     if (error) throw error;
-    return {
-      users: rows ?? [],
-      total: count ?? 0,
-      page: data.page,
-      pageSize: data.pageSize,
-      pageCount: Math.max(1, Math.ceil((count ?? 0) / data.pageSize)),
-    };
+    return { users: data ?? [] };
   });
-
 
 import { getCoursePrice, type PriceLevel } from "@/lib/pricing";
 
@@ -295,88 +256,27 @@ export const listContractedSchools = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const [schoolsRes, learnersRes, adminsRes, rosterRes] = await Promise.all([
-      supabaseAdmin
-        .from("contracted_schools")
-        .select("id, name, logo_url, created_at, is_active, seat_limit, notes")
-        .order("name", { ascending: true }),
-      supabaseAdmin.from("profiles").select("school_id").not("school_id", "is", null),
-      supabaseAdmin.from("school_admins").select("school_id, school_name, user_id"),
-      supabaseAdmin.from("school_rosters").select("school_id").not("school_id", "is", null),
-    ]);
-    if (schoolsRes.error) throw schoolsRes.error;
-
-    const tally = (rows: Array<{ school_id: string | null }> | null) => {
-      const m = new Map<string, number>();
-      for (const r of rows ?? []) {
-        if (!r.school_id) continue;
-        m.set(r.school_id, (m.get(r.school_id) ?? 0) + 1);
-      }
-      return m;
-    };
-    const learners = tally(learnersRes.data as any);
-    const roster = tally(rosterRes.data as any);
-    const admins = tally((adminsRes.data ?? []) as any);
-
-    const schools = (schoolsRes.data ?? []).map((s) => ({
-      ...s,
-      learnerCount: learners.get(s.id) ?? 0,
-      rosterCount: roster.get(s.id) ?? 0,
-      adminCount: admins.get(s.id) ?? 0,
-      seatsUsedPct: s.seat_limit ? Math.round(((learners.get(s.id) ?? 0) / s.seat_limit) * 100) : null,
-    }));
-
-    // School admin accounts whose school name does not match the contracted list.
-    const unlinkedAdmins = (adminsRes.data ?? [])
-      .filter((a: any) => !a.school_id)
-      .map((a: any) => ({ userId: a.user_id, schoolName: a.school_name }));
-
-    return { schools, unlinkedAdmins };
-  });
-
-/** Toggle a school's active state / seat limit. */
-export const updateContractedSchool = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string; isActive?: boolean; seatLimit?: number | null; logoUrl?: string | null }) => {
-    if (!input?.id) throw new Error("Missing id");
-    const seatLimit =
-      input.seatLimit === null || input.seatLimit === undefined
-        ? input.seatLimit ?? undefined
-        : Number(input.seatLimit);
-    if (typeof seatLimit === "number" && (!Number.isFinite(seatLimit) || seatLimit < 0 || seatLimit > 100000))
-      throw new Error("Invalid seat limit");
-    return { id: input.id, isActive: input.isActive, seatLimit, logoUrl: input.logoUrl?.trim().slice(0, 1000) || null };
-  })
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const patch: { is_active?: boolean; seat_limit?: number | null; logo_url?: string | null } = {};
-    if (typeof data.isActive === "boolean") patch.is_active = data.isActive;
-    if (data.seatLimit !== undefined) patch.seat_limit = data.seatLimit;
-    if (data.logoUrl !== undefined) patch.logo_url = data.logoUrl;
-
-    if (Object.keys(patch).length === 0) return { success: true };
-    const { error } = await supabaseAdmin.from("contracted_schools").update(patch).eq("id", data.id);
+    const { data, error } = await supabaseAdmin
+      .from("contracted_schools")
+      .select("id, name, created_at")
+      .order("name", { ascending: true });
     if (error) throw error;
-    return { success: true };
+    return { schools: data ?? [] };
   });
-
 
 export const addContractedSchool = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { name: string; logoUrl?: string }) => {
+  .inputValidator((input: { name: string }) => {
     const name = (input?.name ?? "").trim();
     if (name.length < 2 || name.length > 200) throw new Error("School name is required");
-    const logoUrl = (input?.logoUrl ?? "").trim().slice(0, 1000) || null;
-    if (logoUrl && !/^https?:\/\//i.test(logoUrl)) throw new Error("Logo URL must start with http:// or https://");
-    return { name, logoUrl };
+    return { name };
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("contracted_schools")
-      .insert({ name: data.name, logo_url: data.logoUrl, created_by: context.userId });
+      .insert({ name: data.name, created_by: context.userId });
     if (error) {
       if (error.code === "23505") throw new Error("That school is already on the list");
       throw error;
@@ -454,48 +354,3 @@ export const saveSampleCertificate = createServerFn({ method: "POST" })
     return { success: true };
   });
 
-
-/* ------------------------------ Auth page settings ----------------------------- */
-
-const AUTH_SETTINGS_KEY = "auth_settings";
-
-export interface AuthSettingsValue {
-  googleEnabled: boolean;
-}
-
-const DEFAULT_AUTH_SETTINGS: AuthSettingsValue = { googleEnabled: true };
-
-/** Public read so the sign-in page knows whether to render the Google button. */
-export const getAuthSettings = createServerFn({ method: "GET" }).handler(async () => {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-  const { data } = await supabaseAdmin
-    .from("site_settings")
-    .select("value")
-    .eq("key", AUTH_SETTINGS_KEY)
-    .maybeSingle();
-  const value = (data?.value as Partial<AuthSettingsValue> | null) ?? null;
-  return {
-    value: {
-      googleEnabled: value?.googleEnabled ?? DEFAULT_AUTH_SETTINGS.googleEnabled,
-    } as AuthSettingsValue,
-  };
-});
-
-export const saveAuthSettings = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: AuthSettingsValue) => {
-    if (!input || typeof input.googleEnabled !== "boolean") throw new Error("Invalid payload");
-    return { googleEnabled: input.googleEnabled };
-  })
-  .handler(async ({ data, context }) => {
-    await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const { error } = await supabaseAdmin.from("site_settings").upsert({
-      key: AUTH_SETTINGS_KEY,
-      value: data,
-      updated_at: new Date().toISOString(),
-      updated_by: context.userId,
-    });
-    if (error) throw error;
-    return { success: true };
-  });

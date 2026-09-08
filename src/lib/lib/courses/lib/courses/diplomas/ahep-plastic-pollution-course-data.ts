@@ -2,232 +2,146 @@ export const AHEPPlasticPollutionDiploma = {
   // COURSE METADATA & IDENTIFICATION
   id: "ahep-plastic-pollution-diploma",
   title: "AHEP Certified Plastic Pollution Leadership Program",
-  description: "A comprehensive diploma-level certification empowering leaders to combat plastic pollution across Africa. This course covers plastic pollution science, water body contamination, policy frameworks, leadership principles, prevention strategies, and practical solutions for environmental and water resource protection.",
+  description: "A comprehensive diploma-level certification empowering leaders to drive solutions for plastic pollution across Africa. This course covers the science of plastic pollution, policy frameworks, leadership principles, prevention strategies, and practical solutions for sustainable environmental management.",
   duration: "Self-Paced (Recommended 8-10 weeks)",
-  timeCommitment: "Self-Paced",
-  price: 30,
+  timeCommitment: "4-6 hours per module (approximately 24-36 hours total)",
+  price: 40,
   certificatePrice: 0,
-  icon: "🌊",
+  icon: "🌍",
   badge: "Diploma",
   prerequisite: "Interest in environmental leadership and commitment to addressing plastic pollution",
   languages: ["English", "French"],
-  organization: {
-    name: "African Hub to End Plastic Pollution (AHEP)",
-    parent: "Global Aid for Africa (GAA)",
-    focus: ["Plastic Pollution", "Water Body Protection", "Environmental Health", "Community Empowerment"]
-  },
   
   // MODULE ARCHITECTURE - 6 COMPREHENSIVE MODULES
   modules: [
-    // MODULE 1: PLASTIC POLLUTION, WATER BODIES & THE AFRICAN CRISIS
+    // MODULE 1: PLASTIC POLLUTION: SCIENCE, IMPACTS & THE AFRICAN CONTEXT
     {
       id: 1,
-      title: "Plastic Pollution, Water Bodies & The African Crisis",
-      content: `# Plastic Pollution, Water Bodies & The African Crisis
+      title: "Plastic Pollution: Science, Impacts & The African Context",
+      content: `# Plastic Pollution: Science, Impacts & The African Context
 
-This module provides a comprehensive foundation in plastic pollution science, its devastating impact on water bodies, and the specific challenges and opportunities facing the African continent.
+This module provides a comprehensive foundation in plastic pollution science, its environmental and human impacts, and the specific challenges and opportunities facing the African continent.
 
 ---
 
-## Understanding Plastic Pollution and Its Threat to Water Bodies
+## Understanding Plastic Pollution
 
 **What is Plastic Pollution?**
-Plastic pollution refers to the accumulation of plastic products in the environment, with particularly devastating effects on water bodies including oceans, rivers, lakes, and groundwater systems. Unlike organic materials, most plastics persist in the environment for hundreds to thousands of years.
+Plastic pollution refers to the accumulation of plastic products in the environment, adversely affecting wildlife, habitats, and human populations. Unlike organic materials, most plastics persist in the environment for hundreds to thousands of years.
 
 **Key Concepts:**
 - **Macroplastics**: Visible items like bags, bottles, and packaging
 - **Microplastics**: Particles smaller than 5mm (fragments, fibers, microbeads)
 - **Nanoplastics**: Invisible particles smaller than 1 micrometer
-- **Primary Microplastics**: Manufactured small particles (microbeads, pellets)
-- **Secondary Microplastics**: Fragments from degradation of larger plastics
 
-**The Plastic Lifecycle and Water Pathways:**
+**The Plastic Lifecycle:**
 1. Extraction of fossil fuels (oil and gas)
 2. Polymer production
 3. Product manufacturing
 4. Distribution and consumption
-5. Disposal and environmental release
-6. Transport through watersheds to water bodies
+5. Disposal (landfill, incineration, or recycling)
 
 ---
 
-## The Global Plastic Crisis and Water Contamination
+## The Global Plastic Crisis
 
 **Historical Context:**
-Mass production of plastics began in the 1950s. Today, plastic pollution is recognized as one of the greatest threats to global water resources and aquatic ecosystems.
+Mass production of plastics began in the 1950s, and production has accelerated dramatically ever since. The convenience and low cost of plastics have led to widespread use, but the environmental consequences are now being fully recognized.
 
 **Plastic Production and Consumption:**
-Plastics are ubiquitous in modern life, with packaging representing the largest single use category. Consumer products, construction materials, automotive components, electronics, and textiles all contribute to plastic consumption.
+Plastics are ubiquitous in modern life, with packaging representing the largest single use category. Consumer products, construction materials, automotive components, electronics, and textiles all contribute significantly to global plastic consumption.
 
-**Water Body Contamination:**
-- **Oceans**: An estimated 8-12 million tons of plastic enter oceans annually
-- **Rivers**: Major conduits transporting plastic from land to sea
-- **Lakes**: Increasingly contaminated with microplastics
-- **Groundwater**: Microplastics detected in groundwater sources
-- **Drinking Water**: Microplastics found in tap water and bottled water globally
+**Global Distribution of Plastic Waste:**
+High-income countries generate the most plastic waste per capita, while many low and middle-income countries become destinations for plastic waste exports. A significant portion of ocean plastics originates from land-based sources, transported through rivers and waterways.
 
-**Environmental Impacts on Water Bodies:**
+**Environmental Impacts:**
 - **Marine Ecosystems**: Wildlife entanglement, ingestion of plastics, habitat damage
-- **Freshwater Ecosystems**: Contamination of rivers and lakes, harm to aquatic life
-- **Microplastic Contamination**: Found throughout the water column, sediments, and aquatic organisms
-- **Ecosystem Services Affected**: Water purification, nutrient cycling, food security
-- **Biodiversity Loss**: Species decline from plastic ingestion and entanglement
+- **Terrestrial Ecosystems**: Soil contamination, plant growth inhibition
+- **Microplastic Contamination**: Found everywhere from deep oceans to high mountains
+- **Ecosystem Services Affected**: Pollination, nutrient cycling, food security
 
-**Human Health Impacts from Water Contamination:**
-- **Direct Exposure**: Ingestion through contaminated drinking water and seafood
+**Human Health Impacts:**
+- **Direct Exposure**: Ingestion through contaminated food and water, inhalation
 - **Chemical Exposure**: Additives like BPA and phthalates are endocrine disruptors
-- **Health Effects**: Reproductive issues, developmental effects, cardiovascular concerns, potential carcinogenic effects
-- **Waterborne Pathogens**: Plastics can harbor harmful bacteria and pathogens
-- **Bioaccumulation**: Toxins accumulate up the food chain, reaching humans
+- **Health Effects**: Reproductive issues, developmental effects, cardiovascular concerns
 
 ---
 
-## The African Water Crisis and Plastic Pollution
+## Plastic Pollution in Africa
 
 **The African Context:**
-Africa faces unique challenges in addressing plastic pollution and water contamination. The continent has abundant water resources but faces significant threats from pollution, climate change, and inadequate infrastructure.
-
-**Water Resources at Risk:**
-- **Major River Systems**: Nile, Congo, Niger, Zambezi, Orange, Limpopo
-- **Great Lakes**: Victoria, Tanganyika, Malawi, Albert, Edward, Kivu
-- **Groundwater Resources**: Critical for drinking water and agriculture
-- **Coastal Waters**: Rich in biodiversity and supporting fisheries
-- **Wetlands**: Important ecosystems for water purification and biodiversity
-
-**Current Situation:**
-- African countries generate significant plastic waste annually
-- Less than 10% of plastic waste in Africa is collected
-- As little as 4% of collected plastic is recycled
-- Plastic waste is projected to increase dramatically by 2050
-- Rivers and lakes are increasingly contaminated with plastic
+Africa faces unique challenges in addressing plastic pollution. While the continent's contribution to global plastic production is relatively small, the impacts are significant due to rapid urbanization, limited waste management infrastructure, and high rates of open dumping and burning.
 
 **Regional Challenges:**
 - Rapid population growth and urbanization
-- Limited waste collection and recycling infrastructure
-- High rates of open dumping and burning near water bodies
-- Agricultural runoff carrying plastic waste
-- Illegal dumping into rivers and lakes
-- Limited water treatment capacity
-- Transboundary water pollution
+- Limited formal waste collection and recycling infrastructure
+- High rates of open dumping and burning
+- Transboundary movement of waste from developed countries
+- Large informal waste sector operating with limited support
 
 **Country Examples of Leadership:**
-- **Rwanda**: Pioneered plastic bag bans, protects water catchments
-- **Kenya**: Strict plastic bag bans, lake protection initiatives
-- **South Africa**: Advanced recycling, water quality monitoring
-- **Egypt**: Nile River protection programs
-- **Uganda**: Lake Victoria protection initiatives
+- **Rwanda**: Pioneered plastic bag bans and maintains some of the cleanest cities in Africa
+- **Kenya**: Implemented strict plastic bag bans with enforcement mechanisms
+- **South Africa**: Has developed advanced recycling infrastructure
+- **Morocco, Senegal, Ethiopia**: Emerging leadership in plastic pollution prevention
 
 **Opportunities for Africa:**
 - Leapfrogging to circular economy models
-- Creating green jobs in water and waste management
-- Leveraging traditional water conservation practices
-- Building resilient, decentralized water and waste systems
-- Regional cooperation on transboundary water resources
+- Creating green jobs in the recycling sector
+- Leveraging traditional practices of reuse and repair
+- Building resilient, decentralized waste management systems
+- Regional cooperation and knowledge sharing
 
 ---
 
-## Sources and Pathways of Plastic Pollution to Water Bodies
+## Sources and Pathways of Plastic Pollution
 
 **Land-Based Sources:**
 - Inadequate waste management systems (open dumps, uncollected waste)
 - Littering and improper disposal
-- Stormwater runoff carrying plastic waste
-- Agricultural plastic waste (mulch, irrigation pipes)
-- Industrial discharge
-- Tourism and recreation along waterways
-- Sewage and wastewater (containing microplastics)
+- Industrial sources (manufacturing and processing waste)
+- Agriculture (plastic mulch, greenhouse films, irrigation pipes)
+- Tourism and recreation
 
-**Water-Based Sources:**
-- Fishing industry (lost and abandoned gear, "ghost nets")
+**Ocean-Based Sources:**
+- Fishing industry (lost and abandoned fishing gear, "ghost nets")
 - Shipping (cargo loss, shipboard waste)
 - Aquaculture (plastic infrastructure)
-- Recreational boating and water sports
-- Inland waterway transport
 
-**Transport Pathways to Water Bodies:**
-- **Rivers**: Major conduits transporting plastic from land to sea
-- **Surface Runoff**: Carries plastics from land to waterways
-- **Wind**: Can carry lightweight plastics over long distances
-- **Ocean Currents**: Accumulate plastics in large garbage patches
-- **Groundwater Infiltration**: Microplastics entering groundwater
-- **Atmospheric Deposition**: Plastics falling from the atmosphere
-
-**Major River Systems and Plastic Transport:**
-- African rivers transport significant plastic to oceans
-- The Congo, Nile, Niger, and Zambezi are major conduits
-- Urban centers along rivers contribute significantly to plastic pollution
-- Dams and barriers can trap plastic but also create accumulation zones
+**Transport Pathways:**
+- Rivers are major conduits transporting plastic from land to sea
+- Wind can carry lightweight plastics over long distances
+- Ocean currents accumulate plastics in large garbage patches
 
 ---
 
-## Economic and Social Impacts
+## Economic Impacts of Plastic Pollution
 
 **Direct Economic Costs:**
-- Municipalities spend significant resources on water and plastic cleanup
-- Fisheries suffer losses from reduced catches and contamination
-- Tourism is affected by plastic-littered beaches and waterways
-- Water treatment costs increase due to plastic contamination
-- Damage to fishing gear and vessels from plastic debris
+- Municipalities spend significant resources on plastic litter collection and cleanup
+- Fisheries suffer losses from ghost nets and reduced catches
+- Tourism is affected by beach litter and degraded coastal environments
+- Recycling and waste management require substantial investment
 
 **Indirect Economic Costs:**
-- Healthcare costs for conditions linked to plastic exposure
-- Lost ecosystem services from degraded water bodies
+- Health care costs for conditions linked to plastic exposure
+- Lost ecosystem services and their economic value
 - Reduced property values in polluted areas
-- Loss of livelihoods for fishing and coastal communities
-- Agricultural impacts from plastic-contaminated water
 
-**Social and Community Impacts:**
-- **Water Security**: Contamination of drinking water sources
-- **Food Security**: Reduced fish populations, contaminated seafood
-- **Livelihoods**: Loss of income for fishing communities
-- **Health**: Increased disease burden from contaminated water
-- **Cultural Loss**: Degradation of culturally significant water bodies
-- **Migration**: Displacement from degraded environments
-
-**Implications for Africa:**
-- Threat to sustainable development goals
-- Impact on water, food, and energy security
-- Loss of natural capital and ecosystem services
-- Increased poverty and inequality
-- Health burden on vulnerable populations
-
----
-
-## The African Hub to End Plastic Pollution (AHEP)
-
-**Introduction to AHEP:**
-The African Hub to End Plastic Pollution (AHEP) is an international program of Global Aid for Africa (GAA), committed to combating plastic pollution across African water bodies and environments.
-
-**AHEP's Mandate:**
-- Address plastic pollution in African water bodies
-- Protect aquatic ecosystems and biodiversity
-- Ensure safe drinking water for communities
-- Empower communities to take action
-- Build partnerships for sustainable solutions
-
-**AHEP's Focus Areas:**
-1. **Water Bodies**: Rivers, lakes, oceans, groundwater
-2. **Plastic Pollution**: All types and sources of plastic
-3. **Environmental Health**: Health impacts of pollution
-4. **Community Empowerment**: Local leadership
-5. **Policy and Advocacy**: Environmental governance
-
-**AHEP's Approach:**
-- Evidence-based action using research and data
-- Community-centered approach prioritizing African communities
-- Cross-sectoral collaboration between sectors
-- Sustainable development balancing environmental, social, and economic needs
-- Protection of water resources for future generations
+**Economic Implications for Africa:**
+- Potential for job creation in the recycling and circular economy sector
+- Required investment in waste management infrastructure
+- Plastic pollution threatens tourism revenue and agricultural productivity
 
 ---
 
 ## Key Takeaways
 
-- Plastic pollution is a critical threat to African water bodies
-- Water contamination affects human health, ecosystems, and livelihoods
+- Plastic pollution is a global crisis requiring urgent action
 - Africa faces unique challenges but also opportunities for leadership
-- Understanding pollution sources and pathways is essential for solutions
-- AHEP is committed to ending plastic pollution in African waters
+- Understanding the science of plastic pollution is essential for developing solutions
+- Economic, environmental, and health impacts demand comprehensive responses
+- Africa has existing examples of successful plastic pollution reduction
 
 ---
 
@@ -236,148 +150,144 @@ The African Hub to End Plastic Pollution (AHEP) is an international program of G
       quiz: [
         {
           id: 1,
-          question: "What is the primary focus of AHEP?",
-          options: ["Land pollution only", "Plastic pollution in African water bodies", "Air pollution", "Noise pollution"],
-          correctAnswer: 1,
-          explanation: "AHEP focuses on ending plastic pollution in African water bodies including rivers, lakes, oceans, and groundwater."
-        },
-        {
-          id: 2,
-          question: "What organization does AHEP belong to?",
-          options: ["United Nations", "Global Aid for Africa (GAA)", "African Union", "World Bank"],
-          correctAnswer: 1,
-          explanation: "AHEP is an international program of Global Aid for Africa (GAA)."
-        },
-        {
-          id: 3,
           question: "What is the difference between macroplastics and microplastics?",
-          options: ["Macroplastics are biodegradable, microplastics are not", "Macroplastics are larger than 5mm, microplastics are smaller than 5mm", "Macroplastics come from land, microplastics come from water", "Macroplastics are recyclable, microplastics are not"],
+          options: ["Macroplastics are biodegradable, microplastics are not", "Macroplastics are larger than 5mm, microplastics are smaller than 5mm", "Macroplastics come from land, microplastics come from ocean", "Macroplastics are recyclable, microplastics are not"],
           correctAnswer: 1,
           explanation: "Macroplastics are visible items larger than 5mm, while microplastics are particles smaller than 5mm."
         },
         {
-          id: 4,
-          question: "Which African country pioneered strict plastic bag bans?",
+          id: 2,
+          question: "Which African country is known for pioneering strict plastic bag bans?",
           options: ["Nigeria", "South Africa", "Rwanda", "Ethiopia"],
           correctAnswer: 2,
-          explanation: "Rwanda pioneered plastic bag bans and protects its water catchments."
+          explanation: "Rwanda pioneered plastic bag bans and maintains some of the cleanest cities in Africa."
+        },
+        {
+          id: 3,
+          question: "What is the largest single use category for plastics globally?",
+          options: ["Construction", "Packaging", "Electronics", "Automotive"],
+          correctAnswer: 1,
+          explanation: "Packaging represents the largest single use category for plastics globally."
+        },
+        {
+          id: 4,
+          question: "What is a 'ghost net'?",
+          options: ["A type of fishing net that is transparent", "A fishing net that catches only specific fish species", "A lost or abandoned fishing net that continues to catch marine life", "A fishing net made from biodegradable materials"],
+          correctAnswer: 2,
+          explanation: "Ghost nets are lost or abandoned fishing nets that continue to catch marine life, causing significant environmental damage."
         },
         {
           id: 5,
-          question: "What is a 'ghost net'?",
-          options: ["A transparent fishing net", "A net for catching specific fish", "A lost or abandoned fishing net that continues to catch aquatic life", "A net made from biodegradable materials"],
-          correctAnswer: 2,
-          explanation: "Ghost nets are lost or abandoned fishing nets that continue to catch aquatic life, causing significant environmental damage."
+          question: "Which human health concern is associated with plastic additives like BPA and phthalates?",
+          options: ["Respiratory infections", "Endocrine disruption", "Skin irritation", "Hearing loss"],
+          correctAnswer: 1,
+          explanation: "Additives like BPA and phthalates are endocrine disruptors that can affect reproductive and developmental health."
         },
         {
           id: 6,
-          question: "How do plastics affect human health through water bodies?",
-          options: ["Only through direct drinking", "Through ingestion of contaminated water and seafood, and chemical exposure", "Only through skin contact", "They don't affect human health"],
-          correctAnswer: 1,
-          explanation: "Plastics affect human health through ingestion of contaminated drinking water and seafood, and chemical exposure from plastic additives."
+          question: "What is the plastic lifecycle in correct order?",
+          options: ["Extraction, Manufacturing, Distribution, Use, Disposal", "Manufacturing, Extraction, Distribution, Use, Disposal", "Distribution, Extraction, Manufacturing, Use, Disposal", "Extraction, Distribution, Manufacturing, Use, Disposal"],
+          correctAnswer: 0,
+          explanation: "The plastic lifecycle is: Extraction of fossil fuels, Polymer production, Product manufacturing, Distribution and consumption, Disposal."
         },
         {
           id: 7,
-          question: "Which major river systems in Africa are affected by plastic pollution?",
-          options: ["Only the Nile", "Nile, Congo, Niger, Zambezi, Orange, Limpopo", "Only the Congo", "Only the Niger"],
+          question: "What are the key sources of ocean-based plastic pollution?",
+          options: ["Tourism and agriculture", "Fishing industry, shipping, and aquaculture", "Urban runoff and wastewater", "Industrial processing"],
           correctAnswer: 1,
-          explanation: "African river systems including the Nile, Congo, Niger, Zambezi, Orange, and Limpopo are all affected by plastic pollution."
+          explanation: "Ocean-based plastic pollution primarily comes from the fishing industry (ghost nets), shipping, and aquaculture."
         },
         {
           id: 8,
-          question: "What percentage of plastic waste is collected in Africa?",
-          options: ["More than 50%", "Less than 10%", "About 25%", "About 40%"],
-          correctAnswer: 1,
-          explanation: "Less than 10% of plastic waste in Africa is collected, creating significant challenges for water body protection."
+          question: "Which African country has developed advanced recycling infrastructure?",
+          options: ["Kenya", "Rwanda", "South Africa", "Ghana"],
+          correctAnswer: 2,
+          explanation: "South Africa has developed advanced recycling infrastructure and has a more established formal recycling sector."
         },
         {
           id: 9,
-          question: "What is AHEP's approach to addressing plastic pollution?",
-          options: ["Only cleanups", "Evidence-based, community-centered, cross-sectoral collaboration", "Only regulations", "Only recycling"],
+          question: "What is the relationship between rivers and ocean plastic pollution?",
+          options: ["Rivers have no role in ocean plastic pollution", "Rivers are major conduits transporting plastic from land to sea", "Rivers only transport organic waste", "Rivers filter out all plastic before reaching the ocean"],
           correctAnswer: 1,
-          explanation: "AHEP uses an evidence-based, community-centered approach with cross-sectoral collaboration."
+          explanation: "Rivers are major conduits transporting plastic from land-based sources to the ocean."
         },
         {
           id: 10,
-          question: "How are Great Lakes in Africa affected by plastic pollution?",
-          options: ["They are not affected", "They are increasingly contaminated with plastics", "They have no plastic pollution", "Only Lake Victoria is affected"],
+          question: "What economic opportunities exist for Africa in addressing plastic pollution?",
+          options: ["Exporting plastic waste", "Creating green jobs and developing circular economy models", "Increasing plastic production", "Reducing environmental regulations"],
           correctAnswer: 1,
-          explanation: "The Great Lakes of Africa including Victoria, Tanganyika, and Malawi are increasingly contaminated with plastic pollution."
+          explanation: "Addressing plastic pollution creates opportunities for green jobs, circular economy development, and sustainable economic growth."
         }
       ]
     },
 
-    // MODULE 2: THE UN GLOBAL PLASTICS TREATY, WATER PROTECTION & POLICY FRAMEWORKS
+    // MODULE 2: THE UN GLOBAL PLASTICS TREATY & POLICY FRAMEWORKS
     {
       id: 2,
-      title: "The UN Global Plastics Treaty, Water Protection & Policy Frameworks",
-      content: `# The UN Global Plastics Treaty, Water Protection & Policy Frameworks
+      title: "The UN Global Plastics Treaty & Policy Frameworks",
+      content: `# The UN Global Plastics Treaty & Policy Frameworks
 
-This module covers the UN Global Plastics Treaty, water protection frameworks, and national and regional policy approaches essential for effective environmental governance and water resource protection.
+This module covers the most significant international effort to address plastic pollution—the UN Global Plastics Treaty—along with national and regional policy frameworks essential for effective environmental governance.
 
 ---
 
-## The UN Global Plastics Treaty: Protecting Water Bodies
+## Why the Treaty Was Developed
 
-**Why the Treaty Was Developed:**
-Plastic pollution is a global transboundary issue that threatens water bodies worldwide. No single country can solve the problem alone, and existing international agreements inadequately address water contamination.
+**The Urgent Need for International Action:**
+Plastic pollution is a global transboundary issue that no single country can solve alone. Existing international agreements inadequately address plastics, and many countries lack sufficient national legislation.
 
 **Driving Factors:**
-1. Scientific consensus on water body contamination
-2. Growing global public concern
-3. Recognition of economic costs to water resources
+1. Scientific consensus on environmental and health harms
+2. Growing global public concern and demand for action
+3. Recognition of significant economic costs
 4. Concern about projected increases in plastic production
-5. Pressure from the water and fisheries sectors
+5. Pressure from the business sector calling for regulation
 
 **Precedent for Global Environmental Agreements:**
 - Montreal Protocol (1987): Successful ozone protection
 - Paris Agreement (2015): Climate change framework
 - Basel Convention (1989): Waste management
 - Minamata Convention (2013): Mercury regulation
-- MARPOL: Prevention of pollution from ships
 
 **The UN Environmental Assembly Resolution:**
 - March 2022: UNEA Resolution 5/14 adopted
 - Mandate: Develop an international legally binding instrument on plastic pollution
-- Scope: Address the full lifecycle of plastics, including water pathways
+- Scope: Address the full lifecycle of plastics
 - Timeline: Finalize by end of 2024
 
 ---
 
-## Key Objectives for Water Protection
+## Key Objectives of the Treaty
 
 **Primary Objectives:**
-1. End plastic pollution in all environments, including water bodies, by 2040
-2. Promote circular economy approaches to reduce plastic entering water
-3. Protect human health from plastic-contaminated water
-4. Safeguard aquatic ecosystems and biodiversity
-5. Ensure safe drinking water for all communities
+1. End plastic pollution by 2040
+2. Promote circular economy approaches
+3. Protect human health from the impacts of plastic pollution
+4. Safeguard the environment, ecosystems, and biodiversity
 
-**Lifecycle Approach to Water Protection:**
+**Lifecycle Approach:**
 - Extraction: Sustainable extraction of fossil fuels
-- Production: Eco-design to prevent water contamination
+- Production: Eco-design and toxicity reduction
 - Design: Enhancing reusability and recyclability
 - Use: Reducing unnecessary plastic use
-- Waste Management: Environmentally sound management to prevent water entry
+- Waste Management: Environmentally sound management
 
-**Specific Water-Related Targets Being Considered:**
-- Reduce plastic production globally
-- Eliminate problematic single-use plastics
-- Increase recycling rates to prevent water entry
+**Specific Targets Being Considered:**
+- Reduce plastic production
+- Eliminate problematic and unnecessary single-use plastics
+- Increase recycling rates
 - Extended Producer Responsibility (EPR) schemes
-- Improve waste management to protect water bodies
-- Reduce microplastic release into waterways
-- Clean up existing plastic pollution in water bodies
+- Improve waste management systems
 
 **Financial Mechanisms:**
 - Multilateral Fund for developing countries
 - Technical assistance and technology transfer
-- Capacity building for water monitoring
-- Just transition for affected water-dependent communities
+- Capacity building
+- Just transition for affected workers
 
 ---
 
-## The Treaty Negotiation Process
+## The Negotiation Process
 
 **Intergovernmental Negotiating Committee (INC):**
 - INC-1: November 2022 (Punta del Este, Uruguay)
@@ -386,194 +296,143 @@ Plastic pollution is a global transboundary issue that threatens water bodies wo
 - INC-4: April 2024 (Ottawa, Canada)
 - INC-5: November 2024 (Busan, Republic of Korea)
 
-**Key Water-Related Negotiation Points:**
-1. Production caps on virgin plastic (most contentious)
-2. Chemicals of concern in water bodies
-3. Financial mechanisms for water protection
-4. Implementation support for water monitoring
-5. National Action Plans for water protection
-6. Reporting mechanisms for water contamination
+**Key Negotiation Points:**
+1. Production caps on virgin plastic (most contentious issue)
+2. Chemicals of concern and which to restrict or ban
+3. Financial mechanisms and who pays
+4. Implementation support for developing countries
+5. National Action Plans and reporting mechanisms
 
 **Stakeholder Groups:**
-- High Ambition Coalition: Pushing for strongest treaty
-- Water and Fisheries Sector: Advocating for water protection
-- Environmental NGOs: Comprehensive measures
-- Indigenous Peoples and Local Communities: Recognition of water rights
-- Plastic Industry: Resistance to some measures
+- High Ambition Coalition: Countries pushing for the strongest treaty
+- Fossil fuel and petrochemical industry: Resistance to production caps
+- Waste management industry: Supporting specific provisions
+- Environmental NGOs: Advocating for comprehensive measures
+- Indigenous peoples and local communities: Recognition of rights
 
 **Major Country Positions:**
-- Rwanda and Norway: Co-chairs of High Ambition Coalition
-- United States: Supportive with reservations
+- Rwanda and Norway: Co-chairs of the High Ambition Coalition
+- United States: Supportive but with reservations
 - China: Supportive of waste management but not production caps
-- EU: Strongly supportive of lifecycle approach including water protection
+- EU: Strongly supportive of lifecycle approach
 - Petrochemical-producing countries: Cautious about production restrictions
 
 ---
 
-## Africa's Role in the Treaty and Water Protection
+## Africa's Role in the Treaty
 
 **Africa's Stakes:**
-- High vulnerability due to limited water and waste infrastructure
-- Significant impacts on water resources, fisheries, and agriculture
+- High vulnerability due to limited waste management infrastructure
+- Significant impacts on tourism, fisheries, and agriculture
 - Potential benefits from financial and technical support
-- Leadership opportunity in shaping global water protection
+- Leadership opportunity in shaping global plastic governance
 
 **African Union Position:**
 - Common African Position developed through AMCEN
 - Support for lifecycle approach from production to waste
 - Strong advocacy for financial and technical support
 - Prevention of plastic waste imports into Africa
-- Protection of African water bodies from pollution
 
 **Key African Demands:**
-- Adequate financial mechanisms for water protection
-- Technology transfer for water monitoring
-- Capacity building for water resource management
-- Just transition protecting water-dependent communities
+- Adequate financial mechanisms for implementation
+- Technology transfer and capacity building
+- Just transition protecting vulnerable communities
 - Ban on plastic waste entering Africa
-- Recognition of water as a basic human right
+- Recognition and support for the informal sector
 
 **African Leadership Examples:**
-- Rwanda: Co-chair of High Ambition Coalition, water protection
-- Kenya: Chair of Africa Group of Negotiators
-- Egypt: Nile River protection advocacy
-- South Africa: Technical expertise in water monitoring
-- Uganda: Lake Victoria protection initiatives
+- Rwanda: Co-chair of High Ambition Coalition
+- Kenya: Chair of the Africa Group of Negotiators
+- Nigeria, South Africa, Senegal: Active advocacy and regional leadership
 
 ---
 
-## Water-Specific International Agreements and Frameworks
+## National and Regional Policy Frameworks
 
-**Key Water-Related Agreements:**
-1. **UN Watercourses Convention**: Transboundary water cooperation
-2. **Convention on Biological Diversity**: Aquatic biodiversity protection
-3. **Ramsar Convention**: Wetland protection
-4. **UN Convention on the Law of the Sea**: Marine environment protection
-5. **Regional Seas Conventions**: Regional marine protection
-6. **African Water Vision**: Continental water framework
-
-**Basel Convention Plastic Waste Amendments (2019):**
-- Controls on plastic waste trade
-- Reduces unregulated plastic waste entering water bodies
-- Requires prior informed consent for shipments
-
-**Stockholm Convention:**
-- Addresses Persistent Organic Pollutants (POPs) in water
-- Many POPs are associated with plastics and water contamination
-- Requires elimination of POPs production and use
-
-**Regional Water Agreements:**
-- Nile Basin Initiative: Cooperative water management
-- Lake Victoria Basin Commission: Water and environment protection
-- Zambezi Watercourse Commission: Transboundary water management
-- Niger Basin Authority: Water resource management
-- African Ministerial Council on Water: Continental water governance
-
----
-
-## National Policies for Water Protection
-
-**Types of Environmental Policies for Water Protection:**
+**Types of Environmental Policies:**
 1. Regulatory Policies: Command-and-control approaches
 2. Economic Instruments: Taxes, subsidies, incentives
 3. Voluntary Agreements: Industry self-regulation
 4. Information Policies: Labeling, reporting requirements
-5. Property Rights: Water rights and use
+5. Property Rights: Rights-based approaches
 
-**Policy Instruments for Water Protection:**
+**Policy Instruments for Plastic Pollution:**
 - Bans on specific plastic products
-- Taxes on plastics to reduce water contamination
+- Taxes on plastic products to reduce use
 - Subsidies for sustainable alternatives
 - Extended Producer Responsibility (EPR)
 - Deposit-Refund Systems for containers
-- Water quality standards
-- Drinking water protection regulations
-- Wastewater treatment requirements
+- Product and packaging standards
 
-**African Examples of Water Protection:**
-- Rwanda: Comprehensive environmental policy, water catchment protection
-- Kenya: Plastic bag ban, lake protection initiatives
-- South Africa: Water quality regulations, monitoring systems
-- Uganda: Lake Victoria protection programs
-- Egypt: Nile River protection measures
-- Morocco: Water resource management framework
+**African Examples:**
+- Rwanda: Comprehensive environmental policy with strict enforcement
+- Kenya: Plastic bag ban with enforcement mechanisms
+- South Africa: Waste management regulations, plastic bag fee
+- Ethiopia: Climate-resilient green economy strategy
+- Morocco: Regional waste management approaches
 
 ---
 
-## Government Responsibilities for Water Protection
+## International Agreements Related to Plastics
+
+**Basel Convention Plastic Waste Amendments (2019):**
+- Controls on plastic waste trade between countries
+- Requires prior informed consent for plastic waste shipments
+- Reduces unregulated plastic waste trade
+
+**Stockholm Convention:**
+- Addresses Persistent Organic Pollutants (POPs)
+- Many POPs are associated with plastics and plastic additives
+- Requires elimination of POPs production and use
+
+**Regional Agreements:**
+- Abidjan Convention: West and Central Africa
+- Nairobi Convention: East Africa
+- Maputo Convention: Southern Africa
+
+---
+
+## Government Responsibilities and Stakeholder Collaboration
 
 **Levels of Government:**
-- National Government: Framework policies, legislation, water standards
-- Regional Government: Coordination, transboundary water
-- Local Government: Implementation, service delivery, water treatment
-- Municipal Authorities: Water and waste management
+- National Government: Framework policies, legislation
+- Regional Government: Coordination
+- Local Government: Implementation, service delivery
+- Municipal Authorities: Waste management and infrastructure
 
 **Government Functions:**
 - Policy development and legislation
 - Regulation and enforcement
-- Water quality monitoring
 - Infrastructure provision
-- Research and data collection
+- Monitoring and research
 - Education and awareness
 - International engagement
 
-**Water-Specific Government Responsibilities:**
-- Safe drinking water provision
-- Water quality monitoring and reporting
-- Wastewater treatment and management
-- Watershed protection
-- Pollution prevention and control
-- Emergency response to water contamination
-
-**Stakeholder Collaboration for Water Protection:**
+**Stakeholder Groups:**
 - Government: Policymakers, regulators
-- Private Sector: Companies, industry
-- Civil Society: NGOs, community groups
-- Academia: Researchers, water experts
+- Private Sector: Companies, industry associations
+- Civil Society: NGOs, community organizations
+- Academia: Researchers, educators
 - International Organizations: Development partners
-- Communities: Water users and protectors
-- Water Utilities: Service providers
+- Community: Local residents and groups
+- Workers: Waste pickers, unions
 
----
-
-## Sustainable Development Goals and Water Protection
-
-**SDG Framework:**
-The 17 Sustainable Development Goals, with SDG 6 specifically focused on clean water and sanitation.
-
-**SDGs Relevant to Water and Plastic Pollution:**
-- **SDG 6: Clean Water and Sanitation**: Safe drinking water, water quality
-- **SDG 3: Good Health**: Health impacts of water pollution
-- **SDG 11: Sustainable Cities**: Water and waste management
-- **SDG 12: Responsible Consumption**: Sustainable consumption and production
-- **SDG 14: Life Below Water**: Marine plastic pollution
-- **SDG 15: Life on Land**: Freshwater ecosystem protection
-
-**SDG 6 Targets for Water Protection:**
-- Target 6.1: Universal access to safe drinking water
-- Target 6.2: Sanitation and hygiene
-- Target 6.3: Improve water quality by reducing pollution
-- Target 6.4: Water use efficiency
-- Target 6.5: Integrated water resources management
-- Target 6.6: Protect water-related ecosystems
-- Target 6.a: International cooperation for water
-- Target 6.b: Stakeholder participation
-
-**Plastic Pollution and SDG 6:**
-- Plastic contamination threatens achieving SDG 6
-- Solutions to plastic pollution advance SDG 6
-- Integration of approaches needed
-- Partnership across SDGs essential
+**Collaboration Benefits:**
+- Knowledge sharing and combined expertise
+- Resource mobilization
+- Legitimacy and broad support
+- Innovation through diverse perspectives
+- Effective implementation
 
 ---
 
 ## Key Takeaways
 
-- The UN Global Plastics Treaty is crucial for protecting water bodies
-- Africa has a vital leadership role in treaty development
-- National and regional water policies are essential
-- Collaboration is key to successful implementation
-- SDG 6 provides a framework for water protection
+- The UN Global Plastics Treaty is the most significant international effort to address plastic pollution
+- Africa has a crucial leadership role in treaty development and implementation
+- National and regional policies are essential for effective plastic pollution governance
+- Stakeholder collaboration is key to successful implementation
+- Multiple policy instruments are needed for comprehensive solutions
 
 ---
 
@@ -582,352 +441,304 @@ The 17 Sustainable Development Goals, with SDG 6 specifically focused on clean w
       quiz: [
         {
           id: 1,
-          question: "What is the target year for ending plastic pollution under the UN Global Plastics Treaty?",
-          options: ["2030", "2035", "2040", "2045"],
-          correctAnswer: 2,
-          explanation: "The primary objective is to end plastic pollution in all environments, including water bodies, by 2040."
+          question: "What is the primary purpose of the UN Global Plastics Treaty?",
+          options: ["To ban all plastic production globally", "To create an international legally binding instrument to end plastic pollution", "To regulate plastic recycling only", "To set voluntary guidelines for plastic use"],
+          correctAnswer: 1,
+          explanation: "The UN Global Plastics Treaty is an international legally binding instrument designed to end plastic pollution across its full lifecycle."
         },
         {
           id: 2,
           question: "Which two countries co-chair the High Ambition Coalition for the treaty?",
-          options: ["Kenya and Nigeria", "Rwanda and Norway", "South Africa and France", "Egypt and Germany"],
+          options: ["Kenya and Nigeria", "Rwanda and Norway", "South Africa and France", "Ethiopia and Germany"],
           correctAnswer: 1,
           explanation: "Rwanda and Norway co-chair the High Ambition Coalition, pushing for the strongest possible treaty."
         },
         {
           id: 3,
-          question: "Which SDG specifically focuses on clean water and sanitation?",
-          options: ["SDG 3", "SDG 6", "SDG 14", "SDG 17"],
+          question: "What is the target year for ending plastic pollution under the treaty?",
+          options: ["2030", "2040", "2050", "2060"],
           correctAnswer: 1,
-          explanation: "SDG 6 focuses on clean water and sanitation, including water quality and pollution reduction."
+          explanation: "The primary objective is to end plastic pollution by 2040."
         },
         {
           id: 4,
-          question: "What is Extended Producer Responsibility (EPR)?",
-          options: ["Government water treatment", "Producer responsibility for waste management and product lifecycle", "Consumer responsibility for recycling", "Water utility regulation"],
-          correctAnswer: 1,
-          explanation: "EPR is a policy approach where producers bear responsibility for the environmental impact of their products throughout the product lifecycle."
+          question: "Which African country is the chair of the Africa Group of Negotiators for the treaty?",
+          options: ["Rwanda", "South Africa", "Kenya", "Nigeria"],
+          correctAnswer: 2,
+          explanation: "Kenya serves as the chair of the Africa Group of Negotiators."
         },
         {
           id: 5,
-          question: "Which international agreement was updated in 2019 to address plastic waste trade?",
-          options: ["Stockholm Convention", "Basel Convention", "Montreal Protocol", "Minamata Convention"],
+          question: "What is Extended Producer Responsibility (EPR)?",
+          options: ["Government responsibility for waste collection", "Producer responsibility for waste management and product lifecycle", "Consumer responsibility for recycling", "Recycling industry regulation"],
           correctAnswer: 1,
-          explanation: "The Basel Convention was updated in 2019 with amendments to control plastic waste trade and protect water bodies."
+          explanation: "EPR is a policy approach where producers bear responsibility for the environmental impact of their products throughout the product lifecycle, especially at end of life."
         },
         {
           id: 6,
+          question: "Which international agreement was updated in 2019 to address plastic waste trade?",
+          options: ["Stockholm Convention", "Basel Convention", "Montreal Protocol", "Minamata Convention"],
+          correctAnswer: 1,
+          explanation: "The Basel Convention was updated in 2019 with amendments to control plastic waste trade between countries."
+        },
+        {
+          id: 7,
           question: "What is the most contentious issue in the treaty negotiations?",
-          options: ["Recycling targets", "Production caps on virgin plastic", "Water quality standards", "Reporting mechanisms"],
+          options: ["Recycling targets", "Production caps on virgin plastic", "Waste management requirements", "Reporting mechanisms"],
           correctAnswer: 1,
           explanation: "Production caps on virgin plastic production are the most contentious issue in the negotiations."
         },
         {
-          id: 7,
-          question: "Which African country is chair of the Africa Group of Negotiators for the treaty?",
-          options: ["Rwanda", "South Africa", "Kenya", "Egypt"],
-          correctAnswer: 2,
-          explanation: "Kenya serves as the chair of the Africa Group of Negotiators for the treaty."
-        },
-        {
           id: 8,
-          question: "What role do local governments play in water protection?",
-          options: ["Only national governments have water responsibilities", "Local governments handle implementation, water treatment, and waste management", "Local governments only handle waste collection", "Local governments have no water role"],
-          correctAnswer: 1,
-          explanation: "Local governments handle implementation, water treatment, service delivery, and waste management infrastructure."
+          question: "Which African country has one of the strictest environmental enforcement systems?",
+          options: ["Nigeria", "Kenya", "Rwanda", "Ghana"],
+          correctAnswer: 2,
+          explanation: "Rwanda has comprehensive environmental policy with strict enforcement, including plastic bag bans."
         },
         {
           id: 9,
-          question: "Which international agreement focuses on wetland protection?",
-          options: ["Ramsar Convention", "Basel Convention", "Stockholm Convention", "Minamata Convention"],
-          correctAnswer: 0,
-          explanation: "The Ramsar Convention focuses on wetland protection, which is critical for water quality and ecosystem health."
+          question: "What role do local governments play in environmental governance?",
+          options: ["Only national governments have environmental responsibilities", "Local governments handle implementation and service delivery", "Local governments only handle waste collection", "Local governments have no environmental role"],
+          correctAnswer: 1,
+          explanation: "Local governments handle implementation, service delivery, and waste management infrastructure."
         },
         {
           id: 10,
-          question: "How does plastic pollution threaten SDG 6?",
-          options: ["Only through ocean pollution", "It contaminates drinking water sources and threatens progress toward clean water", "Only affects sanitation", "It has no impact on water"],
+          question: "What is the significance of the Basel Convention's plastic waste amendments?",
+          options: ["They require all countries to recycle plastic", "They control plastic waste trade and require prior informed consent", "They ban all plastic production", "They require countries to stop using plastic"],
           correctAnswer: 1,
-          explanation: "Plastic contamination of water bodies threatens achieving SDG 6 targets for clean water and sanitation."
+          explanation: "The Basel Convention plastic waste amendments control plastic waste trade and require prior informed consent for shipments."
         }
       ]
     },
 
-    // MODULE 3: AHEP VISION, WATER STEWARDSHIP & LEADERSHIP
+    // MODULE 3: AHEP VISION, LEADERSHIP & ENVIRONMENTAL STEWARDSHIP
     {
       id: 3,
-      title: "AHEP Vision, Water Stewardship & Leadership",
-      content: `# AHEP Vision, Water Stewardship & Leadership
+      title: "AHEP Vision, Leadership & Environmental Stewardship",
+      content: `# AHEP Vision, Leadership & Environmental Stewardship
 
-This module covers the African Hub to End Plastic Pollution (AHEP) vision, mission, core values, and leadership principles essential for effective water stewardship and environmental protection.
+This module covers the African Health and Environment Partnership (AHEP) vision, mission, core values, and leadership principles essential for effective environmental stewardship and community engagement.
 
 ---
 
 ## Introduction to AHEP
 
 **About AHEP:**
-The African Hub to End Plastic Pollution (AHEP) is an international program of Global Aid for Africa (GAA), committed to combating plastic pollution across African water bodies and environments.
+The African Health and Environment Partnership (AHEP) is a collaborative initiative focused on addressing environmental health challenges across Africa through partnerships, research, and capacity building.
 
-**AHEP's Mandate:**
-- End plastic pollution in African water bodies
-- Protect aquatic ecosystems and biodiversity
-- Ensure safe drinking water for communities
-- Empower communities to take action
-- Build partnerships for sustainable solutions
-
-**AHEP's Origin:**
-Established in response to the growing plastic pollution crisis threatening African water bodies. AHEP brings together governments, NGOs, academia, private sector, and communities to address this urgent challenge.
+**Historical Context:**
+Established in response to growing environmental challenges facing the African continent, AHEP brings together governments, NGOs, academia, and private sector stakeholders.
 
 **AHEP's Unique Approach:**
-- **Water-Focused**: Prioritizing protection of water bodies
-- **Evidence-Based**: Using research and data to guide action
-- **Community-Centered**: Empowering African communities
-- **Cross-Sectoral**: Collaborating across sectors
-- **Sustainable**: Balancing environmental, social, and economic needs
+- Cross-sectoral collaboration bridging health and environment sectors
+- Evidence-based action using research and data
+- Community-centered approach prioritizing African communities
+- Sustainable development balancing environmental, social, and economic needs
 
-**AHEP's Focus Areas:**
-1. **Water Bodies**: Rivers, lakes, oceans, groundwater
-2. **Plastic Pollution**: All types and sources
-3. **Environmental Health**: Health impacts of water contamination
-4. **Community Empowerment**: Local leadership and action
-5. **Policy and Advocacy**: Environmental governance and water protection
+**Key Program Areas:**
+1. Plastic Pollution Reduction (flagship program)
+2. Environmental Health and Pollution Impacts
+3. Sustainable Development and SDG Implementation
+4. Capacity Building for African Institutions
+5. Policy Advocacy and Environmental Governance
 
 ---
 
 ## AHEP Vision and Mission
 
 **AHEP Vision:**
-*A future where African water bodies are free from plastic pollution, supporting healthy communities and thriving ecosystems.*
+*A healthier and sustainable African environment through collective action, innovation, and responsible partnerships.*
 
 **Vision Components:**
-- **Water Freedom**: Clean water bodies without plastic
-- **Community Health**: All Africans with access to safe water
-- **Ecosystem Thriving**: Healthy aquatic ecosystems
-- **Future Generations**: Protecting water for future generations
-- **Sustainable Development**: Water supporting development
+- Health: All Africans living in healthy environments
+- Sustainability: Environmental practices that can be maintained over generations
+- Collective Action: Shared responsibility and collaboration
+- Innovation: Using creative solutions to address environmental challenges
+- Responsible Partnerships: Ethical and accountable relationships
 
 **AHEP Mission:**
-*Empower African communities and partners to end plastic pollution in water bodies through advocacy, capacity building, and practical solutions, ensuring clean water for all.*
+*Empower African communities and partners to prevent and address plastic pollution and environmental health challenges through advocacy, capacity building, and practical solutions.*
 
 **Mission Components:**
-- **Empowerment**: Building capacity and agency
-- **End Plastic Pollution**: Eliminating plastics from water
-- **Water Protection**: Safeguarding water resources
-- **Advocacy**: Influencing policy and public opinion
-- **Capacity Building**: Strengthening institutions
-- **Practical Solutions**: Actionable, implementable approaches
-- **Clean Water**: Ensuring access for all
+- Empowerment: Building capacity and agency
+- Prevention: Proactive rather than reactive approaches
+- Advocacy: Influencing policy and public opinion
+- Capacity Building: Strengthening institutions and individuals
+- Practical Solutions: Actionable, implementable approaches
 
 **Strategic Priorities:**
-- **Water Protection**: Protect African water bodies
-- **Policy Influence**: Shape water and environmental policies
-- **Knowledge Generation**: Research and data collection
-- **Capacity Development**: Training and institutional support
-- **Partnership Building**: Strategic alliances
-- **Innovation Promotion**: Supporting new technologies
+- Policy Influence: Shaping national and regional environmental policies
+- Knowledge Generation: Research and data collection
+- Capacity Development: Training and institutional support
+- Partnership Building: Strategic alliances with key stakeholders
+- Innovation Promotion: Supporting new technologies and approaches
 
 ---
 
 ## Core Values
 
-**1. Water Stewardship**
-- **Definition**: Responsible management and protection of water resources
-- **Commitment**: Protecting water bodies for current and future generations
-- **Application**: All activities consider water impacts
+**1. Integrity**
+- Upholding ethical standards in all activities
+- Transparent operations, accountability, honest communication
+- Being honest and transparent, maintaining the highest ethical standards
 
-**2. Integrity**
-- **Definition**: Upholding ethical standards
-- **Commitment**: Being honest, transparent, accountable
-- **Application**: Transparent operations, honest communication
+**2. Collaboration**
+- Working with diverse partners to achieve shared goals
+- Inclusive decision-making, knowledge sharing, joint action
+- Working across sectors and borders, building partnerships based on mutual respect
 
-**3. Collaboration**
-- **Definition**: Working with diverse partners
-- **Commitment**: Building partnerships based on mutual respect
-- **Application**: Cross-sectoral, cross-border cooperation
+**3. Innovation**
+- Embracing creativity and new approaches
+- Research and development, technological solutions, adaptive management
+- Continuously seeking better ways to address environmental challenges
 
-**4. Innovation**
-- **Definition**: Embracing creativity and new approaches
-- **Commitment**: Continuously seeking better solutions
-- **Application**: Technology, research, creative thinking
+**4. Sustainability**
+- Ensuring long-term viability of actions
+- Environmental, social, and economic sustainability
+- Pursuing solutions that can be maintained over time
 
-**5. Sustainability**
-- **Definition**: Ensuring long-term viability of actions
-- **Commitment**: Environmental, social, economic sustainability
-- **Application**: Solutions maintained over time
+**5. Equity**
+- Fairness and justice in our actions
+- Environmental justice, inclusive participation, benefit sharing
+- Ensuring all voices are heard, particularly marginalized communities
 
-**6. Equity**
-- **Definition**: Fairness and justice in our actions
-- **Commitment**: Ensuring all voices are heard
-- **Application**: Environmental justice, inclusive participation
-
-**7. Resilience**
-- **Definition**: Capacity to adapt and recover
-- **Commitment**: Strengthening communities
-- **Application**: Building adaptive capacity
-
-**How Values Are Operationalized:**
-- Decision-making guided by values
-- Program design reflects values
-- Partnerships based on shared values
-- Evaluation integrates values
+**6. Resilience**
+- Capacity to adapt and recover from challenges
+- Building adaptive capacity, community resilience
+- Strengthening communities to withstand and recover from shocks
 
 ---
 
 ## Partner Expectations
 
 **AHEP Partnership Framework:**
-Based on mutual benefit and shared responsibility for water protection.
+Based on mutual benefit and shared responsibility.
 
 **Expectations of AHEP Partners:**
-1. **Shared Vision and Mission**: Align with AHEP's water protection goals
-2. **Active Engagement**: Regular involvement in activities
-3. **Accountability**: Clear reporting and open communication
-4. **Collaborative Behavior**: Willingness to share knowledge
-5. **Capacity Contribution**: Contributing skills and expertise
-6. **Advocacy**: Supporting water protection priorities
-7. **Monitoring**: Participating in learning and improvement
-8. **Sustainability Commitment**: Contributing to long-term success
+1. Shared Vision and Mission: Align with AHEP's vision and mission
+2. Active Engagement and Participation: Regular involvement in activities
+3. Accountability and Transparency: Clear reporting and open communication
+4. Collaborative Behavior: Willingness to share knowledge and cooperate
+5. Capacity Contribution: Contributing skills and expertise
+6. Advocacy and Public Engagement: Supporting AHEP priorities
+7. Monitoring and Evaluation: Participating in learning and improvement
+8. Sustainability Commitment: Contributing to long-term success
 
 **AHEP's Commitment to Partners:**
-- **Transparent Communication**: Regular updates and reporting
-- **Capacity Building**: Training and support
-- **Recognition**: Acknowledgment and appreciation
-- **Networking**: Connection to wider networks
-- **Leadership Opportunities**: Taking leadership roles
+- Transparent Communication: Regular updates and reporting
+- Capacity Building: Training and support
+- Recognition: Acknowledgment and appreciation
+- Networking: Connection to wider networks
+- Leadership Opportunities: Taking leadership roles in initiatives
 
 **Types of Partners:**
-- **Government Partners**: National, regional, local governments
-- **Water Utilities**: Water service providers
-- **Civil Society**: Community organizations, advocacy groups
-- **Research Institutions**: Universities, water research centers
-- **Private Sector**: Corporations, SMEs, social enterprises
-- **International Organizations**: UN agencies, development partners
-- **Community Groups**: Water user associations, community groups
-- **Fisheries Sector**: Fishing communities and organizations
+- Government Partners: National and local governments
+- Civil Society: Community organizations, advocacy groups
+- Research Institutions: Universities, research centers
+- Private Sector: Corporations, SMEs, social enterprises
+- International Organizations: UN agencies, development partners
+- Community Groups: Local and community-based organizations
 
 ---
 
 ## Leadership Principles
 
-**1. Visionary Leadership for Water**
-- Creating and communicating a compelling water protection vision
+**1. Visionary Leadership**
+- Creating and communicating a compelling vision
 - Articulating a clear direction, inspiring others
-- Framing water issues, setting ambitious goals
+- Developing partnerships, framing environmental issues, setting ambitious goals
 
-**2. Collaborative Water Leadership**
-- Working with diverse water stakeholders
-- Building trust, facilitating collaboration
-- Multi-stakeholder water initiatives
+**2. Collaborative Leadership**
+- Working effectively with diverse stakeholders
+- Building trust, facilitating collaboration, managing conflict
+- Multi-stakeholder initiatives, partnerships, community engagement
 
 **3. Adaptive Leadership**
-- Responding to changing water conditions
-- Flexibility, learning from experience
-- Responding to emerging water threats
+- Responding to changing circumstances
+- Flexibility, learning from experience, resilience
+- Responding to emerging environmental threats, adjusting strategies
 
 **4. Inclusive Leadership**
 - Ensuring diverse perspectives are valued
-- Empowering water users, ensuring representation
-- Inclusive planning, diverse teams
+- Empowering others, ensuring representation, promoting equity
+- Inclusive planning processes, diverse teams, community engagement
 
 **5. Ethical Leadership**
 - Leading with integrity and accountability
-- Transparency, ethical decision-making
+- Transparency, ethical decision-making, accountability
 - Open communication, stakeholder accountability
 
 **6. Results-Oriented Leadership**
-- Achieving tangible water protection outcomes
+- Achieving tangible outcomes
 - Planning, monitoring, quality assurance
-- Measurable water quality improvements
-
-**Applying Leadership Principles:**
-- Self-Development: Continual learning
-- Team Development: Building leadership capacity
-- Community Leadership: Engaging communities as leaders
-- Water Governance: Promoting good governance
+- Successful project delivery, measurable environmental outcomes
 
 ---
 
-## Water Stewardship
+## Environmental Stewardship
 
 **Definition:**
-Water stewardship is the responsible management and protection of water resources through sustainable practices, conservation efforts, and advocacy.
+Environmental stewardship is the responsible management and care of the environment through sustainable practices, conservation efforts, and advocacy.
 
-**AHEP's Water Stewardship Commitments:**
-1. **Protect Water Sources**: Safeguarding rivers, lakes, groundwater
-2. **Prevent Water Pollution**: Preventing contamination of water bodies
-3. **Promote Sustainable Water Use**: Efficient and responsible water use
-4. **Restore Water Ecosystems**: Restoring damaged water systems
-5. **Ensure Water Access**: Safe drinking water for communities
-6. **Practice Water Conservation**: Reducing water waste
+**AHEP's Stewardship Commitments:**
+1. Minimizing Our Environmental Footprint: Reducing waste, energy efficiency
+2. Promoting Sustainable Practices: Advocating for green policies
+3. Protecting Ecosystems: Conservation, restoration, biodiversity
+4. Preventing Environmental Harm: Risk assessment, pollution prevention
+5. Promoting Environmental Justice: Equitable access and fair distribution
 
-**Water Stewardship in Practice:**
-- **Organizational Operations**: Minimizing water footprint
-- **Project Implementation**: Protecting water during projects
-- **Program Design**: Water considerations in all activities
-- **Advocacy**: Water awareness raising, policy advocacy
+**Stewardship in Practice:**
+- Organizational Operations: Sustainable office practices, responsible travel
+- Project Implementation: Environmental safeguards, green procurement
+- Program Design: Environmental considerations in all activities
+- Advocacy: Environmental awareness raising, policy advocacy
 
-**Individual Water Stewardship Actions:**
-- Reduce plastic consumption
-- Avoid littering near water bodies
-- Support water conservation
-- Advocate for water protection policies
-- Educate others on water issues
-- Report water pollution
-
-**Organizational Water Stewardship Initiatives:**
-- Water audits and efficiency
-- Wastewater treatment and recycling
-- Water catchment protection
-- Sustainable procurement
-- Community water programs
+**Individual Stewardship Actions:**
+- Reduce personal plastic consumption
+- Practice waste segregation
+- Support community cleanups
+- Advocate for environmental policies
+- Educate others on environmental issues
+- Choose sustainable products
 
 ---
 
 ## Ethics and Accountability
 
 **Ethical Framework:**
-AHEP's commitment to highest ethical standards in all water-related activities.
+AHEP's commitment to highest ethical standards in all activities.
 
 **Key Ethical Principles:**
-- **Integrity**: Honest and transparent in all dealings
-- **Objectivity**: Impartial and independent judgment
-- **Professional Competence**: Maintaining knowledge and skills
-- **Confidentiality**: Protecting sensitive information
-- **Professional Behavior**: Acting appropriately
-- **Water Ethics**: Prioritizing water protection
+- Integrity: Honest and transparent in all dealings
+- Objectivity: Impartial and independent judgment
+- Professional Competence: Maintaining knowledge and skills
+- Confidentiality: Protecting sensitive information
+- Professional Behavior: Acting appropriately
 
 **Accountability Mechanisms:**
-- **Transparent Reporting**: Regular public reporting on water activities
-- **Stakeholder Engagement**: Regular consultation with water stakeholders
-- **Independent Auditing**: Financial and programmatic audits
-- **Grievance Mechanisms**: Channels for complaints and feedback
-- **Performance Monitoring**: Tracking water protection outcomes
-- **Water Quality Reporting**: Public water quality information
+- Transparent Reporting: Regular public reporting on activities
+- Stakeholder Engagement: Regular consultation with stakeholders
+- Independent Auditing: Financial and programmatic audits
+- Grievance Mechanisms: Channels for complaints and feedback
+- Performance Monitoring: Tracking and evaluating performance
 
 **AHEP Code of Conduct:**
-- **Conflict of Interest**: Disclosure and management
-- **Anti-Corruption**: Zero tolerance for bribery and corruption
-- **Harassment and Discrimination**: Zero tolerance
-- **Environmental Compliance**: Adherence to water regulations
-- **Safeguarding**: Protection of vulnerable groups
-- **Water Rights**: Respecting water rights of communities
-
-**Responsibilities of AHEP Leaders:**
-- **Modeling Ethical Behavior**: Leading by example
-- **Creating Ethical Culture**: Fostering water ethics
-- **Encouraging Ethical Dialogue**: Open discussion
-- **Maintaining Accountability**: Holding self and others accountable
-- **Protecting Whistleblowers**: Ensuring safe channels
+- Conflict of Interest: Disclosure and management
+- Anti-Corruption: Zero tolerance for bribery and corruption
+- Harassment and Discrimination: Zero tolerance policy
+- Environmental Compliance: Adherence to environmental regulations
+- Safeguarding: Protection of vulnerable groups
 
 ---
 
 ## Key Takeaways
 
-- AHEP is focused on ending plastic pollution in African water bodies
-- Water stewardship is central to AHEP's mission
-- Core values guide all water protection activities
+- AHEP's vision and mission guide all partnership activities
+- Core values of Integrity, Collaboration, Innovation, Sustainability, Equity, and Resilience are foundational
+- Effective environmental stewardship requires commitment at all levels
 - Leadership principles provide a framework for action
-- Ethics and accountability are essential for trust
+- Ethics and accountability are essential for maintaining trust
 
 ---
 
@@ -937,166 +748,163 @@ AHEP's commitment to highest ethical standards in all water-related activities.
         {
           id: 1,
           question: "What does AHEP stand for?",
-          options: ["African Health and Environment Program", "African Hub to End Plastic Pollution", "Alliance for Healthy Environmental Practices", "Association for Environmental Protection"],
-          correctAnswer: 1,
-          explanation: "AHEP stands for the African Hub to End Plastic Pollution, an international program of Global Aid for Africa (GAA)."
+          options: ["African Health and Environment Partnership", "African Humanitarian Environmental Program", "Alliance for Health and Environmental Protection", "Association for Healthy Environmental Practices"],
+          correctAnswer: 0,
+          explanation: "AHEP stands for the African Health and Environment Partnership."
         },
         {
           id: 2,
-          question: "What organization does AHEP belong to?",
-          options: ["United Nations Environment Programme", "Global Aid for Africa (GAA)", "African Union", "World Health Organization"],
+          question: "What is AHEP's vision statement?",
+          options: ["A plastic-free Africa by 2030", "A healthier and sustainable African environment through collective action, innovation, and responsible partnerships", "Environmental justice for all Africans", "Sustainable development through environmental action"],
           correctAnswer: 1,
-          explanation: "AHEP is an international program of Global Aid for Africa (GAA)."
+          explanation: "AHEP's vision is 'A healthier and sustainable African environment through collective action, innovation, and responsible partnerships.'"
         },
         {
           id: 3,
-          question: "What is AHEP's vision statement?",
-          options: ["A plastic-free Africa by 2030", "A future where African water bodies are free from plastic pollution, supporting healthy communities and thriving ecosystems", "Environmental justice for all Africans", "Sustainable water for future generations"],
+          question: "What is AHEP's flagship program?",
+          options: ["Climate change adaptation", "Plastic pollution reduction", "Sustainable agriculture", "Clean energy access"],
           correctAnswer: 1,
-          explanation: "AHEP's vision is 'A future where African water bodies are free from plastic pollution, supporting healthy communities and thriving ecosystems.'"
+          explanation: "Plastic Pollution Reduction is AHEP's flagship program."
         },
         {
           id: 4,
-          question: "What is water stewardship?",
-          options: ["Controlling water resources", "Responsible management and protection of water resources", "Commercial use of water", "Water regulation enforcement"],
+          question: "What is the definition of environmental stewardship?",
+          options: ["Controlling environmental resources for commercial benefit", "Responsible management and care of the environment through sustainable practices", "Government regulation of environmental activities", "Private sector management of natural resources"],
           correctAnswer: 1,
-          explanation: "Water stewardship is the responsible management and protection of water resources through sustainable practices, conservation efforts, and advocacy."
+          explanation: "Environmental stewardship is the responsible management and care of the environment through sustainable practices, conservation efforts, and advocacy."
         },
         {
           id: 5,
-          question: "Which of these is NOT one of AHEP's core values?",
-          options: ["Water Stewardship", "Collaboration", "Profit Maximization", "Integrity"],
+          question: "Which of the following is NOT one of AHEP's core values?",
+          options: ["Integrity", "Collaboration", "Profit Maximization", "Equity"],
           correctAnswer: 2,
-          explanation: "AHEP's core values include Water Stewardship, Integrity, Collaboration, Innovation, Sustainability, Equity, and Resilience. Profit Maximization is not a core value."
+          explanation: "AHEP's core values are Integrity, Collaboration, Innovation, Sustainability, Equity, and Resilience. Profit Maximization is not a core value."
         },
         {
           id: 6,
           question: "What is the first leadership principle of AHEP?",
-          options: ["Collaborative Leadership", "Visionary Leadership for Water", "Adaptive Leadership", "Ethical Leadership"],
-          correctAnswer: 1,
-          explanation: "Visionary Leadership for Water is the first AHEP leadership principle."
+          options: ["Collaborative Leadership", "Ethical Leadership", "Visionary Leadership", "Adaptive Leadership"],
+          correctAnswer: 2,
+          explanation: "Visionary Leadership is the first AHEP leadership principle."
         },
         {
           id: 7,
-          question: "With what types of partners does AHEP work?",
-          options: ["Only governments", "Only NGOs", "Governments, water utilities, civil society, research institutions, private sector, international organizations, community groups", "Only water utilities"],
+          question: "What types of partners does AHEP work with?",
+          options: ["Only governments", "Only NGOs", "Governments, civil society, research institutions, private sector, international organizations, and community groups", "Only private sector companies"],
           correctAnswer: 2,
-          explanation: "AHEP works with diverse partners including governments, water utilities, civil society, research institutions, private sector, international organizations, and community groups."
+          explanation: "AHEP works with diverse partners including governments, civil society, research institutions, private sector, international organizations, and community groups."
         },
         {
           id: 8,
           question: "What is AHEP's commitment regarding ethics?",
-          options: ["Following national laws only", "Maintaining highest ethical standards in all activities", "Prioritizing outcomes over process", "Working with all partners regardless of ethics"],
-          correctAnswer: 1,
-          explanation: "AHEP is committed to maintaining the highest ethical standards in all water-related activities."
+          options: ["Maintaining ethical standards in all activities", "Following national laws only", "Prioritizing outcomes over process", "Working with all partners regardless of ethics"],
+          correctAnswer: 0,
+          explanation: "AHEP is committed to maintaining the highest ethical standards in all activities."
         },
         {
           id: 9,
           question: "What is the role of transparency in AHEP's accountability framework?",
-          options: ["It is optional", "It is essential through regular public reporting", "It is only for donors", "It is only for government partners"],
+          options: ["It is optional", "It is essential through regular public reporting on activities", "It is only for donors", "It is only for government partners"],
           correctAnswer: 1,
-          explanation: "Transparency is essential through regular public reporting on water activities as part of AHEP's accountability framework."
+          explanation: "Transparency is essential through regular public reporting on activities as part of AHEP's accountability framework."
         },
         {
           id: 10,
-          question: "What is one of AHEP's focus areas?",
-          options: ["Increasing plastic production", "Protecting water bodies including rivers, lakes, oceans, and groundwater", "Reducing environmental regulations", "Promoting single-use plastics"],
+          question: "What is one of AHEP's strategic priorities?",
+          options: ["Increasing plastic production", "Policy influence through shaping national and regional environmental policies", "Reducing environmental regulations", "Promoting single-use plastics"],
           correctAnswer: 1,
-          explanation: "Protecting water bodies including rivers, lakes, oceans, and groundwater is one of AHEP's primary focus areas."
+          explanation: "Policy Influence, including shaping national and regional environmental policies, is one of AHEP's strategic priorities."
         }
       ]
     },
 
-    // MODULE 4: PLASTIC POLLUTION PREVENTION, WATER PROTECTION & CIRCULAR ECONOMY
+    // MODULE 4: PLASTIC POLLUTION PREVENTION & CIRCULAR ECONOMY
     {
       id: 4,
-      title: "Plastic Pollution Prevention, Water Protection & Circular Economy",
-      content: `# Plastic Pollution Prevention, Water Protection & Circular Economy
+      title: "Plastic Pollution Prevention & Circular Economy",
+      content: `# Plastic Pollution Prevention & Circular Economy
 
-This module covers comprehensive prevention strategies to protect water bodies, from individual actions to systemic changes, and introduces the circular economy as a transformative approach.
+This module covers the comprehensive framework of prevention strategies, from individual actions to systemic changes, and introduces the circular economy as a transformative approach to plastic pollution.
 
 ---
 
-## The Prevention Hierarchy for Water Protection
+## The Prevention Hierarchy
 
-**The Three R's for Water Protection:**
-1. **Reduce**: Preventing plastic waste at the source
-2. **Reuse**: Using items multiple times to prevent water entry
-3. **Recycle**: Converting waste into new products
+**The Three R's:**
+1. Reduce: Preventing waste at the source
+2. Reuse: Using items multiple times
+3. Recycle: Converting waste into new products
 
 **Why Prevention Comes First:**
-Prevention is the most effective approach to protecting water bodies because it:
-- Prevents pollution at the source before it reaches water
-- Saves money for water treatment and cleanup
+Prevention is the most effective approach to plastic pollution because it:
+- Prevents pollution at the source
+- Saves money for consumers and businesses
 - Reduces resource extraction, energy use, and emissions
-- Eliminates the need for waterbody cleanup
-- Protects aquatic ecosystems from contamination
+- Eliminates the need for waste management and recycling
 
 ---
 
-## Reduce: Stopping Plastic Before It Reaches Water
+## Reduce
 
 **What Reducing Means:**
-Reducing the amount of plastic produced and consumed is the most fundamental strategy for protecting water bodies.
+Reducing the amount of plastic produced and consumed is the most fundamental prevention strategy.
 
 **Individual Reduction Strategies:**
-- Refuse single-use plastics (bags, straws, cutlery, bottles)
+- Refuse single-use plastics (bags, straws, cutlery, water bottles)
 - Choose reusable alternatives (bags, bottles, containers)
 - Buy in bulk to reduce packaging waste
 - Choose products with minimal packaging
-- Avoid products with microplastics
-- Bring your own reusable items
+- Buy second-hand products
+- Bring your own bags, containers, cups
 
 **Business Reduction Strategies:**
 - Eco-design: Designing products with less plastic
 - Packaging reduction: Eliminating unnecessary packaging
 - Bulk dispensing: Reducing individual packaging
-- Water-friendly packaging: Avoiding water-contaminating materials
+- Product-as-a-service: Moving from ownership to service models
 
 **Government Reduction Strategies:**
-- Single-use plastic bans to protect water bodies
+- Single-use plastic bans and restrictions
 - Taxes and levies on plastic products
-- Packaging standards requiring recycled content
+- Packaging standards requiring minimum recycled content
 - Extended Producer Responsibility requirements
 - Public procurement of sustainable products
-- Awareness campaigns targeting water protection
+- Awareness campaigns to change behavior
 
-**African Examples of Water Protection:**
-- Rwanda: Strict plastic bag bans, water catchment protection
-- Kenya: Ban on plastic bags, lake protection initiatives
-- Ethiopia: Plastic import and production bans
-- South Africa: Plastic bag fees and water quality monitoring
-- Uganda: Lake Victoria protection through plastic reduction
+**African Examples:**
+- Rwanda: Strict plastic bag ban since 2008
+- Kenya: Ban on plastic bags with enforcement
+- Ethiopia: Ban on plastic import and production
+- South Africa: Mandatory fee on plastic bags
 
 ---
 
-## Reuse: Keeping Plastics Out of Water
+## Reuse
 
 **What Reusing Means:**
-Using items multiple times before disposal, reducing the need for new production and preventing water contamination.
+Using items multiple times before disposal, reducing the need for new production.
 
 **Types of Reuse Systems:**
-- **Direct Reuse**: Using items for same purpose multiple times
-- **Repurposing**: Using items for different purposes
-- **Refill Systems**: Returning containers for refilling
-- **Deposit Return Systems**: Incentivizing return of containers
-- **Sharing Economy**: Shared use of products
+- Direct Reuse: Using items for the same purpose multiple times
+- Repurposing: Using items for different purposes
+- Refill Systems: Returning containers for refilling
+- Deposit Return Systems: Incentivizing return of containers
+- Sharing Economy: Shared use of products
 
-**Benefits of Reuse for Water Protection:**
-- Reduces plastic production and water contamination risk
+**Benefits of Reuse:**
+- Reduces plastic production and demand
 - Saves energy and materials
 - Creates economic benefits and cost savings
-- Reduces waste generation entering water bodies
+- Reduces waste generation
 - Creates employment in collection and cleaning
-- Builds community resilience
 
 **Reuse Innovations:**
-- Reusable packaging for beverages and food
-- Refillable water bottles and personal care products
-- Deposit Return Systems for bottles and containers
+- Reusable packaging for milk, water, takeaway
+- Refillable personal care and cleaning products
+- Deposit Return Systems (DRS) for bottles and containers
 - Product take-back programs
 - Bulk and zero-waste retail stores
-- Repair services extending product life
+- Repair services to extend product life
 
 **African Reuse Practices:**
 - Traditional practices: Refilling, repair, repurposing
@@ -1107,134 +915,127 @@ Using items multiple times before disposal, reducing the need for new production
 
 ---
 
-## Recycle: Converting Waste to Keep Water Clean
+## Recycle
 
 **What Recycling Means:**
-Converting plastic waste into new products, keeping materials from entering water bodies.
+Converting plastic waste into new products, keeping materials in the economy.
 
 **Types of Plastic Recycling:**
-1. **Mechanical Recycling**: Physical processing of plastics
-2. **Chemical Recycling**: Chemical breakdown and repolymerization
-3. **Pyrolysis**: Thermal breakdown without oxygen
-4. **Gasification**: Conversion to synthetic gas
-5. **Depolymerization**: Breaking down to monomers
+1. Mechanical Recycling: Physical processing of plastics
+2. Chemical Recycling: Chemical breakdown and repolymerization
+3. Pyrolysis: Thermal breakdown without oxygen
+4. Gasification: Conversion to synthetic gas
 
 **The Recycling Process:**
-1. Collection: Gathering plastic waste before it reaches water
+1. Collection: Gathering plastic waste
 2. Sorting: Separating by type and quality
 3. Cleaning: Removing contaminants
 4. Processing: Converting into recycled material
 5. Manufacturing: Creating new products
 
-**Benefits of Recycling for Water Protection:**
-- Resource conservation reduces water contamination
-- Energy savings reduce water pollution
-- Greenhouse gas reduction protects water quality
-- Economic opportunities in water protection
-- Waste diversion prevents water body contamination
+**Benefits of Recycling:**
+- Resource conservation
+- Energy savings
+- Greenhouse gas reduction
+- Economic opportunities
+- Waste diversion from landfills
 
 **Challenges to Recycling:**
 - Quality degradation with each cycle
 - Cost (often more expensive than virgin plastic)
-- Contamination issues affecting water
+- Contamination issues
 - Market demand fluctuations
 - Chemical additives complicating recycling
 
 **Recycling in Africa:**
-- Informal recycling: Major role of waste pickers in water protection
+- Informal recycling: Major role of waste pickers
 - Formal recycling: Growing industrial capacity
 - Challenges: Limited infrastructure, low collection rates
-- Opportunities: Green jobs, circular economy development, water protection
+- Opportunities: Green jobs, circular economy development
 
 ---
 
-## Circular Economy: A System for Water Protection
+## Circular Economy**Definition:**
+A circular economy is a system where materials never become waste and natural systems are regenerated.
 
-**Definition:**
-A circular economy is a system where materials never become waste and natural systems are regenerated, protecting water bodies from contamination.
-
-**Core Principles for Water Protection:**
-1. **Eliminate Waste and Pollution**: Design to keep plastics from water
-2. **Keep Products and Materials in Use**: Prevent water contamination
-3. **Regenerate Natural Systems**: Restore water ecosystems
+**Core Principles:**
+1. Eliminate Waste and Pollution: Design out waste from the start
+2. Keep Products and Materials in Use: Maximize use and longevity
+3. Regenerate Natural Systems: Enhance natural capital
 
 **Circular Economy vs. Linear Economy:**
-- **Linear**: Make, Use, Dispose (plastics enter water)
-- **Circular**: Make, Use, Return, Remake (plastics stay out of water)
+- Linear: Make, Use, Dispose (Take-Make-Waste)
+- Circular: Make, Use, Return, Remake (Take-Make-Return-Remake)
 
-**Circular Economy Strategies for Water Protection:**
-- Rethink: Question need for plastic materials
+**Circular Economy Strategies:**
+- Rethink: Question the need for product/material
 - Reduce: Minimize material use
 - Reuse: Use products multiple times
 - Repair: Fix rather than replace
 - Refurbish: Restore to good condition
-- Remanufacture: Make new from old
+- Remanufacture: Make new products from old
 - Repurpose: Use for different purpose
 - Recycle: Process into new materials
-- Recover: Extract energy from waste
 
-**Benefits of Circular Economy for Water:**
-- Environmental: Reduced water contamination
+**Benefits of Circular Economy:**
+- Environmental: Reduced extraction, emissions, pollution
 - Economic: Cost savings, new business models
 - Social: Job creation, community resilience
 - Resource Security: Reduced dependence on imports
-- Water Protection: Cleaner water bodies
 
 **African Circular Economy Initiatives:**
 - Africa Circular Economy Network: Regional collaboration
 - National Strategies: Countries developing circular economy plans
 - Business Innovations: New circular business models
 - Community Initiatives: Local circular practices
-- Water Protection: Integration of water considerations
 
 ---
 
-## Waste Segregation for Water Protection
+## Waste Segregation
 
 **Definition:**
-Separating waste into different categories to facilitate recycling and prevent water contamination.
+Separating waste into different categories to facilitate recycling and proper disposal.
 
 **Waste Categories:**
 - Plastics: By type (PET, HDPE, etc.)
-- Organic Waste: Compostable materials
+- Organic Waste: Food waste, yard waste
 - Paper and Cardboard: Office paper, packaging
 - Glass: Bottles, containers
 - Metals: Cans, scrap metal
-- Electronics: E-waste (contains hazardous materials)
-- Hazardous Waste: Chemicals, batteries (water contaminants)
+- Electronics: E-waste
+- Hazardous Waste: Chemicals, batteries
 
-**Benefits of Segregation for Water Protection:**
-- Better recycling quality reduces contamination
-- Higher recovery rates prevent water entry
-- Reduced contamination of water bodies
+**Benefits of Segregation:**
+- Better recycling quality
+- Higher recovery rates
+- Reduced contamination
 - Health protection for waste workers
-- Environmental protection of water sources
+- Environmental protection
 
 **Segregation in Africa:**
 - Informal Segregation: Waste pickers provide vital service
 - Household Education: Community awareness programs
 - Municipal Programs: Formal segregation programs
 - Integration: Formal-informal sector cooperation
-- Water Protection: Segregation keeps waste from water
 
 ---
 
-## Sustainable Consumption for Water Protection
+## Sustainable Consumption
 
 **Definition:**
-Using goods and services in ways that minimize environmental impact and protect water bodies.
+Using goods and services in ways that minimize environmental impact.
 
 **Principles of Sustainable Consumption:**
-1. Need vs. Want: Distinguishing essential vs. optional
-2. Quality Over Quantity: Choosing durable products
-3. Lifecycle Thinking: Considering full environmental impact on water
-4. Sustainable Choices: Choosing water-friendly options
+1. Need vs. Want: Distinguishing essential vs. optional consumption
+2. Quality Over Quantity: Choosing durable, high-quality products
+3. Lifecycle Thinking: Considering full environmental impact
+4. Sustainable Choices: Choosing environmentally friendly options
 5. Reduced Consumption: Consuming less overall
 
-**Sustainable Consumption Strategies for Water:**
+**Sustainable Consumption Strategies:**
 - Conscious consumption: Mindful purchasing decisions
-- Choose sustainable materials: Avoid water contaminants
-- Support sustainable brands: Companies protecting water
+- Choose sustainable materials: Biodegradable, recycled, low-impact
+- Support sustainable brands: Companies with environmental commitment
 - Sustainable packaging: Minimal, recyclable, reusable
 - Share and borrow: Reduce individual ownership
 - Digital consumption: Reduce physical products
@@ -1244,58 +1045,52 @@ Using goods and services in ways that minimize environmental impact and protect 
 - Growing awareness: Increasing environmental consciousness
 - Sustainable products: Growing market for eco-friendly products
 - Youth movement: Young people leading sustainable practices
-- Water protection: Consumption choices protect water
 
 ---
 
-## Green Innovation for Water Protection
+## Green Innovation
 
 **Definition:**
-Developing new approaches, products, and solutions that reduce environmental impact and protect water bodies.
+Developing new approaches, products, and solutions that reduce environmental impact.
 
 **Types of Green Innovation:**
-- Product Innovation: New water-friendly products
+- Product Innovation: New environmentally friendly products
 - Process Innovation: Greener production methods
-- Business Model Innovation: New sustainable models
-- Service Innovation: Environmental services
-- Policy Innovation: New water governance approaches
+- Business Model Innovation: New sustainable business models
+- Service Innovation: Environmental services and solutions
+- Policy Innovation: New approaches to environmental governance
 
-**Green Innovation in Plastics and Water:**
-- Biodegradable plastics that don't contaminate water
-- Compostable plastics for water-safe disposal
+**Green Innovation in Plastics:**
+- Biodegradable and compostable plastics
 - Plastic alternatives from natural materials
 - Advanced recycling technologies
-- Water filtration and cleanup technologies
 - Enzyme-based solutions for plastic breakdown
-- Digital solutions for water quality monitoring
+- Digital solutions for waste management
 
-**Innovation Examples for Water Protection:**
-- Ocean cleanup technologies
-- River plastic capture systems
-- Microplastic filtration in treatment plants
-- Water quality monitoring sensors
-- Plastic waste collection from waterways
-- Eco-bricks as building materials
-- Waste-to-value in water protection
+**Innovation Examples:**
+- Eco-Bricks: Plastic bottles stuffed with plastic waste
+- Precious Plastic: Open-source plastic recycling machines
+- Trash-to-Treasure: Turning waste into valuable products
+- Plastic Roads: Using plastic waste in road construction
+- Waste-to-Energy: Converting plastic to fuel or energy
 
 **Innovation in Africa:**
-- African Innovation: Many homegrown solutions for water protection
+- African Innovation: Many homegrown solutions
 - Waste Entrepreneurship: Waste-to-value businesses
 - Fab Labs: Maker spaces for prototyping
-- University Research: Academic innovation for water
+- University Research: Academic innovation
 - Startup Ecosystem: Growing green tech scene
-- Community Solutions: Local water protection innovations
 
 ---
 
 ## Key Takeaways
 
-- Prevention is the most effective approach to protecting water bodies
-- Reduce, Reuse, Recycle are essential strategies
+- Prevention (Reduce) is the most effective approach to plastic pollution
+- Reuse and Recycle are important complementary strategies
 - The circular economy provides a transformative framework
 - Waste segregation enables effective recycling
-- Sustainable consumption protects water resources
-- Green innovation drives new water protection solutions
+- Sustainable consumption requires conscious choices
+- Green innovation drives new solutions
 
 ---
 
@@ -1304,128 +1099,119 @@ Developing new approaches, products, and solutions that reduce environmental imp
       quiz: [
         {
           id: 1,
-          question: "What is the most effective approach to protecting water bodies from plastic pollution?",
-          options: ["Recycling", "Cleanup", "Prevention through reduction", "Burning"],
+          question: "What is the most effective approach to plastic pollution according to the prevention hierarchy?",
+          options: ["Recycling", "Reusing", "Reducing", "Composting"],
           correctAnswer: 2,
-          explanation: "Prevention through reduction is the most effective approach to protecting water bodies because it stops pollution at the source."
+          explanation: "Reducing is the most effective approach to plastic pollution because it prevents pollution at the source."
         },
         {
           id: 2,
-          question: "What is a circular economy in the context of water protection?",
-          options: ["A linear economic model", "A system where materials never become waste, protecting water bodies from contamination", "A traditional economic approach", "A planned obsolescence model"],
+          question: "What is a circular economy?",
+          options: ["A linear economic model", "An economic system where materials never become waste", "A traditional economic approach", "A planned obsolescence model"],
           correctAnswer: 1,
-          explanation: "A circular economy is a system where materials never become waste and natural systems are regenerated, protecting water bodies from contamination."
+          explanation: "A circular economy is a system where materials never become waste and natural systems are regenerated."
         },
         {
           id: 3,
-          question: "Which country pioneered strict plastic bag bans to protect water bodies?",
+          question: "Which country implemented a strict plastic bag ban starting in 2008?",
           options: ["Kenya", "Rwanda", "South Africa", "Nigeria"],
           correctAnswer: 1,
-          explanation: "Rwanda pioneered strict plastic bag bans and protects its water catchments and water bodies."
+          explanation: "Rwanda implemented a strict plastic bag ban starting in 2008 and has maintained strong enforcement."
         },
         {
           id: 4,
-          question: "What are the three core principles of the circular economy for water protection?",
+          question: "What are the three core principles of the circular economy?",
           options: ["Reduce, reuse, recycle", "Eliminate waste, keep materials in use, regenerate natural systems", "Produce, consume, dispose", "Collect, sort, process"],
           correctAnswer: 1,
           explanation: "The three core principles are: eliminate waste and pollution, keep products and materials in use, and regenerate natural systems."
         },
         {
           id: 5,
-          question: "What is the difference between a deposit return system and regular recycling for water protection?",
-          options: ["No difference", "Deposit return incentivizes return of containers, preventing water contamination", "Deposit return is only for glass", "Regular recycling is better for water"],
+          question: "What is the difference between a deposit return system and regular recycling?",
+          options: ["No difference", "Deposit return incentivizes return of containers with refunds", "Deposit return is only for glass", "Regular recycling is better"],
           correctAnswer: 1,
-          explanation: "Deposit Return Systems incentivize consumers to return containers, preventing them from entering water bodies."
+          explanation: "Deposit Return Systems incentivize consumers to return containers by providing a refund on deposit."
         },
         {
           id: 6,
-          question: "What is the most significant challenge to recycling in Africa for water protection?",
+          question: "What is the most significant challenge to recycling in Africa?",
           options: ["Lack of willingness to recycle", "Limited infrastructure and low collection rates", "People don't know recycling exists", "Recycling is illegal in some countries"],
           correctAnswer: 1,
-          explanation: "Limited infrastructure and low collection rates are the most significant challenges to recycling in Africa, increasing risks to water bodies."
+          explanation: "Limited infrastructure and low collection rates are the most significant challenges to recycling in Africa."
         },
         {
           id: 7,
-          question: "What are eco-bricks and how do they help protect water?",
-          options: ["Bricks made from recycled paper", "Plastic bottles stuffed with plastic waste used as building materials, keeping waste from water", "Bricks made from biodegradable materials", "Traditional clay bricks"],
+          question: "What are eco-bricks?",
+          options: ["Bricks made from recycled paper", "Plastic bottles stuffed with plastic waste used as building materials", "Bricks made from biodegradable materials", "Traditional clay bricks"],
           correctAnswer: 1,
-          explanation: "Eco-bricks are plastic bottles stuffed with plastic waste and used as building materials, keeping plastic waste from entering water bodies."
+          explanation: "Eco-bricks are plastic bottles stuffed with plastic waste and used as building materials."
         },
         {
           id: 8,
-          question: "What is the role of the informal sector in African waste and water protection?",
-          options: ["No role", "A small but important role", "A major role in collection and recycling, helping keep waste from water", "Only in disposal"],
+          question: "What is the role of the informal sector in African waste management?",
+          options: ["No role, all waste is managed formally", "A small but important role", "A major role in collection and recycling", "Only in disposal"],
           correctAnswer: 2,
-          explanation: "The informal sector plays a major role in waste collection and recycling across Africa, helping keep plastic waste from entering water bodies."
+          explanation: "The informal sector plays a major role in waste collection and recycling across Africa."
         },
         {
           id: 9,
-          question: "What is sustainable consumption in relation to water protection?",
-          options: ["Buying expensive products", "Using goods and services in ways that minimize environmental impact and protect water bodies", "Consuming as much as possible", "Only buying local products"],
+          question: "What is sustainable consumption?",
+          options: ["Buying expensive products", "Using goods and services in ways that minimize environmental impact", "Consuming as much as possible", "Only buying local products"],
           correctAnswer: 1,
-          explanation: "Sustainable consumption involves using goods and services in ways that minimize environmental impact and protect water bodies."
+          explanation: "Sustainable consumption is using goods and services in ways that minimize environmental impact."
         },
         {
           id: 10,
-          question: "Which green innovation helps protect water from plastic pollution?",
-          options: ["Making more single-use plastics", "Developing biodegradable and compostable plastics that don't contaminate water", "Increasing plastic production", "Using more packaging"],
+          question: "Which of the following is a green innovation in plastics?",
+          options: ["Making more single-use plastics", "Developing biodegradable and compostable plastics", "Increasing plastic production", "Using more packaging"],
           correctAnswer: 1,
-          explanation: "Developing biodegradable and compostable plastics that don't contaminate water is a green innovation that protects water bodies."
+          explanation: "Developing biodegradable and compostable plastics is a green innovation that reduces environmental impact."
         }
       ]
     },
 
-    // MODULE 5: COMMUNITY ENGAGEMENT, WATER EDUCATION & WASTE MANAGEMENT
+    // MODULE 5: COMMUNITY ENGAGEMENT, EDUCATION & WASTE MANAGEMENT
     {
       id: 5,
-      title: "Community Engagement, Water Education & Waste Management",
-      content: `# Community Engagement, Water Education & Waste Management
+      title: "Community Engagement, Education & Waste Management",
+      content: `# Community Engagement, Education & Sustainable Waste Management
 
-This module covers essential elements of community engagement, water education, and sustainable waste management practices needed to protect water bodies from plastic pollution.
+This module covers the essential elements of community engagement, environmental education, and sustainable waste management practices needed to address plastic pollution at the local level.
 
 ---
 
-## Water Education
+## Environmental Education
 
 **Definition:**
-Water education is the process of developing awareness, knowledge, skills, and commitment to address water-related environmental challenges.
+Environmental education is the process of developing awareness, knowledge, skills, and commitment to address environmental challenges.
 
 **Core Goals:**
-1. **Awareness**: Understanding water issues
-2. **Knowledge**: Understanding water systems and contamination
-3. **Attitudes**: Developing water conservation values
-4. **Skills**: Ability to identify and address water problems
-5. **Participation**: Involvement in water protection solutions
+1. Awareness: Understanding environmental issues
+2. Knowledge: Understanding environmental concepts and relationships
+3. Attitudes: Developing environmental values and commitment
+4. Skills: Ability to identify and address environmental problems
+5. Participation: Involvement in environmental solutions
 
-**Water Education Principles:**
-- **Holistic**: Integrating environmental, social, economic perspectives
-- **Participatory**: Active engagement of learners
-- **Relevant**: Connected to learners' water experiences
-- **Action-Oriented**: Focused on water solutions
-- **Interdisciplinary**: Drawing on multiple fields
+**Environmental Education Principles:**
+- Holistic: Integrating environmental, social, economic perspectives
+- Participatory: Active engagement of learners
+- Relevant: Connected to learners' lives and communities
+- Action-Oriented: Focused on solutions and action
+- Interdisciplinary: Drawing on multiple fields
 
-**Water Education Content:**
-- The water cycle and water resources
-- Water pollution sources and impacts
-- Plastic pollution in water bodies
-- Water conservation and protection
-- Community water management
-- Water and health
-
-**Water Education in Africa:**
-- Curriculum Integration: Many countries include water in education
-- Community-Based Learning: Using local water knowledge
-- Youth Programs: Educating next generation
+**Environmental Education in Africa:**
+- Curriculum Integration: Many countries include environment in education
+- Community-Based Learning: Using local knowledge and traditions
+- Youth Programs: Educating the next generation
 - Resource Challenges: Limited materials and training
 - Partnerships: NGOs and government collaboration
-- Water Focus: Emphasis on water conservation and protection
 
 ---
 
-## Public Awareness for Water Protection
+## Public Awareness
 
 **Definition:**
-Public awareness involves informing and engaging the public about water issues and solutions.
+Public awareness involves informing and engaging the general public about environmental issues and solutions.
 
 **Awareness Campaigns:**
 - Mass Media Campaigns: Television, radio, print, digital
@@ -1433,90 +1219,77 @@ Public awareness involves informing and engaging the public about water issues a
 - Public Events: Community gatherings, celebrations
 - Information Centers: Permanent or mobile information points
 - Community Dialogues: Discussions and knowledge sharing
-- Water Demonstrations: Hands-on learning
 
-**Effective Messages for Water:**
-- **Simple**: Easy to understand and remember
-- **Emotionally Engaging**: Connecting to feelings and values
-- **Action-Oriented**: Clear actions to protect water
-- **Relevant**: Connected to people's lives
-- **Positive**: Solution-focused, not just problems
-- **Water-Focused**: Emphasizing water protection
+**Effective Messages:**
+- Simple: Easy to understand and remember
+- Emotionally Engaging: Connecting to feelings and values
+- Action-Oriented: Clear actions to take
+- Relevant: Connected to people's lives
+- Positive: Solution-focused, not just problems
 
 **Target Audiences:**
 - General Public: Broad awareness raising
-- Communities near Water Bodies: Localized messages
+- Specific Communities: Localized messages
 - Decision-Makers: Policymakers, business leaders
-- Youth: Future water stewards
-- Businesses: Corporate water responsibility
-- Water Users: Farmers, fishers, communities
-
-**Tools and Channels:**
-- Media: Television, radio, newspapers, magazines
-- Digital: Websites, social media, apps
-- Print: Posters, brochures, billboards
-- Events: Water cleanups, fairs, festivals
-- Education: Schools, universities, training
-- Community: Churches, mosques, local groups
+- Youth: Future generations
+- Businesses: Corporate sustainability engagement
 
 ---
 
 ## Schools and Universities
 
 **Importance of Education Institutions:**
-- Reach: Young people are future water stewards
-- Influence: Schools shape water values and behaviors
+- Reach: Young people are future decision-makers
+- Influence: Schools shape values and behaviors
 - Sustainability: Impacts generations
 - Community: Schools as community hubs
 - Institutional Capacity: Resources and expertise
 
-**School-Based Water Initiatives:**
-- Curriculum Integration: Water across subjects
-- Green Schools: Sustainable water practices
+**School-Based Initiatives:**
+- Curriculum Integration: Environment across subjects
+- Green Schools: Sustainable practices in school operations
 - Eco-Clubs: Student environmental groups
-- School Gardens: Water conservation learning
-- Water Monitoring: Hands-on water science
-- Water Conservation: Practical water saving
+- School Gardens: Hands-on sustainability learning
+- Recycling Programs: School-based waste management
 
-**University Water Initiatives:**
-- Water Programs: Degree and certificate programs
-- Research: Water research and innovation
-- Campus Sustainability: Water conservation
-- Student Organizations: Water-related clubs
-- Community Engagement: Water service and education
+**University Initiatives:**
+- Environmental Programs: Degree and certificate programs
+- Research: Environmental research and innovation
+- Campus Sustainability: Green campus operations
+- Student Organizations: Environmental clubs
+- Community Engagement: Connecting to local communities
 
-**Plastic Pollution and Water Education in Schools:**
-- Understanding the Problem: Water contamination science
-- Solutions: Prevention, reuse, recycling for water protection
+**Plastic Pollution Education in Schools:**
+- Understanding the Problem: Science of plastic pollution
+- Solutions: Prevention, reuse, recycling
 - Action: School projects and initiatives
-- Community Involvement: Water body monitoring
-- Leadership: Developing water leaders
+- Community Involvement: Extending to the community
+- Leadership: Developing environmental leaders
 
 ---
 
-## Youth Engagement for Water Protection
+## Youth Engagement
 
 **Importance of Youth Engagement:**
-- Future Leaders: Tomorrow's water stewards
-- Energy and Passion: Commitment to water issues
+- Future Leaders: Tomorrow's decision-makers
+- Energy and Passion: Commitment to environmental issues
 - Innovation: Fresh perspectives and creativity
 - Communication: Reaching peers and families
 - Demographic: Large youth population in Africa
 
 **Youth Engagement Strategies:**
 - Youth Leadership: Training and supporting young leaders
-- Student Initiatives: Youth-led water projects
-- Youth Networks: Connecting young water advocates
+- Student Initiatives: Youth-led environmental projects
+- Youth Networks: Connecting young environmentalists
 - Mentorship: Experienced mentors supporting youth
-- Participation: Youth involvement in water decisions
+- Participation: Youth involvement in decision-making
 
 **Youth Action Areas:**
-- School Campaigns: Peer education on water
-- Community Action: Water cleanups, awareness
-- Advocacy: Speaking out on water issues
-- Social Media: Digital water activism
-- Green Entrepreneurship: Youth-led water businesses
-- Water Monitoring: Youth collecting water data
+- School Campaigns: Peer education
+- Community Action: Cleanups, awareness, projects
+- Advocacy: Speaking out on environmental issues
+- Social Media: Digital environmental activism
+- Green Entrepreneurship: Youth-led environmental businesses
 
 **Supporting Youth Engagement:**
 - Capacity Building: Training and skills
@@ -1527,41 +1300,40 @@ Public awareness involves informing and engaging the public about water issues a
 
 ---
 
-## Community Mobilization for Water Protection
+## Community Mobilization
 
 **Definition:**
-Community mobilization is the process of engaging and organizing community members to take collective action on water issues.
+Community mobilization is the process of engaging and organizing community members to take collective action on environmental issues.
 
 **Community Mobilization Process:**
-1. Identification: Understanding community water needs
-2. Awareness Raising: Informing community about water issues
+1. Identification: Understanding community needs and strengths
+2. Awareness Raising: Informing community about issues
 3. Engagement: Involving community in planning
-4. Action: Community-led water initiatives
+4. Action: Community-led initiatives
 5. Sustaining: Maintaining momentum
 6. Evaluation: Learning and improvement
 
-**Community-Based Water Solutions:**
-- Water Cleanups: Community cleanup initiatives
-- Water Monitoring: Community water quality monitoring
-- Source Protection: Protecting water sources
-- Conservation Programs: Community water conservation
-- Restoration Projects: Restoring water ecosystems
+**Community-Based Solutions:**
+- Community Cleanups: Local cleanup initiatives
+- Segregation Programs: Household waste separation
+- Community Composting: Organic waste management
+- Recycling Cooperatives: Community recycling projects
+- Community Gardens: Green spaces and food production
 - Awareness Campaigns: Community-led awareness
 
 **Key Elements for Success:**
 - Community Ownership: Community leading the process
-- Relevance: Addressing community water priorities
+- Relevance: Addressing community priorities
 - Inclusivity: Involving all community members
 - Capacity Building: Supporting community leadership
 - Resources: Adequate support and materials
-- Water Focus: Protecting local water resources
 
 ---
 
-## Sustainable Waste Management for Water Protection
+## Sustainable Waste Management
 
-**Waste Collection to Protect Water:**
-Waste collection prevents plastic from entering water bodies.
+**Waste Collection:**
+Waste collection is the systematic gathering of waste from generators for transport to treatment or disposal facilities.
 
 **Types of Waste Collection Systems:**
 - Door-to-Door Collection: Direct pickup from households
@@ -1577,68 +1349,66 @@ Waste collection prevents plastic from entering water bodies.
 - Resources: Limited personnel and vehicles
 - Financing: Collection costs
 - Coverage: Gaps in service
-- Water Proximity: Waste near water bodies
 
-**Recycling Systems for Water Protection:**
-Recycling systems keep materials from entering water bodies.
+**Recycling Systems:**
+Recycling systems are organized processes for collecting, sorting, processing, and transforming waste materials into new products.
 
 **Components of Recycling Systems:**
-- Collection: Gathering recyclable materials before they reach water
+- Collection: Gathering recyclable materials
 - Sorting: Separating materials by type and quality
 - Cleaning: Removing contaminants
 - Processing: Converting to recycled material
 - Manufacturing: Creating new products
 - Education: Public awareness and participation
 
-**Water-Specific Recycling Considerations:**
-- Preventing plastic from entering waterways
-- Capturing microplastics during processing
-- Protecting water from contamination
-- Recycling in proximity to water bodies
-- Water-efficient recycling processes
+**Recycling in Africa:**
+- Informal Recycling: Major role of waste pickers
+- Formal Facilities: Growing industrial recycling
+- Challenges: Limited infrastructure, low collection
+- Opportunities: Job creation, economic value
 
 ---
 
-## Best Practices and Success Stories for Water Protection
+## Best Practices and Success Stories
 
 **Community-Based Successes:**
-- Water Cleanup Communities: Community-led water cleanup
-- Zero Waste Communities: Waste reduction protecting water
-- Recycling Cooperatives: Collective recycling for water
+- Zero Waste Communities: Community-led systems
+- Waste Cooperatives: Collective recycling
+- Cleanup Campaigns: Community action
 - Social Enterprises: Waste-to-value businesses
-- School Programs: Water education and action
+- School Programs: Education and action
 
 **African Success Stories:**
-- Rwanda's Water Protection: Clean water bodies, strict enforcement
-- Kenya's Lake Protection: Lake Victoria protection initiatives
-- South Africa's Water Quality: Advanced water monitoring
-- Uganda's Wetland Protection: Community-led wetland restoration
-- Morocco's Water Management: Regional water management approaches
+- Rwanda's Environmental Leadership: Clean cities, strict enforcement
+- Kenya's Ban Implementation: Regional leader in environmental policy
+- South Africa's Recycling Industry: Advanced waste management
+- Nigeria's Social Enterprises: Waste-to-value businesses
+- Morocco's Circular Economy: Regional economic leader
 
-**Water Protection Success Factors:**
-- Political Will: Government commitment to water
-- Community Engagement: Community water stewardship
-- Private Sector Involvement: Business water responsibility
-- Infrastructure Investment: Water and waste facilities
-- Capacity Building: Skills and knowledge for water
-- Financial Sustainability: Sustainable water financing
+**Success Factors:**
+- Political Will: Government commitment
+- Community Engagement: Community participation
+- Private Sector Involvement: Business engagement
+- Infrastructure Investment: Facilities and equipment
+- Capacity Building: Skills and knowledge
+- Financial Sustainability: Sustainable financing
 
 ---
 
-## Communication Strategies for Water Protection
+## Communication Strategies
 
 **Definition:**
-Communication strategies are planned approaches to conveying messages and engaging audiences on water issues.
+Communication strategies are planned approaches to conveying messages and engaging audiences.
 
-**Message Framing for Water:**
-- Health: Connecting to clean water and health
-- Economic: Economic benefits of clean water
-- Environmental: Water ecosystem protection
-- Community: Community water identity
-- Future: Protecting water for generations
-- Justice: Water rights and justice
+**Message Framing:**
+- Health: Connecting to personal health
+- Economic: Cost savings and economic benefits
+- Environmental: Nature and wildlife protection
+- Community: Community pride and identity
+- Future: Protecting future generations
+- Justice: Environmental justice
 
-**Communication Channels for Water:**
+**Communication Channels:**
 - Traditional Media: Radio, television, print
 - Digital Media: Social media, websites, apps
 - Community Media: Community radio, local newsletters
@@ -1646,23 +1416,23 @@ Communication strategies are planned approaches to conveying messages and engagi
 - Events: Public events, workshops
 - Signage: Billboards, posters, signs
 
-**Communication for Water Behavior Change:**
-1. Awareness: Informing about water issues
+**Communication for Behavior Change:**
+1. Awareness: Informing about issue
 2. Knowledge: Understanding the problem
 3. Skills: Practical abilities
 4. Motivation: Willingness to act
-5. Action: Taking steps to protect water
-6. Maintenance: Continuing water protection behavior
+5. Action: Taking steps
+6. Maintenance: Continuing behavior
 
 ---
 
 ## Key Takeaways
 
-- Water education builds awareness and capacity for action
-- Public awareness campaigns are essential for water protection
-- Youth engagement secures future water stewardship
-- Community mobilization enables collective water solutions
-- Sustainable waste management protects water bodies
+- Education builds awareness and capacity for action
+- Public awareness campaigns are essential for behavior change
+- Youth engagement secures the future of environmental action
+- Community mobilization enables collective solutions
+- Sustainable waste management requires integrated approaches
 - African success stories demonstrate what is possible
 
 ---
@@ -1672,323 +1442,319 @@ Communication strategies are planned approaches to conveying messages and engagi
       quiz: [
         {
           id: 1,
-          question: "What are the core goals of water education?",
-          options: ["Reading, writing, and arithmetic", "Awareness, knowledge, attitudes, skills, and participation for water protection", "Sports, arts, and music", "Science, technology, and engineering"],
+          question: "What are the core goals of environmental education?",
+          options: ["Reading, writing, and arithmetic", "Awareness, knowledge, attitudes, skills, and participation", "Sports, arts, and music", "Science, technology, and engineering"],
           correctAnswer: 1,
-          explanation: "The core goals are awareness, knowledge, attitudes, skills, and participation in water protection."
+          explanation: "The core goals are awareness, knowledge, attitudes, skills, and participation."
         },
         {
           id: 2,
-          question: "What is the primary purpose of public awareness campaigns for water?",
-          options: ["To raise funds for organizations", "To inform and engage the public about water issues and solutions", "To sell products", "To increase tourism"],
+          question: "What is the primary purpose of public awareness campaigns?",
+          options: ["To raise funds for organizations", "To inform and engage the public about environmental issues and solutions", "To sell products", "To increase tourism"],
           correctAnswer: 1,
-          explanation: "Public awareness campaigns aim to inform and engage the general public about water issues and solutions."
+          explanation: "Public awareness campaigns aim to inform and engage the general public about environmental issues and solutions."
         },
         {
           id: 3,
-          question: "What is the importance of youth engagement in water protection?",
-          options: ["Youth have more free time", "Youth are future water stewards and decision-makers", "Youth are more educated", "Youth have more energy"],
+          question: "What is the importance of youth engagement in environmental action?",
+          options: ["Youth have more free time", "Youth are future leaders and decision-makers", "Youth are more educated", "Youth have more energy"],
           correctAnswer: 1,
-          explanation: "Youth engagement is crucial because young people are future water stewards and decision-makers."
+          explanation: "Youth engagement is crucial because young people are future leaders and decision-makers who will shape environmental policy."
         },
         {
           id: 4,
-          question: "What is community mobilization for water protection?",
-          options: ["Moving communities to new locations", "Engaging and organizing community members to take collective action on water issues", "Government community programs", "Community relocation"],
+          question: "What is community mobilization?",
+          options: ["Moving communities to new locations", "Engaging and organizing community members to take collective action", "Government community programs", "Community relocation"],
           correctAnswer: 1,
-          explanation: "Community mobilization is the process of engaging and organizing community members to take collective action on water issues."
+          explanation: "Community mobilization is the process of engaging and organizing community members to take collective action on environmental issues."
         },
         {
           id: 5,
-          question: "What are the components of a recycling system for water protection?",
-          options: ["Collection and disposal only", "Collection, sorting, cleaning, processing, manufacturing, and education", "Sorting and processing only", "Collection and incineration"],
+          question: "What are the components of a waste collection system?",
+          options: ["Only collection and disposal", "Collection, sorting, cleaning, processing, manufacturing, and education", "Only sorting and processing", "Collection and incineration"],
           correctAnswer: 1,
-          explanation: "Recycling systems include collection, sorting, cleaning, processing, manufacturing, and education to keep plastics from water."
+          explanation: "Recycling systems include collection, sorting, cleaning, processing, manufacturing, and education components."
         },
         {
           id: 6,
-          question: "Which channel is most effective for reaching communities about water issues in Africa?",
+          question: "Which channel is most effective for reaching communities in Africa?",
           options: ["Television only", "Digital media only", "Traditional and community media including radio", "International media"],
           correctAnswer: 2,
           explanation: "Traditional and community media, including radio and community events, are most effective for reaching African communities."
         },
         {
           id: 7,
-          question: "What is an eco-club in the school context for water protection?",
-          options: ["A place to study ecology", "A student environmental group promoting water awareness and action", "A science club", "An outdoor education program"],
+          question: "What is an eco-club in the school context?",
+          options: ["A place to study ecology", "A student environmental group promoting awareness and action", "A science club", "An outdoor education program"],
           correctAnswer: 1,
-          explanation: "Eco-clubs are student environmental groups that promote water awareness and action in schools."
+          explanation: "Eco-clubs are student environmental groups that promote awareness and action in schools."
         },
         {
           id: 8,
-          question: "What is the success factor for community water mobilization?",
+          question: "What is the success factor for community mobilization?",
           options: ["Only government support", "Community ownership, relevance, inclusivity, capacity building, and resources", "Only funding", "Only external expertise"],
           correctAnswer: 1,
           explanation: "Key success factors include community ownership, relevance, inclusivity, capacity building, and resources."
         },
         {
           id: 9,
-          question: "Which African country is known for advanced water quality monitoring?",
+          question: "Which African country is known for its advanced recycling industry?",
           options: ["Kenya", "Rwanda", "South Africa", "Ghana"],
           correctAnswer: 2,
-          explanation: "South Africa has advanced water quality monitoring systems and regulations."
+          explanation: "South Africa has developed advanced recycling infrastructure and a formal recycling industry."
         },
         {
           id: 10,
-          question: "What is the purpose of message framing in water communication?",
-          options: ["To confuse the audience", "To connect water issues to what people care about", "To promote specific products", "To create fear"],
+          question: "What is the purpose of message framing in environmental communication?",
+          options: ["To confuse the audience", "To connect environmental issues to what people care about", "To promote specific products", "To create fear"],
           correctAnswer: 1,
-          explanation: "Message framing connects water issues to what people care about (health, economy, community, etc.) to increase engagement."
+          explanation: "Message framing connects environmental issues to what people care about (health, economy, community, etc.) to increase engagement."
         }
       ]
     },
 
-    // MODULE 6: INNOVATION, PARTNERSHIP & CERTIFICATION
+    // MODULE 6: INNOVATION, PARTNERSHIP & FINAL REVIEW
     {
       id: 6,
       title: "Innovation, Partnership & Certification",
       content: `# Innovation, Partnership & Certification
 
-This module covers innovation and technology solutions for water protection, partnership and advocacy strategies, and provides a comprehensive review for the final certification examination.
+This module covers innovation and technology solutions, partnership and advocacy strategies, and provides a comprehensive review for the final certification examination.
 
 ---
 
-## Digital Solutions for Water Protection
+## Digital Solutions for Environmental Management
 
 **Definition:**
-Digital solutions use information and communication technologies to address water protection challenges.
+Digital solutions use information and communication technologies to address environmental challenges.
 
 **Types of Digital Solutions:**
-- Water Quality Monitoring: Real-time water quality data
-- Waste Management Apps: Managing waste collection to protect water
-- Data Platforms: Collecting and analyzing water data
-- Mapping Tools: Visualizing water contamination
-- Communication Platforms: Engaging water stakeholders
-- Blockchain: Water quality traceability
-- Crowdsourcing: Citizen water monitoring
+- Waste Management Apps: Managing waste collection and recycling
+- Data Platforms: Collecting and analyzing environmental data
+- Mapping Tools: Visualizing environmental information
+- Communication Platforms: Engaging stakeholders
+- E-Commerce: Sustainable products and services
+- Blockchain: Traceability and transparency
+- Crowdsourcing: Citizen science and reporting
 
-**Water Quality Monitoring Apps:**
-- Real-time monitoring of water quality
-- Reporting water pollution incidents
-- Finding clean water sources
-- Tracking plastic pollution in water
-- Community water testing
+**Waste Management Apps:**
+- Collection Management: Optimizing collection routes
+- Recycling Information: What can be recycled
+- Drop-off Locations: Finding recycling points
+- Reporting: Reporting pollution or waste issues
+- Community Engagement: Connecting waste generators with collectors
 
 **Digital Platforms in Africa:**
-- Water Quality Monitoring: Community and government monitoring
 - Waste Collection Apps: Connecting waste generators and collectors
-- Water Reporting: Reporting water pollution issues
-- Community Platforms: Engaging communities around water
-- Educational Platforms: Water learning and awareness
+- Recycling Marketplaces: Buying and selling recyclables
+- Environmental Reporting: Reporting environmental issues
+- Community Platforms: Engaging communities
+- Educational Platforms: Learning and awareness
 
 ---
 
-## Artificial Intelligence for Water Protection
+## Artificial Intelligence for Environmental Management
 
 **Definition:**
-AI uses machine learning and other techniques to analyze data and automate decision-making for water protection.
+AI uses machine learning and other techniques to analyze data and automate decision-making for environmental management.
 
-**AI Applications in Water:**
-- Water Quality Monitoring: Analyzing water quality data
-- Pollution Detection: Detecting contamination in water
-- Predictive Analytics: Forecasting water quality changes
-- Waste Management: Optimizing collection routes
-- Image Recognition: Identifying pollutants in water
-- Satellite Analysis: Monitoring water bodies
-- Decision Support: Supporting water management decisions
+**AI Applications in Environment:**
+- Waste Sorting: Automated sorting of waste
+- Pollution Monitoring: Detecting pollution
+- Predictive Analytics: Forecasting waste generation
+- Optimization: Improving collection routes
+- Image Recognition: Identifying waste types
+- Natural Language Processing: Analyzing text data
+- Decision Support: Supporting decisions
+- Behavioral Analysis: Understanding behavior
 
-**AI for Plastic Pollution in Water:**
-- Plastic Identification: Identifying plastic types in water
-- Monitoring: Tracking plastic pollution in water bodies
-- Prediction: Forecasting plastic contamination
-- Detection: Detecting microplastics in water
-- Mapping: Mapping water pollution
+**AI for Plastic Pollution:**
+- Waste Identification: Identifying plastic types
+- Sorting Robots: Automated sorting
+- Monitoring: Plastic pollution tracking
+- Prediction: Forecasting plastic waste
+- Optimization: Collection optimization
+- Detection: Detecting microplastics
+- Mapping: Pollution mapping
 
 **AI Challenges:**
-- Data Quality: Need for quality water data
+- Data Quality: Need for quality data
 - Algorithm Bias: Potential for bias
 - Expertise: Technical skills needed
 - Cost: Implementation costs
-- Infrastructure: Connectivity requirements
+- Acceptance: Resistance to technology
 - Ethics: Privacy and fairness
 
 ---
 
-## Data Platforms for Water
+## Data Platforms
 
 **Definition:**
-Data platforms are organized systems for collecting, storing, analyzing, and sharing water data.
+Data platforms are organized systems for collecting, storing, analyzing, and sharing environmental data.
 
 **Types of Data Platforms:**
-- Water Quality Monitoring: Tracking water quality
-- Waste Management: Waste tracking affecting water
+- Environmental Monitoring: Tracking environmental conditions
+- Waste Management: Waste tracking
 - Reporting: Environmental reporting
 - Analytics: Data analysis
 - Dashboard: Visualization
 - Open Data: Public data sharing
 
-**Water Data Types:**
-- Water Quality: Physical, chemical, biological
-- Water Quantity: Flow, levels, availability
-- Pollution Data: Contamination sources and levels
-- Water Resources: Location, condition, use
-- Climate Data: Impact on water resources
-- Social Data: Water use behavior
+**Environmental Data Types:**
+- Pollution Data: Air, water, soil
+- Waste Data: Quantity, type, disposal
+- Biodiversity Data: Species, habitats
+- Climate Data: Temperature, precipitation
+- Geospatial Data: Maps and locations
+- Social Data: Behavior, attitudes
 
 **Data Platforms for Plastic Pollution:**
 - Plastic Waste Data: Collection and recycling
-- Water Contamination Data: Plastic in water bodies
-- Monitoring Data: Water quality monitoring
+- Marine Plastic Data: Ocean and coastal
+- Monitoring Data: Environmental monitoring
 - Reporting Data: Reporting and disclosure
-- Mapping Data: Spatial distribution of pollution
+- Mapping Data: Spatial distribution
 
 ---
 
 ## Zero Plastic Africa Tracker
 
 **Definition:**
-The Zero Plastic Africa Tracker is a digital platform for monitoring and tracking plastic pollution across African water bodies.
+The Zero Plastic Africa Tracker is a digital platform for monitoring and tracking plastic pollution across Africa.
 
 **Platform Purpose:**
-- Monitoring: Tracking plastic pollution in water
+- Monitoring: Tracking plastic pollution
 - Awareness: Raising public awareness
-- Data Collection: Gathering water quality data
-- Reporting: Reporting water contamination
-- Action: Supporting water protection
+- Data Collection: Gathering environmental data
+- Reporting: Reporting plastic pollution
+- Action: Supporting action
 
 **Key Features:**
-- Interactive Map: Mapping water pollution
+- Interactive Map: Mapping plastic pollution
 - Data Collection: Citizen science reporting
 - Visualization: Data visualization
 - Analysis: Data analysis
-- Reporting: Water pollution reporting
-- Education: Water awareness resources
-- Action: Cleanup coordination for water
+- Reporting: Pollution reporting
+- Education: Awareness resources
+- Action: Cleanup coordination
 
 **How the Tracker Works:**
-1. Data Collection: Users report water pollution
+1. Data Collection: Users report plastic pollution
 2. Data Processing: Information is verified
-3. Data Analysis: Analyzing trends in water quality
+3. Data Analysis: Analyzing trends
 4. Visualization: Displaying on map
-5. Sharing: Sharing water information
-6. Action: Supporting water interventions
+5. Sharing: Sharing information
+6. Action: Supporting interventions
 
 **Platform Benefits:**
-- Visibility: Making water pollution visible
-- Data: Data for water decision-making
-- Awareness: Raising water awareness
-- Action: Supporting water protection
-- Collaboration: Connecting water stakeholders
-- Progress: Tracking water quality progress
+- Visibility: Making pollution visible
+- Data: Data for decision-making
+- Awareness: Raising awareness
+- Action: Supporting action
+- Collaboration: Connecting stakeholders
+- Progress: Tracking progress
 
 ---
 
-## Water Monitoring
+## Environmental Monitoring
 
 **Definition:**
-Water monitoring is the systematic observation and measurement of water quality and conditions.
+Environmental monitoring is the systematic observation and measurement of environmental conditions and changes.
 
 **Monitoring Types:**
-- Water Quality: Physical, chemical, biological
-- Water Quantity: Levels, flows, availability
-- Pollution: Contamination sources and levels
-- Ecosystems: Aquatic ecosystem health
-- Groundwater: Groundwater quality and levels
-- Drinking Water: Safe drinking water quality
+- Air Quality: Air pollution monitoring
+- Water Quality: Water pollution monitoring
+- Soil Quality: Soil contamination monitoring
+- Biodiversity: Species and habitat monitoring
+- Waste: Waste generation and management
+- Plastic Pollution: Plastic monitoring
 
 **Monitoring Technologies:**
-- Sensors: Water quality sensors
-- Satellites: Remote sensing of water
-- Drones: Aerial water monitoring
-- Sampling: Water sample collection and analysis
+- Sensors: Environmental sensors
+- Satellites: Remote sensing
+- Drones: Aerial monitoring
+- Sampling: Sample collection and analysis
 - Laboratory: Lab analysis
 - Citizen Science: Public participation
 
-**Plastic Pollution Monitoring in Water:**
-- Macroplastics: Visible plastic in water
-- Microplastics: Small particles in water
+**Plastic Pollution Monitoring:**
+- Macroplastics: Visible plastic waste
+- Microplastics: Small plastic particles
 - Marine Plastic: Ocean and coastal
+- Terrestrial Plastic: Land-based
 - Freshwater Plastic: Rivers and lakes
-- Drinking Water: Microplastics in water supply
-
-**Monitoring in Africa:**
-- National Systems: Government water monitoring
-- Research: Academic water monitoring
-- Community: Citizen water monitoring
-- International: Global water initiatives
-- Challenges: Resources and capacity
-- Opportunities: Technology and collaboration
 
 ---
 
-## Building Partnerships for Water
+## Building Partnerships
 
 **Definition:**
-Partnerships are collaborative relationships between organizations and individuals working toward water protection goals.
+Partnerships are collaborative relationships between organizations and individuals working toward shared goals.
 
 **Types of Partnerships:**
 - Sector Partnerships: Government, business, civil society
 - Cross-Sector: Multi-stakeholder collaborations
-- International: Cross-border water cooperation
-- National: National-level water collaboration
-- Regional: Regional water cooperation
-- Local: Community water partnerships
+- International: Cross-border cooperation
+- National: National-level collaboration
+- Regional: Regional cooperation
+- Local: Community partnerships
 
 **Partnership Development:**
-1. Identification: Finding potential water partners
+1. Identification: Finding potential partners
 2. Initiation: Reaching out
-3. Development: Building water relationships
+3. Development: Building relationships
 4. Agreement: Formalizing
-5. Implementation: Working together on water
-6. Evaluation: Assessing water outcomes
-7. Sustainability: Maintaining water partnerships
+5. Implementation: Working together
+6. Evaluation: Assessing outcomes
+7. Sustainability: Maintaining partnerships
 
 **Partnership Benefits:**
-- Resources: Combined resources for water
-- Expertise: Diverse water skills and knowledge
+- Resources: Combined resources
+- Expertise: Diverse skills and knowledge
 - Legitimacy: Broad support
-- Innovation: Creative water solutions
-- Reach: Broader water impact
-- Influence: Greater water influence
+- Innovation: Creative solutions
+- Reach: Broader impact
+- Influence: Greater influence
 
 ---
 
-## Advocacy Campaigns for Water
+## Advocacy Campaigns
 
 **Definition:**
-Advocacy campaigns are organized efforts to influence water policy, opinion, and behavior.
+Advocacy campaigns are organized efforts to influence public policy, opinion, and behavior.
 
 **Advocacy Campaign Components:**
-- Goal: Clear water objective
+- Goal: Clear objective
 - Strategy: Approach and plan
-- Message: Key water communication
-- Target: Audience and water decision-makers
+- Message: Key communication
+- Target: Audience and decision-makers
 - Tactics: Activities and actions
 - Resources: Materials and funding
 - Evaluation: Measuring effectiveness
 
-**Types of Water Advocacy:**
-- Policy Advocacy: Influencing water policy
-- Public Awareness: Changing water opinion
-- Behavior Change: Changing water use behavior
-- Legal Advocacy: Using courts for water
-- Media Advocacy: Influencing media on water
+**Types of Advocacy:**
+- Policy Advocacy: Influencing government
+- Public Awareness: Changing public opinion
+- Behavior Change: Changing behavior
+- Legal Advocacy: Using courts
+- Media Advocacy: Influencing media
 
 **Advocacy Tactics:**
-- Research: Evidence-based water advocacy
+- Research: Evidence-based advocacy
 - Lobbying: Direct political influence
-- Media: Media engagement on water
-- Public Events: Rallies, water actions
-- Social Media: Digital water advocacy
+- Media: Media engagement
+- Public Events: Rallies, actions
+- Social Media: Digital advocacy
 - Coalitions: Working with others
-- Litigation: Legal action for water
+- Litigation: Legal action
+- Education: Awareness raising
 
 ---
 
-## Media Engagement for Water
+## Media Engagement
 
 **Definition:**
-Media engagement is working with media to communicate water messages and influence public opinion.
+Media engagement is working with media to communicate messages and influence public opinion.
 
 **Media Types:**
 - Traditional Media: Television, radio, print
@@ -1997,21 +1763,21 @@ Media engagement is working with media to communicate water messages and influen
 - Social Media: Facebook, Twitter, Instagram
 
 **Media Engagement Strategies:**
-- Press Releases: Water announcements
-- Media Briefings: Informing water journalists
+- Press Releases: Official announcements
+- Media Briefings: Informing journalists
 - Media Partnerships: Working together
-- Op-Eds: Opinion pieces on water
+- Op-Eds: Opinion pieces
 - Press Events: News conferences
-- Digital Media: Social media water campaigns
-- Stories: Human interest water stories
+- Digital Media: Social media campaigns
+- Stories: Human interest stories
 
 **Media Engagement Benefits:**
-- Awareness: Public water awareness
-- Influence: Public water opinion
-- Pressure: Political water pressure
-- Reach: Broad water audience
-- Credibility: Media water credibility
-- Action: Inspiring water action
+- Awareness: Public awareness
+- Influence: Public opinion
+- Pressure: Political pressure
+- Reach: Broad audience
+- Credibility: Media credibility
+- Action: Inspiring action
 
 ---
 
@@ -2019,69 +1785,57 @@ Media engagement is working with media to communicate water messages and influen
 
 **Key Concepts Review:**
 
-**Module 1: Plastic Pollution, Water Bodies & The African Crisis**
-- Plastic pollution types and water pathways
-- Water body contamination impacts
+**Module 1: Plastic Pollution: Science, Impacts & The African Context**
+- Plastic pollution types and lifecycle
+- Environmental and human health impacts
 - African context and opportunities
-- AHEP's mandate for water protection
 
-**Module 2: The UN Global Plastics Treaty, Water Protection & Policy Frameworks**
-- Treaty purpose and water objectives
-- Key negotiations for water
-- Africa's role in water protection
-- National and international water policies
+**Module 2: The UN Global Plastics Treaty & Policy Frameworks**
+- Treaty purpose and development
+- Key objectives and negotiations
+- Africa's role and national policies
 
-**Module 3: AHEP Vision, Water Stewardship & Leadership**
-- Vision for water protection
+**Module 3: AHEP Vision, Leadership & Environmental Stewardship**
+- Vision and mission
 - Core values and partner expectations
-- Water stewardship principles
-- Leadership for water protection
+- Leadership principles and ethics
 
-**Module 4: Plastic Pollution Prevention, Water Protection & Circular Economy**
-- Prevention hierarchy for water
+**Module 4: Plastic Pollution Prevention & Circular Economy**
+- Prevention hierarchy (Reduce, Reuse, Recycle)
 - Circular economy principles
-- Waste segregation for water
-- Sustainable consumption and innovation
+- Waste segregation and sustainable consumption
 
-**Module 5: Community Engagement, Water Education & Waste Management**
-- Water education and awareness
-- Youth engagement for water
-- Community mobilization for water
-- Sustainable waste management for water
+**Module 5: Community Engagement, Education & Waste Management**
+- Environmental education and awareness
+- Youth engagement and community mobilization
+- Sustainable waste management practices
 
 **Module 6: Innovation, Partnership & Certification**
-- Digital solutions and AI for water
-- Data platforms and water monitoring
+- Digital solutions and AI
+- Data platforms and monitoring
 - Partnership and advocacy strategies
-- Certification and leadership
 
 ---
 
 ## Frequently Asked Questions
 
-**Q: What is the most effective approach to protecting water bodies from plastic pollution?**
+**Q: What is the most effective approach to plastic pollution?**
 A: Prevention through reduction is the most effective approach, followed by reuse and then recycling as complementary strategies.
 
-**Q: What is the UN Global Plastics Treaty?**
+**Q: What is the Global Plastics Treaty?**
 A: The UN Global Plastics Treaty is an international legally binding instrument to end plastic pollution, currently under negotiation.
 
-**Q: How does plastic pollution affect water bodies?**
-A: Plastic pollution contaminates rivers, lakes, oceans, and groundwater, harming aquatic life, affecting water quality, and posing risks to human health.
+**Q: How can I personally contribute to reducing plastic pollution?**
+A: Reduce single-use plastics, choose reusable alternatives, segregate waste, support recycling, advocate for policy change, and educate others.
 
 **Q: What is the circular economy?**
-A: A circular economy is a system where materials never become waste and natural systems are regenerated, protecting water bodies from contamination.
+A: A circular economy is a system where materials never become waste and natural systems are regenerated, replacing the linear "take-make-dispose" model.
 
 **Q: What is Extended Producer Responsibility (EPR)?**
-A: EPR is a policy approach where producers bear responsibility for the environmental impact of their products, including water contamination.
+A: EPR is a policy approach where producers bear responsibility for the environmental impact of their products throughout the product lifecycle, especially at end of life.
 
-**Q: How can I personally contribute to water protection?**
-A: Reduce plastic use, choose reusable alternatives, properly dispose of waste, support cleanups, advocate for policies, and educate others.
-
-**Q: How can communities protect their water bodies?**
-A: Through community cleanups, water monitoring, source protection, conservation programs, and advocacy for water policies.
-
-**Q: What role does AHEP play in water protection?**
-A: AHEP coordinates efforts to end plastic pollution in African water bodies through advocacy, capacity building, partnerships, and practical solutions.
+**Q: How can I get involved in environmental advocacy?**
+A: Join or support organizations, participate in campaigns, contact policymakers, use social media, participate in community cleanups, and educate others.
 
 ---
 
@@ -2091,7 +1845,7 @@ A: AHEP coordinates efforts to end plastic pollution in African water bodies thr
 1. Review all modules thoroughly
 2. Take module quizzes to assess understanding
 3. Download and review resource materials
-4. Focus on key water protection concepts
+4. Focus on key concepts in each module
 5. Familiarize yourself with question formats
 6. Practice time management
 
@@ -2116,8 +1870,7 @@ A: AHEP coordinates efforts to end plastic pollution in African water bodies thr
 Learners can download:
 - AHEP Learning Handbook (PDF)
 - UN Global Plastics Treaty Overview
-- Water Quality Fact Sheets
-- Plastic Pollution and Water Fact Sheets
+- Plastic Pollution Fact Sheets
 - SDG Quick Reference Guide
 - Recommended Reading List
 
@@ -2125,7 +1878,7 @@ Learners can download:
 
 ## Congratulations
 
-Upon successful completion of this course, you will join a network of AHEP Certified Plastic Pollution Leaders committed to ending plastic pollution in African water bodies. Your knowledge and commitment will contribute to a future where African water bodies are free from plastic pollution, supporting healthy communities and thriving ecosystems.
+Upon successful completion of this course, you will join a network of AHEP Certified Plastic Pollution Leaders committed to driving solutions for plastic pollution across Africa. Your knowledge and commitment will contribute to a healthier and more sustainable future for the continent.
 
 ---
 
@@ -2135,44 +1888,44 @@ Upon successful completion of this course, you will join a network of AHEP Certi
         {
           id: 1,
           question: "What is the Zero Plastic Africa Tracker?",
-          options: ["A tracking device", "A digital platform for monitoring plastic pollution across African water bodies", "A recycling machine", "A government agency"],
+          options: ["A tracking device", "A digital platform for monitoring plastic pollution across Africa", "A recycling machine", "A government agency"],
           correctAnswer: 1,
-          explanation: "The Zero Plastic Africa Tracker is a digital platform for monitoring and tracking plastic pollution across African water bodies."
+          explanation: "The Zero Plastic Africa Tracker is a digital platform for monitoring and tracking plastic pollution across Africa."
         },
         {
           id: 2,
-          question: "Which technology uses machine learning for water protection?",
+          question: "Which technology uses machine learning for environmental management?",
           options: ["Blockchain", "Artificial Intelligence", "Internet of Things", "Drones"],
           correctAnswer: 1,
-          explanation: "Artificial Intelligence uses machine learning and other techniques to analyze water quality data."
+          explanation: "Artificial Intelligence uses machine learning and other techniques to analyze environmental data."
         },
         {
           id: 3,
-          question: "What is the role of blockchain in water protection?",
-          options: ["Water collection only", "Providing transparency and traceability through immutable records of water quality", "Monitoring only", "Reporting only"],
+          question: "What is the role of blockchain in environmental management?",
+          options: ["Waste collection only", "Providing transparency and traceability through immutable records", "Monitoring only", "Reporting only"],
           correctAnswer: 1,
-          explanation: "Blockchain provides transparency and traceability through immutable records of water quality data."
+          explanation: "Blockchain provides transparency and traceability through immutable records of environmental data."
         },
         {
           id: 4,
-          question: "What is a partnership in the context of water protection?",
-          options: ["A legal agreement", "A collaborative relationship working toward shared water protection goals", "A government program", "A private sector initiative"],
+          question: "What is a partnership in the context of environmental management?",
+          options: ["A legal agreement", "A collaborative relationship working toward shared environmental goals", "A government program", "A private sector initiative"],
           correctAnswer: 1,
-          explanation: "A partnership is a collaborative relationship between organizations and individuals working toward shared water protection goals."
+          explanation: "A partnership is a collaborative relationship between organizations and individuals working toward shared environmental goals."
         },
         {
           id: 5,
-          question: "What is advocacy in water protection?",
-          options: ["Government policy making", "Organized efforts to influence water policy, opinion, and behavior", "Public awareness campaigns only", "Community organizing"],
+          question: "What is advocacy in environmental terms?",
+          options: ["Government policy making", "Organized efforts to influence public policy, opinion, and behavior", "Public awareness campaigns only", "Community organizing"],
           correctAnswer: 1,
-          explanation: "Advocacy campaigns are organized efforts to influence water policy, opinion, and behavior."
+          explanation: "Advocacy campaigns are organized efforts to influence public policy, opinion, and behavior on environmental issues."
         },
         {
           id: 6,
-          question: "Which is the most accessible media channel across Africa for water communication?",
+          question: "Which is the most accessible media channel across Africa?",
           options: ["Television", "Print media", "Radio", "Digital media"],
           correctAnswer: 2,
-          explanation: "Radio is still the most accessible and widely used media channel across Africa for water communication."
+          explanation: "Radio is still the most accessible and widely used media channel across Africa."
         },
         {
           id: 7,
@@ -2186,21 +1939,21 @@ Upon successful completion of this course, you will join a network of AHEP Certi
           question: "What resources are available to learners for download?",
           options: ["AHEP Learning Handbook, UN Treaty Overview, Fact Sheets, SDG Guide, Reading List", "Only course materials", "Only quizzes", "Only videos"],
           correctAnswer: 0,
-          explanation: "Learners can download the AHEP Learning Handbook, UN Global Plastics Treaty Overview, Water Quality Fact Sheets, Plastic Pollution and Water Fact Sheets, SDG Quick Reference Guide, and Recommended Reading List."
+          explanation: "Learners can download the AHEP Learning Handbook, UN Global Plastics Treaty Overview, Plastic Pollution Fact Sheets, SDG Quick Reference Guide, and Recommended Reading List."
         },
         {
           id: 9,
-          question: "What is citizen science in water monitoring?",
-          options: ["Scientific research by scientists only", "Public participation in water quality data collection and monitoring", "Government monitoring only", "Commercial monitoring"],
+          question: "What is citizen science in environmental monitoring?",
+          options: ["Scientific research by scientists only", "Public participation in scientific data collection and monitoring", "Government monitoring only", "Commercial monitoring"],
           correctAnswer: 1,
-          explanation: "Citizen science involves public participation in water quality data collection and monitoring."
+          explanation: "Citizen science involves public participation in scientific data collection and environmental monitoring."
         },
         {
           id: 10,
-          question: "What is the purpose of media engagement in water advocacy?",
-          options: ["To sell products", "To communicate water messages and influence public opinion", "To entertain the public", "To create controversy"],
+          question: "What is the purpose of media engagement in environmental advocacy?",
+          options: ["To sell products", "To communicate messages and influence public opinion", "To entertain the public", "To create controversy"],
           correctAnswer: 1,
-          explanation: "Media engagement is used to communicate water messages and influence public opinion."
+          explanation: "Media engagement is used to communicate messages and influence public opinion on environmental issues."
         }
       ]
     }
@@ -2212,122 +1965,125 @@ Upon successful completion of this course, you will join a network of AHEP Certi
     {
       id: 1,
       moduleId: 1,
-      question: "What does AHEP stand for?",
-      options: ["African Health and Environment Program", "African Hub to End Plastic Pollution", "Alliance for Healthy Environmental Practices", "Association for Environmental Protection"],
+      question: "What is the difference between macroplastics and microplastics?",
+      options: ["Macroplastics are biodegradable, microplastics are not", "Macroplastics are larger than 5mm, microplastics are smaller than 5mm", "Macroplastics come from land, microplastics come from ocean", "Macroplastics are recyclable, microplastics are not"],
       correctAnswer: 1,
-      explanation: "AHEP stands for the African Hub to End Plastic Pollution, an international program of Global Aid for Africa (GAA)."
+      explanation: "Macroplastics are visible items larger than 5mm, while microplastics are particles smaller than 5mm."
     },
     {
       id: 2,
       moduleId: 1,
-      question: "What organization does AHEP belong to?",
-      options: ["United Nations", "Global Aid for Africa (GAA)", "African Union", "World Bank"],
-      correctAnswer: 1,
-      explanation: "AHEP is an international program of Global Aid for Africa (GAA)."
+      question: "Which African country pioneered strict plastic bag bans?",
+      options: ["Nigeria", "South Africa", "Rwanda", "Ethiopia"],
+      correctAnswer: 2,
+      explanation: "Rwanda pioneered plastic bag bans and maintains some of the cleanest cities in Africa."
     },
     {
       id: 3,
       moduleId: 1,
-      question: "Which African river systems are affected by plastic pollution?",
-      options: ["Only the Nile", "Nile, Congo, Niger, Zambezi, Orange, Limpopo", "Only the Congo", "Only the Niger"],
-      correctAnswer: 1,
-      explanation: "African river systems including the Nile, Congo, Niger, Zambezi, Orange, and Limpopo are all affected by plastic pollution."
+      question: "What is a 'ghost net'?",
+      options: ["A transparent fishing net", "A net for catching specific fish", "A lost or abandoned fishing net that continues to catch marine life", "A net made from biodegradable materials"],
+      correctAnswer: 2,
+      explanation: "Ghost nets are lost or abandoned fishing nets that continue to catch marine life, causing significant environmental damage."
     },
     {
       id: 4,
       moduleId: 1,
-      question: "What is AHEP's focus regarding water bodies?",
-      options: ["Only ocean pollution", "Protecting rivers, lakes, oceans, and groundwater from plastic pollution", "Only lakes", "Only groundwater"],
+      question: "What economic opportunities exist for Africa in addressing plastic pollution?",
+      options: ["Exporting plastic waste", "Creating green jobs and developing circular economy models", "Increasing plastic production", "Reducing environmental regulations"],
       correctAnswer: 1,
-      explanation: "AHEP focuses on protecting all African water bodies including rivers, lakes, oceans, and groundwater from plastic pollution."
+      explanation: "Addressing plastic pollution creates opportunities for green jobs, circular economy development, and sustainable economic growth."
     },
+
     // Module 2 Questions
     {
       id: 5,
       moduleId: 2,
-      question: "What is the target year for ending plastic pollution under the UN Global Plastics Treaty?",
-      options: ["2030", "2035", "2040", "2045"],
-      correctAnswer: 2,
-      explanation: "The primary objective is to end plastic pollution in all environments, including water bodies, by 2040."
+      question: "What is the primary purpose of the UN Global Plastics Treaty?",
+      options: ["To ban all plastic production", "To create an international legally binding instrument to end plastic pollution", "To regulate plastic recycling only", "To set voluntary guidelines"],
+      correctAnswer: 1,
+      explanation: "The UN Global Plastics Treaty is an international legally binding instrument designed to end plastic pollution."
     },
     {
       id: 6,
       moduleId: 2,
-      question: "Which SDG specifically focuses on clean water and sanitation?",
-      options: ["SDG 3", "SDG 6", "SDG 14", "SDG 17"],
+      question: "Which two countries co-chair the High Ambition Coalition for the treaty?",
+      options: ["Kenya and Nigeria", "Rwanda and Norway", "South Africa and France", "Ethiopia and Germany"],
       correctAnswer: 1,
-      explanation: "SDG 6 focuses on clean water and sanitation, including water quality and pollution reduction."
+      explanation: "Rwanda and Norway co-chair the High Ambition Coalition, pushing for the strongest possible treaty."
     },
     {
       id: 7,
       moduleId: 2,
-      question: "Which international agreement focuses on wetland protection?",
-      options: ["Ramsar Convention", "Basel Convention", "Stockholm Convention", "Minamata Convention"],
-      correctAnswer: 0,
-      explanation: "The Ramsar Convention focuses on wetland protection, which is critical for water quality and ecosystem health."
+      question: "What is Extended Producer Responsibility (EPR)?",
+      options: ["Government waste collection", "Producer responsibility for waste management and product lifecycle", "Consumer recycling responsibility", "Recycling industry regulation"],
+      correctAnswer: 1,
+      explanation: "EPR is a policy approach where producers bear responsibility for the environmental impact of their products throughout the product lifecycle."
     },
     {
       id: 8,
       moduleId: 2,
-      question: "What is the most contentious issue in the treaty negotiations?",
-      options: ["Recycling targets", "Production caps on virgin plastic", "Water quality standards", "Reporting mechanisms"],
+      question: "Which international agreement was updated in 2019 to address plastic waste trade?",
+      options: ["Stockholm Convention", "Basel Convention", "Montreal Protocol", "Minamata Convention"],
       correctAnswer: 1,
-      explanation: "Production caps on virgin plastic production are the most contentious issue in the negotiations."
+      explanation: "The Basel Convention was updated in 2019 with amendments to control plastic waste trade between countries."
     },
+
     // Module 3 Questions
     {
       id: 9,
       moduleId: 3,
       question: "What is AHEP's vision statement?",
-      options: ["A plastic-free Africa by 2030", "A future where African water bodies are free from plastic pollution, supporting healthy communities and thriving ecosystems", "Environmental justice for all Africans", "Sustainable water for future generations"],
+      options: ["A plastic-free Africa by 2030", "A healthier and sustainable African environment through collective action, innovation, and responsible partnerships", "Environmental justice for all Africans", "Sustainable development through environmental action"],
       correctAnswer: 1,
-      explanation: "AHEP's vision is 'A future where African water bodies are free from plastic pollution, supporting healthy communities and thriving ecosystems.'"
+      explanation: "AHEP's vision is 'A healthier and sustainable African environment through collective action, innovation, and responsible partnerships.'"
     },
     {
       id: 10,
       moduleId: 3,
-      question: "What is water stewardship?",
-      options: ["Controlling water resources", "Responsible management and protection of water resources", "Commercial use of water", "Water regulation enforcement"],
+      question: "What is the definition of environmental stewardship?",
+      options: ["Controlling environmental resources", "Responsible management and care of the environment through sustainable practices", "Commercial use of environmental assets", "Environmental regulation enforcement"],
       correctAnswer: 1,
-      explanation: "Water stewardship is the responsible management and protection of water resources through sustainable practices, conservation efforts, and advocacy."
+      explanation: "Environmental stewardship is the responsible management and care of the environment through sustainable practices, conservation efforts, and advocacy."
     },
     {
       id: 11,
       moduleId: 3,
-      question: "Which of these is NOT one of AHEP's core values?",
-      options: ["Water Stewardship", "Collaboration", "Profit Maximization", "Integrity"],
+      question: "Which of the following is NOT one of AHEP's core values?",
+      options: ["Integrity", "Collaboration", "Profit Maximization", "Equity"],
       correctAnswer: 2,
-      explanation: "AHEP's core values include Water Stewardship, Integrity, Collaboration, Innovation, Sustainability, Equity, and Resilience."
+      explanation: "AHEP's core values are Integrity, Collaboration, Innovation, Sustainability, Equity, and Resilience. Profit Maximization is not a core value."
     },
     {
       id: 12,
       moduleId: 3,
       question: "What is the first leadership principle of AHEP?",
-      options: ["Collaborative Leadership", "Visionary Leadership for Water", "Adaptive Leadership", "Ethical Leadership"],
-      correctAnswer: 1,
-      explanation: "Visionary Leadership for Water is the first AHEP leadership principle."
+      options: ["Collaborative Leadership", "Ethical Leadership", "Visionary Leadership", "Adaptive Leadership"],
+      correctAnswer: 2,
+      explanation: "Visionary Leadership is the first AHEP leadership principle."
     },
+
     // Module 4 Questions
     {
       id: 13,
       moduleId: 4,
-      question: "What is the most effective approach to protecting water bodies from plastic pollution?",
-      options: ["Recycling", "Cleanup", "Prevention through reduction", "Burning"],
+      question: "What is the most effective approach to plastic pollution according to the prevention hierarchy?",
+      options: ["Recycling", "Reusing", "Reducing", "Composting"],
       correctAnswer: 2,
-      explanation: "Prevention through reduction is the most effective approach to protecting water bodies because it stops pollution at the source."
+      explanation: "Reducing is the most effective approach to plastic pollution because it prevents pollution at the source."
     },
     {
       id: 14,
       moduleId: 4,
-      question: "What is a circular economy in the context of water protection?",
-      options: ["A linear economic model", "A system where materials never become waste, protecting water bodies from contamination", "A traditional economic approach", "A planned obsolescence model"],
+      question: "What is a circular economy?",
+      options: ["A linear economic model", "An economic system where materials never become waste", "A traditional economic approach", "A planned obsolescence model"],
       correctAnswer: 1,
-      explanation: "A circular economy is a system where materials never become waste and natural systems are regenerated, protecting water bodies from contamination."
+      explanation: "A circular economy is a system where materials never become waste and natural systems are regenerated."
     },
     {
       id: 15,
       moduleId: 4,
-      question: "What are the three core principles of the circular economy for water protection?",
+      question: "What are the three core principles of the circular economy?",
       options: ["Reduce, reuse, recycle", "Eliminate waste, keep materials in use, regenerate natural systems", "Produce, consume, dispose", "Collect, sort, process"],
       correctAnswer: 1,
       explanation: "The three core principles are: eliminate waste and pollution, keep products and materials in use, and regenerate natural systems."
@@ -2335,117 +2091,120 @@ Upon successful completion of this course, you will join a network of AHEP Certi
     {
       id: 16,
       moduleId: 4,
-      question: "What is sustainable consumption in relation to water protection?",
-      options: ["Buying expensive products", "Using goods and services in ways that minimize environmental impact and protect water bodies", "Consuming as much as possible", "Only buying local products"],
+      question: "What is sustainable consumption?",
+      options: ["Buying expensive products", "Using goods and services in ways that minimize environmental impact", "Consuming as much as possible", "Only buying local products"],
       correctAnswer: 1,
-      explanation: "Sustainable consumption involves using goods and services in ways that minimize environmental impact and protect water bodies."
+      explanation: "Sustainable consumption is using goods and services in ways that minimize environmental impact."
     },
+
     // Module 5 Questions
     {
       id: 17,
       moduleId: 5,
-      question: "What are the core goals of water education?",
-      options: ["Reading, writing, and arithmetic", "Awareness, knowledge, attitudes, skills, and participation for water protection", "Sports, arts, and music", "Science, technology, and engineering"],
+      question: "What are the core goals of environmental education?",
+      options: ["Reading, writing, and arithmetic", "Awareness, knowledge, attitudes, skills, and participation", "Sports, arts, and music", "Science, technology, and engineering"],
       correctAnswer: 1,
-      explanation: "The core goals are awareness, knowledge, attitudes, skills, and participation in water protection."
+      explanation: "The core goals are awareness, knowledge, attitudes, skills, and participation."
     },
     {
       id: 18,
       moduleId: 5,
-      question: "What is the primary purpose of public awareness campaigns for water?",
-      options: ["To raise funds for organizations", "To inform and engage the public about water issues and solutions", "To sell products", "To increase tourism"],
+      question: "What is the primary purpose of public awareness campaigns?",
+      options: ["To raise funds for organizations", "To inform and engage the public about environmental issues and solutions", "To sell products", "To increase tourism"],
       correctAnswer: 1,
-      explanation: "Public awareness campaigns aim to inform and engage the general public about water issues and solutions."
+      explanation: "Public awareness campaigns aim to inform and engage the general public about environmental issues and solutions."
     },
     {
       id: 19,
       moduleId: 5,
-      question: "What is community mobilization for water protection?",
-      options: ["Moving communities to new locations", "Engaging and organizing community members to take collective action on water issues", "Government community programs", "Community relocation"],
+      question: "What is community mobilization?",
+      options: ["Moving communities to new locations", "Engaging and organizing community members to take collective action", "Government community programs", "Community relocation"],
       correctAnswer: 1,
-      explanation: "Community mobilization is the process of engaging and organizing community members to take collective action on water issues."
+      explanation: "Community mobilization is the process of engaging and organizing community members to take collective action on environmental issues."
     },
     {
       id: 20,
       moduleId: 5,
-      question: "Which channel is most effective for reaching communities about water issues in Africa?",
+      question: "Which channel is most effective for reaching communities in Africa?",
       options: ["Television only", "Digital media only", "Traditional and community media including radio", "International media"],
       correctAnswer: 2,
       explanation: "Traditional and community media, including radio and community events, are most effective for reaching African communities."
     },
+
     // Module 6 Questions
     {
       id: 21,
       moduleId: 6,
       question: "What is the Zero Plastic Africa Tracker?",
-      options: ["A tracking device", "A digital platform for monitoring plastic pollution across African water bodies", "A recycling machine", "A government agency"],
+      options: ["A tracking device", "A digital platform for monitoring plastic pollution across Africa", "A recycling machine", "A government agency"],
       correctAnswer: 1,
-      explanation: "The Zero Plastic Africa Tracker is a digital platform for monitoring and tracking plastic pollution across African water bodies."
+      explanation: "The Zero Plastic Africa Tracker is a digital platform for monitoring and tracking plastic pollution across Africa."
     },
     {
       id: 22,
       moduleId: 6,
-      question: "Which technology uses machine learning for water protection?",
+      question: "Which technology uses machine learning for environmental management?",
       options: ["Blockchain", "Artificial Intelligence", "Internet of Things", "Drones"],
       correctAnswer: 1,
-      explanation: "Artificial Intelligence uses machine learning and other techniques to analyze water quality data."
+      explanation: "Artificial Intelligence uses machine learning and other techniques to analyze environmental data."
     },
     {
       id: 23,
       moduleId: 6,
-      question: "What is the role of blockchain in water protection?",
-      options: ["Water collection only", "Providing transparency and traceability through immutable records of water quality", "Monitoring only", "Reporting only"],
+      question: "What is the role of blockchain in environmental management?",
+      options: ["Waste collection only", "Providing transparency and traceability through immutable records", "Monitoring only", "Reporting only"],
       correctAnswer: 1,
-      explanation: "Blockchain provides transparency and traceability through immutable records of water quality data."
+      explanation: "Blockchain provides transparency and traceability through immutable records of environmental data."
     },
     {
       id: 24,
       moduleId: 6,
-      question: "What is a partnership in the context of water protection?",
-      options: ["A legal agreement", "A collaborative relationship working toward shared water protection goals", "A government program", "A private sector initiative"],
+      question: "What is a partnership in the context of environmental management?",
+      options: ["A legal agreement", "A collaborative relationship working toward shared environmental goals", "A government program", "A private sector initiative"],
       correctAnswer: 1,
-      explanation: "A partnership is a collaborative relationship between organizations and individuals working toward shared water protection goals."
+      explanation: "A partnership is a collaborative relationship between organizations and individuals working toward shared environmental goals."
     },
+
     // Additional Comprehensive Questions
     {
       id: 25,
       moduleId: 2,
-      question: "What role do local governments play in water protection?",
-      options: ["Only national governments have water responsibilities", "Local governments handle implementation, water treatment, and waste management", "Local governments only handle waste collection", "Local governments have no water role"],
+      question: "What is the most contentious issue in the treaty negotiations?",
+      options: ["Recycling targets", "Production caps on virgin plastic", "Waste management requirements", "Reporting mechanisms"],
       correctAnswer: 1,
-      explanation: "Local governments handle implementation, water treatment, service delivery, and waste management infrastructure."
+      explanation: "Production caps on virgin plastic production are the most contentious issue in the negotiations."
     },
     {
       id: 26,
       moduleId: 3,
-      question: "With what types of partners does AHEP work?",
-      options: ["Only governments", "Only NGOs", "Governments, water utilities, civil society, research institutions, private sector, international organizations, community groups", "Only water utilities"],
+      question: "What types of partners does AHEP work with?",
+      options: ["Only governments", "Only NGOs", "Governments, civil society, research institutions, private sector, international organizations, and community groups", "Only private sector companies"],
       correctAnswer: 2,
-      explanation: "AHEP works with diverse partners including governments, water utilities, civil society, research institutions, private sector, international organizations, and community groups."
+      explanation: "AHEP works with diverse partners including governments, civil society, research institutions, private sector, international organizations, and community groups."
     },
     {
       id: 27,
       moduleId: 4,
-      question: "What is the most significant challenge to recycling in Africa for water protection?",
+      question: "What is the most significant challenge to recycling in Africa?",
       options: ["Lack of willingness to recycle", "Limited infrastructure and low collection rates", "People don't know recycling exists", "Recycling is illegal"],
       correctAnswer: 1,
-      explanation: "Limited infrastructure and low collection rates are the most significant challenges to recycling in Africa, increasing risks to water bodies."
+      explanation: "Limited infrastructure and low collection rates are the most significant challenges to recycling in Africa."
     },
     {
       id: 28,
       moduleId: 5,
-      question: "What is the purpose of message framing in water communication?",
-      options: ["To confuse the audience", "To connect water issues to what people care about", "To promote specific products", "To create fear"],
+      question: "What is the purpose of message framing in environmental communication?",
+      options: ["To confuse the audience", "To connect environmental issues to what people care about", "To promote specific products", "To create fear"],
       correctAnswer: 1,
-      explanation: "Message framing connects water issues to what people care about (health, economy, community, etc.) to increase engagement."
+      explanation: "Message framing connects environmental issues to what people care about (health, economy, community, etc.) to increase engagement."
     },
     {
       id: 29,
       moduleId: 6,
-      question: "What is citizen science in water monitoring?",
-      options: ["Scientific research by scientists only", "Public participation in water quality data collection and monitoring", "Government monitoring only", "Commercial monitoring"],
+      question: "What is citizen science in environmental monitoring?",
+      options: ["Scientific research by scientists only", "Public participation in scientific data collection and monitoring", "Government monitoring only", "Commercial monitoring"],
       correctAnswer: 1,
-      explanation: "Citizen science involves public participation in water quality data collection and monitoring."
+      explanation: "Citizen science involves public participation in scientific data collection and environmental monitoring."
     },
     {
       id: 30,
@@ -2458,74 +2217,74 @@ Upon successful completion of this course, you will join a network of AHEP Certi
     {
       id: 31,
       moduleId: 1,
-      question: "What is the difference between macroplastics and microplastics?",
-      options: ["Macroplastics are biodegradable, microplastics are not", "Macroplastics are larger than 5mm, microplastics are smaller than 5mm", "Macroplastics come from land, microplastics come from water", "Macroplastics are recyclable, microplastics are not"],
+      question: "What is the largest single use category for plastics globally?",
+      options: ["Construction", "Packaging", "Electronics", "Automotive"],
       correctAnswer: 1,
-      explanation: "Macroplastics are visible items larger than 5mm, while microplastics are particles smaller than 5mm."
+      explanation: "Packaging represents the largest single use category for plastics globally."
     },
     {
       id: 32,
       moduleId: 1,
-      question: "What is a 'ghost net'?",
-      options: ["A transparent fishing net", "A net for catching specific fish", "A lost or abandoned fishing net that continues to catch aquatic life", "A net made from biodegradable materials"],
-      correctAnswer: 2,
-      explanation: "Ghost nets are lost or abandoned fishing nets that continue to catch aquatic life, causing significant environmental damage."
+      question: "Which human health concern is associated with plastic additives like BPA and phthalates?",
+      options: ["Respiratory infections", "Endocrine disruption", "Skin irritation", "Hearing loss"],
+      correctAnswer: 1,
+      explanation: "Additives like BPA and phthalates are endocrine disruptors that can affect reproductive and developmental health."
     },
     {
       id: 33,
       moduleId: 2,
-      question: "Which two countries co-chair the High Ambition Coalition for the treaty?",
-      options: ["Kenya and Nigeria", "Rwanda and Norway", "South Africa and France", "Egypt and Germany"],
-      correctAnswer: 1,
-      explanation: "Rwanda and Norway co-chair the High Ambition Coalition, pushing for the strongest possible treaty."
+      question: "Which African country is the chair of the Africa Group of Negotiators for the treaty?",
+      options: ["Rwanda", "South Africa", "Kenya", "Nigeria"],
+      correctAnswer: 2,
+      explanation: "Kenya serves as the chair of the Africa Group of Negotiators."
     },
     {
       id: 34,
       moduleId: 2,
-      question: "What is Extended Producer Responsibility (EPR)?",
-      options: ["Government water treatment", "Producer responsibility for waste management and product lifecycle", "Consumer responsibility for recycling", "Water utility regulation"],
+      question: "What role do local governments play in environmental governance?",
+      options: ["Only national governments have environmental responsibilities", "Local governments handle implementation and service delivery", "Local governments only handle waste collection", "Local governments have no environmental role"],
       correctAnswer: 1,
-      explanation: "EPR is a policy approach where producers bear responsibility for the environmental impact of their products throughout the product lifecycle."
+      explanation: "Local governments handle implementation, service delivery, and waste management infrastructure."
     },
     {
       id: 35,
       moduleId: 3,
-      question: "What is the role of transparency in AHEP's accountability framework?",
-      options: ["It is optional", "It is essential through regular public reporting", "It is only for donors", "It is only for government partners"],
+      question: "What is one of AHEP's strategic priorities?",
+      options: ["Increasing plastic production", "Policy influence through shaping national and regional environmental policies", "Reducing environmental regulations", "Promoting single-use plastics"],
       correctAnswer: 1,
-      explanation: "Transparency is essential through regular public reporting on water activities as part of AHEP's accountability framework."
+      explanation: "Policy Influence, including shaping national and regional environmental policies, is one of AHEP's strategic priorities."
     },
     {
       id: 36,
       moduleId: 3,
-      question: "What is one of AHEP's focus areas?",
-      options: ["Increasing plastic production", "Protecting water bodies including rivers, lakes, oceans, and groundwater", "Reducing environmental regulations", "Promoting single-use plastics"],
+      question: "What is the role of transparency in AHEP's accountability framework?",
+      options: ["It is optional", "It is essential through regular public reporting on activities", "It is only for donors", "It is only for government partners"],
       correctAnswer: 1,
-      explanation: "Protecting water bodies including rivers, lakes, oceans, and groundwater is one of AHEP's primary focus areas."
+      explanation: "Transparency is essential through regular public reporting on activities as part of AHEP's accountability framework."
     },
     {
       id: 37,
       moduleId: 4,
-      question: "What are eco-bricks and how do they help protect water?",
-      options: ["Bricks made from recycled paper", "Plastic bottles stuffed with plastic waste used as building materials, keeping waste from water", "Bricks made from biodegradable materials", "Traditional clay bricks"],
+      question: "What are eco-bricks?",
+      options: ["Bricks made from recycled paper", "Plastic bottles stuffed with plastic waste used as building materials", "Bricks made from biodegradable materials", "Traditional clay bricks"],
       correctAnswer: 1,
-      explanation: "Eco-bricks are plastic bottles stuffed with plastic waste and used as building materials, keeping plastic waste from entering water bodies."
+      explanation: "Eco-bricks are plastic bottles stuffed with plastic waste and used as building materials."
     },
     {
       id: 38,
       moduleId: 4,
-      question: "What is the role of the informal sector in African waste and water protection?",
-      options: ["No role", "A small but important role", "A major role in collection and recycling, helping keep waste from water", "Only in disposal"],
+      question: "What is the role of the informal sector in African waste management?",
+      options: ["No role", "A small but important role", "A major role in collection and recycling", "Only in disposal"],
       correctAnswer: 2,
-      explanation: "The informal sector plays a major role in waste collection and recycling across Africa, helping keep plastic waste from entering water bodies."
+      explanation: "The informal sector plays a major role in waste collection and recycling across Africa."
     },
     {
       id: 39,
       moduleId: 5,
-      question: "What is the importance of youth engagement in water protection?",
-      options: ["Youth have more free time", "Youth are future water stewards and decision-makers", "Youth are more educated", "Youth have more energy"],
+      question: "What is the importance of youth engagement in environmental action?",
+      options: ["Youth have more free time", "Youth are future leaders and decision-makers", "Youth are more educated", "Youth have more energy"],
       correctAnswer: 1,
-      explanation: "Youth engagement is crucial because young people are future water stewards and decision-makers."
+      explanation: "Youth engagement is crucial because young people are future leaders and decision-makers who will shape environmental policy."
     },
     {
       id: 40,
@@ -2533,7 +2292,7 @@ Upon successful completion of this course, you will join a network of AHEP Certi
       question: "What resources are available to learners for download?",
       options: ["AHEP Learning Handbook, UN Treaty Overview, Fact Sheets, SDG Guide, Reading List", "Only course materials", "Only quizzes", "Only videos"],
       correctAnswer: 0,
-      explanation: "Learners can download the AHEP Learning Handbook, UN Global Plastics Treaty Overview, Water Quality Fact Sheets, Plastic Pollution and Water Fact Sheets, SDG Quick Reference Guide, and Recommended Reading List."
+      explanation: "Learners can download the AHEP Learning Handbook, UN Global Plastics Treaty Overview, Plastic Pollution Fact Sheets, SDG Quick Reference Guide, and Recommended Reading List."
     }
   ]
 };
