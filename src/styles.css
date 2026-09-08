@@ -163,6 +163,14 @@
     box-shadow: 0 0 30px rgba(99,102,241,0.25);
   }
 
+  .benefit-marquee { overflow: hidden; }
+  .benefit-marquee-row { overflow: hidden; padding-block: 0.5rem; }
+  .benefit-marquee-track { display: flex; width: max-content; gap: 1rem; animation: benefit-marquee-left 32s linear infinite; will-change: transform; }
+  .benefit-marquee-row[data-direction="right"] .benefit-marquee-track { animation-name: benefit-marquee-right; animation-duration: 38s; }
+  .benefit-marquee-row:hover .benefit-marquee-track { animation-play-state: paused; }
+  .benefit-marquee-card { display: flex; align-items: center; gap: 0.5rem; width: 220px; min-height: 72px; padding: 1rem; flex-shrink: 0; background: rgba(255,255,255,0.92); border: 1px solid rgba(96,165,250,0.22); border-radius: 0.75rem; box-shadow: 0 8px 24px -16px rgba(37,99,235,0.45); transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .benefit-marquee-card:hover { transform: translateY(-3px); box-shadow: 0 14px 28px -16px rgba(37,99,235,0.6); }
+
   .hero-gradient-premium {
     background: radial-gradient(ellipse at top, rgba(139,92,246,0.4), transparent 60%),
                 linear-gradient(135deg, #1e1b4b 0%, #312e81 40%, #4c1d95 80%);
@@ -191,6 +199,31 @@
   opacity: 0.7;
 }
 .premium-container { position: relative; z-index: 1; }
+
+/* Thin white hairline frame around every page */
+.app-hairline {
+  position: fixed;
+  inset: 6px;
+  pointer-events: none;
+  z-index: 60;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 14px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+@media (max-width: 640px) {
+  .app-hairline { inset: 4px; border-radius: 10px; }
+}
+
+@keyframes benefit-marquee-left { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(calc(-50% - 0.5rem), 0, 0); } }
+@keyframes benefit-marquee-right { from { transform: translate3d(calc(-50% - 0.5rem), 0, 0); } to { transform: translate3d(0, 0, 0); } }
+@media (prefers-reduced-motion: reduce) {
+  .benefit-marquee-track { animation: none !important; flex-wrap: wrap; width: 100%; }
+  .benefit-marquee-row { overflow: visible; }
+}
+@media (max-width: 640px) {
+  .benefit-marquee-card { width: 205px; min-height: 68px; }
+  .benefit-marquee-row:hover .benefit-marquee-track { animation-play-state: running; }
+}
 
 @keyframes drift {
   from { background-position: 0 0; }
@@ -327,4 +360,111 @@
   h1, h2, h3 {
     overflow-wrap: anywhere;
   }
+}
+
+/* ---------------- Dimensional portal reveal (reusable) ---------------- */
+.portal-reveal {
+  position: relative;
+  isolation: isolate;
+}
+.portal-card-shell {
+  position: relative;
+  z-index: 2;
+  transform-style: preserve-3d;
+  will-change: transform, opacity, filter;
+  height: 100%;
+}
+.portal-tilt {
+  transform-style: preserve-3d;
+  height: 100%;
+  border-radius: 1rem;
+  transition: box-shadow 0.3s ease;
+}
+.portal-tilt:hover {
+  box-shadow: 0 18px 45px -18px rgba(124, 58, 237, 0.45), 0 0 0 1px rgba(139, 92, 246, 0.25);
+}
+
+.portal-fx {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0;
+}
+.portal-fx.is-active {
+  animation: portal-life 1.6s ease-out forwards;
+  animation-delay: var(--pd, 0s);
+}
+@keyframes portal-life {
+  0% { opacity: 0; }
+  15% { opacity: 1; }
+  70% { opacity: 0.9; }
+  100% { opacity: 0.08; }
+}
+
+.portal-core,
+.portal-ring,
+.portal-spark {
+  position: absolute;
+  border-radius: 9999px;
+  will-change: transform, opacity;
+}
+.portal-core {
+  width: 88%;
+  aspect-ratio: 1;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.8) 0%, rgba(99, 102, 241, 0.45) 42%, rgba(34, 211, 238, 0.16) 64%, transparent 74%);
+  box-shadow: 0 0 70px 20px rgba(124, 58, 237, 0.28);
+  filter: blur(8px);
+  transform: scale(0.9);
+  animation: portal-pulse 2.2s ease-in-out infinite;
+}
+@keyframes portal-pulse {
+  0%, 100% { transform: scale(0.92); }
+  50% { transform: scale(1.02); }
+}
+.portal-ring {
+  aspect-ratio: 1;
+  border: 1px solid transparent;
+  background:
+    conic-gradient(from 0deg, transparent 0 40%, rgba(196, 181, 253, 0.85) 55%, rgba(34, 211, 238, 0.7) 70%, transparent 85%)
+      border-box;
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 2px), #000 calc(100% - 2px));
+}
+.portal-ring-1 { width: 72%; animation: portal-spin 3.4s linear infinite; }
+.portal-ring-2 { width: 90%; animation: portal-spin 5s linear infinite reverse; opacity: 0.75; }
+.portal-ring-3 { width: 108%; animation: portal-spin 7.5s linear infinite; opacity: 0.45; }
+@keyframes portal-spin {
+  to { transform: rotate(360deg); }
+}
+
+.portal-spark {
+  width: 5px;
+  height: 5px;
+  background: radial-gradient(circle, #e0e7ff, rgba(129, 140, 248, 0.1));
+  box-shadow: 0 0 8px rgba(147, 197, 253, 0.9);
+  transform: rotate(calc(360deg * var(--i) / var(--n))) translateX(22%) scale(0.6);
+  animation: portal-spark 1.8s ease-out infinite;
+  animation-delay: calc(var(--i) * 0.12s);
+}
+@keyframes portal-spark {
+  0% { opacity: 0; transform: rotate(calc(360deg * var(--i) / var(--n))) translateX(8%) scale(0.4); }
+  45% { opacity: 1; }
+  100% { opacity: 0; transform: rotate(calc(360deg * var(--i) / var(--n) + 25deg)) translateX(42%) scale(0.9); }
+}
+
+.portal-fx.is-burst .portal-core {
+  animation: portal-burst 0.5s ease-out forwards;
+}
+@keyframes portal-burst {
+  0% { transform: scale(1); filter: blur(6px); }
+  40% { transform: scale(1.35); filter: blur(2px); opacity: 1; }
+  100% { transform: scale(1.7); filter: blur(12px); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-fx { display: none; }
+  .portal-core, .portal-ring, .portal-spark { animation: none !important; }
 }
