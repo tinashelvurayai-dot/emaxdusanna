@@ -723,15 +723,18 @@ function VerifyPaymentTab() {
         toast.error((res as any).error ?? "Could not verify payment");
         return;
       }
-      toast.success("Payment verified - admin notified on Telegram");
+      toast.success("Payment verified - receipt ready");
       qc.invalidateQueries({ queryKey: ["school-students"] });
       qc.invalidateQueries({ queryKey: ["school-analytics"] });
+      const r = (res as any)?.receipt as PaymentReceipt | undefined;
+      if (r) openReceipt(r);
       setStudentId(""); setCourseId(""); setCourseName(""); setLevel("certificate"); setManual(false); setCourseSelection("");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Failed"),
   });
 
   return (
+    <div className="space-y-6">
     <div className="glass-card-light p-5 max-w-2xl space-y-4">
       <div>
         <h3 className="font-bold text-blue-900">Verify a cash payment</h3>
