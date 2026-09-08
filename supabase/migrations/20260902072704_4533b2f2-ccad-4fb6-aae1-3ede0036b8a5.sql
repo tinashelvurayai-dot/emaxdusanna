@@ -1,0 +1,1 @@
+ALTER TABLE public.alt_payment_requests ADD COLUMN IF NOT EXISTS country text;
