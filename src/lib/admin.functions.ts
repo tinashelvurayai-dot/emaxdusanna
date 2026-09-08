@@ -298,7 +298,7 @@ export const listContractedSchools = createServerFn({ method: "GET" })
     const [schoolsRes, learnersRes, adminsRes, rosterRes] = await Promise.all([
       supabaseAdmin
         .from("contracted_schools")
-        .select("id, name, created_at, is_active, seat_limit, notes")
+        .select("id, name, logo_url, created_at, is_active, seat_limit, notes")
         .order("name", { ascending: true }),
       supabaseAdmin.from("profiles").select("school_id").not("school_id", "is", null),
       supabaseAdmin.from("school_admins").select("school_id, school_name, user_id"),
@@ -337,7 +337,7 @@ export const listContractedSchools = createServerFn({ method: "GET" })
 /** Toggle a school's active state / seat limit. */
 export const updateContractedSchool = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string; isActive?: boolean; seatLimit?: number | null }) => {
+  .inputValidator((input: { id: string; isActive?: boolean; seatLimit?: number | null; logoUrl?: string | null }) => {
     if (!input?.id) throw new Error("Missing id");
     const seatLimit =
       input.seatLimit === null || input.seatLimit === undefined
@@ -345,14 +345,16 @@ export const updateContractedSchool = createServerFn({ method: "POST" })
         : Number(input.seatLimit);
     if (typeof seatLimit === "number" && (!Number.isFinite(seatLimit) || seatLimit < 0 || seatLimit > 100000))
       throw new Error("Invalid seat limit");
-    return { id: input.id, isActive: input.isActive, seatLimit };
+    return { id: input.id, isActive: input.isActive, seatLimit, logoUrl: input.logoUrl?.trim().slice(0, 1000) || null };
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const patch: Record<string, unknown> = {};
-    if (typeof data.isActive === "boolean") patch['is_active'] = data.isActive;
-    if (data.seatLimit !== undefined) patch['seat_limit'] = data.seatLimit;
+    const patch: { is_active?: boolean; seat_limit?: number | null; logo_url?: string | null } = {};
+    if (typeof data.isActive === "boolean") patch.is_active = data.isActive;
+    if (data.seatLimit !== undefined) patch.seat_limit = data.seatLimit;
+    if (data.logoUrl !== undefined) patch.logo_url = data.logoUrl;
+
     if (Object.keys(patch).length === 0) return { success: true };
     const { error } = await supabaseAdmin.from("contracted_schools").update(patch).eq("id", data.id);
     if (error) throw error;
@@ -362,17 +364,19 @@ export const updateContractedSchool = createServerFn({ method: "POST" })
 
 export const addContractedSchool = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((input: { name: string }) => {
+  .inputValidator((input: { name: string; logoUrl?: string }) => {
     const name = (input?.name ?? "").trim();
     if (name.length < 2 || name.length > 200) throw new Error("School name is required");
-    return { name };
+    const logoUrl = (input?.logoUrl ?? "").trim().slice(0, 1000) || null;
+    if (logoUrl && !/^https?:\/\//i.test(logoUrl)) throw new Error("Logo URL must start with http:// or https://");
+    return { name, logoUrl };
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const { error } = await supabaseAdmin
       .from("contracted_schools")
-      .insert({ name: data.name, created_by: context.userId });
+      .insert({ name: data.name, logo_url: data.logoUrl, created_by: context.userId });
     if (error) {
       if (error.code === "23505") throw new Error("That school is already on the list");
       throw error;

@@ -124,10 +124,35 @@ export const getMySchoolAdmin = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data } = await context.supabase
       .from("school_admins")
-      .select("school_name, contact_name, contact_phone")
+      .select("school_name, contact_name, contact_phone, school_id")
       .eq("user_id", context.userId)
       .maybeSingle();
-    return { schoolAdmin: data };
+    if (!data) return { schoolAdmin: null, fullName: null, logoUrl: null };
+
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const [profileRes, schoolRes] = await Promise.all([
+      supabaseAdmin.from("profiles").select("full_name").eq("id", context.userId).maybeSingle(),
+      data.school_id
+        ? supabaseAdmin
+            .from("contracted_schools")
+            .select("logo_url")
+            .eq("id", data.school_id)
+            .maybeSingle()
+        : supabaseAdmin
+            .from("contracted_schools")
+            .select("logo_url")
+            .ilike("name", data.school_name as string)
+            .maybeSingle(),
+    ]);
+
+    return {
+      schoolAdmin: data,
+      fullName:
+        (profileRes.data?.full_name as string | null) ??
+        (data.contact_name as string | null) ??
+        null,
+      logoUrl: (schoolRes.data?.logo_url as string | null) ?? null,
+    };
   });
 
 /** List the students at this admin's school + their progress, joined by school_name. */
@@ -141,30 +166,31 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
     // Pull all profiles for the school (case-insensitive)
     const { data: profiles, error: pErr } = await supabaseAdmin
       .from("profiles")
-      .select("id, full_name, email, mobile_number, school_name, created_at");
+      .select("id, full_name, email, mobile_number, school_name, class_name, signup_type, created_at");
     if (pErr) throw pErr;
+    // School admins are staff, never students - exclude them from the roster view.
+    const { data: adminRows } = await supabaseAdmin.from("school_admins").select("user_id");
+    const adminIds = new Set((adminRows ?? []).map((r) => r.user_id as string));
     const myProfiles = (profiles ?? []).filter(
-      (p) => (p.school_name ?? "").trim().toLowerCase() === target,
+      (p) =>
+        (p.school_name ?? "").trim().toLowerCase() === target &&
+        !adminIds.has(p.id) &&
+        p.signup_type !== "school_admin",
     );
     const ids = myProfiles.map((p) => p.id);
 
-    // Roster (used for class assignment + show students yet to sign up)
-    const { data: roster } = await supabaseAdmin
-      .from("school_rosters")
-      .select("full_name, normalized_name, class_name")
-      .eq("school_admin_id", context.userId);
-
-    const rosterByName = new Map<string, { class_name: string | null }>();
-    for (const r of roster ?? []) {
-      rosterByName.set(r.normalized_name as string, { class_name: r.class_name as string | null });
-    }
-
-    // Progress + payments for these students
-    const [progRes, payRes] = await Promise.all([
+    // Progress + enrollments + payments for these students
+    const [progRes, enrRes, payRes] = await Promise.all([
       ids.length
         ? supabaseAdmin
             .from("course_progress")
             .select("user_id, course_id, level, completed_modules, is_completed, quiz_scores, updated_at")
+            .in("user_id", ids)
+        : Promise.resolve({ data: [] as any[], error: null }),
+      ids.length
+        ? supabaseAdmin
+            .from("enrollments")
+            .select("user_id, course_id, course_title, level, created_at")
             .in("user_id", ids)
         : Promise.resolve({ data: [] as any[], error: null }),
       ids.length
@@ -176,6 +202,7 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
         : Promise.resolve({ data: [] as any[], error: null }),
     ]);
     const progress = (progRes.data as any[]) ?? [];
+    const enrollments = (enrRes.data as any[]) ?? [];
     const payments = (payRes.data as any[]) ?? [];
 
     const avgQuiz = (scores: any): number | null => {
@@ -186,9 +213,8 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
     };
 
     const students = myProfiles.map((p) => {
-      const key = (p.full_name ?? "").trim().toLowerCase();
-      const fromRoster = rosterByName.get(key);
       const myProg = progress.filter((q) => q.user_id === p.id);
+      const myEnr = enrollments.filter((q) => q.user_id === p.id);
       const myPay = payments.filter((q) => q.user_id === p.id);
       const lastActive = myProg.reduce<string | null>((acc, q) => {
         if (!q.updated_at) return acc;
@@ -201,15 +227,29 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
       const avgQuizScore = quizAverages.length
         ? Math.round(quizAverages.reduce((s, n) => s + n, 0) / quizAverages.length)
         : null;
+      const progByCourse = new Map(myProg.map((q) => [`${q.course_id}::${q.level}`, q]));
+      const courses = myEnr.map((e) => {
+        const pr = progByCourse.get(`${e.course_id}::${e.level}`);
+        return {
+          courseId: e.course_id as string,
+          title: (e.course_title as string | null) ?? (e.course_id as string),
+          level: e.level as string,
+          isCompleted: Boolean(pr?.is_completed),
+          modulesCompleted: Array.isArray(pr?.completed_modules) ? pr!.completed_modules.length : 0,
+          avgQuizScore: avgQuiz(pr?.quiz_scores),
+          enrolledAt: e.created_at as string,
+        };
+      });
       return {
         id: p.id,
         fullName: p.full_name,
         email: p.email,
         mobileNumber: p.mobile_number,
-        className: fromRoster?.class_name ?? null,
+        className: (p.class_name as string | null) ?? null,
         enrolledAt: p.created_at,
         lastActive,
         avgQuizScore,
+        courses,
         coursesStarted: myProg.length,
         coursesCompleted: myProg.filter((q) => q.is_completed).length,
         payments: myPay,
@@ -217,14 +257,9 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
       };
     });
 
-    // Roster entries with no matching signup yet
-    const signedUpKeys = new Set(myProfiles.map((p) => (p.full_name ?? "").trim().toLowerCase()));
-    const unmatched = (roster ?? [])
-      .filter((r) => !signedUpKeys.has(r.normalized_name as string))
-      .map((r) => ({ fullName: r.full_name, className: r.class_name }));
-
-    return { schoolName, students, unmatched };
+    return { schoolName, students, unmatched: [] as Array<{ fullName: string | null; className: string | null }> };
   });
+
 
 /** Detailed drilldown for one student at this admin's school. */
 export const getSchoolStudentDetail = createServerFn({ method: "POST" })
@@ -332,19 +367,14 @@ export const sendClassBroadcast = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const target = schoolName.trim().toLowerCase();
 
-    const [profilesRes, rosterRes] = await Promise.all([
-      supabaseAdmin.from("profiles").select("full_name, email, school_name"),
-      supabaseAdmin
-        .from("school_rosters")
-        .select("normalized_name, class_name")
-        .eq("school_admin_id", context.userId)
-        .eq("class_name", data.className),
-    ]);
-    const rosterKeys = new Set(((rosterRes.data ?? []) as any[]).map((r) => r.normalized_name as string));
-    const recipients = ((profilesRes.data ?? []) as any[])
+    const { data: profilesData } = await supabaseAdmin
+      .from("profiles")
+      .select("full_name, email, school_name, class_name");
+    const recipients = ((profilesData ?? []) as any[])
       .filter((p) => (p.school_name ?? "").trim().toLowerCase() === target)
-      .filter((p) => rosterKeys.has((p.full_name ?? "").trim().toLowerCase()))
+      .filter((p) => ((p.class_name as string | null) ?? "") === data.className)
       .map((p) => ({ fullName: p.full_name as string | null, email: p.email as string | null }));
+
 
     try {
       const { notifyAdminTelegram } = await import("@/lib/notify.server");
@@ -364,66 +394,6 @@ export const sendClassBroadcast = createServerFn({ method: "POST" })
   });
 
 
-export const listRoster = createServerFn({ method: "GET" })
-  .middleware([requireSupabaseAuth])
-  .handler(async ({ context }) => {
-    const { data, error } = await context.supabase
-      .from("school_rosters")
-      .select("id, full_name, class_name, created_at")
-      .order("class_name", { ascending: true })
-      .order("full_name", { ascending: true });
-    if (error) throw error;
-    return { roster: data ?? [] };
-  });
-
-export const bulkAddRoster = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator(
-    (input: { entries: Array<{ fullName: string; className?: string }> }) => {
-      if (!Array.isArray(input?.entries)) throw new Error("Invalid payload");
-      const entries = input.entries
-        .map((e) => ({
-          fullName: (e.fullName ?? "").trim().slice(0, 160),
-          className: (e.className ?? "").trim().slice(0, 80) || null,
-        }))
-        .filter((e) => e.fullName.length >= 2);
-      if (entries.length === 0) throw new Error("No valid names found");
-      if (entries.length > 1000) throw new Error("Limit is 1000 students per upload");
-      return { entries };
-    },
-  )
-  .handler(async ({ data, context }) => {
-    const schoolName = await getMySchool(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    const rows = data.entries.map((e) => ({
-      school_admin_id: context.userId,
-      school_name: schoolName,
-      full_name: e.fullName,
-      class_name: e.className,
-    }));
-    const { data: inserted, error } = await supabaseAdmin
-      .from("school_rosters")
-      .insert(rows)
-      .select("id");
-    if (error) throw error;
-    return { added: inserted?.length ?? 0 };
-  });
-
-export const removeRosterEntry = createServerFn({ method: "POST" })
-  .middleware([requireSupabaseAuth])
-  .inputValidator((input: { id: string }) => {
-    if (!input?.id) throw new Error("Missing id");
-    return input;
-  })
-  .handler(async ({ data, context }) => {
-    const { error } = await context.supabase
-      .from("school_rosters")
-      .delete()
-      .eq("id", data.id)
-      .eq("school_admin_id", context.userId);
-    if (error) throw error;
-    return { success: true };
-  });
 
 /** Verify a manual cash payment a student paid at the school. */
 export const verifySchoolPayment = createServerFn({ method: "POST" })
@@ -448,10 +418,10 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
     const schoolName = await getMySchool(context);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    // Look up student profile + roster class
+    // Look up student profile + class
     const { data: profile } = await supabaseAdmin
       .from("profiles")
-      .select("full_name, email, school_name")
+      .select("full_name, email, school_name, class_name")
       .eq("id", data.studentId)
       .maybeSingle();
     if (!profile) throw new Error("Student not found");
@@ -459,13 +429,8 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
       throw new Error("This student is not assigned to your school");
     }
 
-    const nameKey = (profile.full_name ?? "").trim().toLowerCase();
-    const { data: rosterRow } = await supabaseAdmin
-      .from("school_rosters")
-      .select("class_name")
-      .eq("school_admin_id", context.userId)
-      .eq("normalized_name", nameKey)
-      .maybeSingle();
+    const rosterRow = { class_name: (profile.class_name as string | null) ?? null };
+
 
     // Block duplicates
     const { data: existing } = await supabaseAdmin
@@ -513,7 +478,22 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
       /* never block payment recording */
     }
 
-    return { success: true, certificateId };
+    return {
+      success: true,
+      certificateId,
+      receipt: {
+        receiptNo: `RCP-${certificateId.replace(/^EDU-SCH-/, "")}`,
+        certificateId,
+        studentName: (profile.full_name as string | null) ?? null,
+        studentEmail: (profile.email as string | null) ?? null,
+        className: rosterRow?.class_name ?? null,
+        schoolName,
+        courseName: data.courseName,
+        level: data.level,
+        amount: data.amount,
+        paidAt: new Date().toISOString(),
+      },
+    };
   });
 
 function escapeHtml(s: string): string {
@@ -532,21 +512,14 @@ export const getSchoolClassAnalytics = createServerFn({ method: "GET" })
     const target = schoolName.trim().toLowerCase();
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
-    const [profilesRes, rosterRes] = await Promise.all([
-      supabaseAdmin.from("profiles").select("id, full_name, school_name"),
-      supabaseAdmin
-        .from("school_rosters")
-        .select("normalized_name, class_name")
-        .eq("school_admin_id", context.userId),
-    ]);
+    const profilesRes = await supabaseAdmin
+      .from("profiles")
+      .select("id, full_name, school_name, class_name");
     const profiles = (profilesRes.data ?? []).filter(
       (p) => (p.school_name ?? "").trim().toLowerCase() === target,
     );
     const ids = profiles.map((p) => p.id);
-    const rosterClassByName = new Map<string, string | null>();
-    for (const r of rosterRes.data ?? []) {
-      rosterClassByName.set(r.normalized_name as string, (r.class_name as string | null) ?? null);
-    }
+
 
     const [progRes, payRes] = await Promise.all([
       ids.length
@@ -592,7 +565,7 @@ export const getSchoolClassAnalytics = createServerFn({ method: "GET" })
 
     const classByUser = new Map<string, string>();
     for (const p of profiles) {
-      const cls = rosterClassByName.get((p.full_name ?? "").trim().toLowerCase()) ?? "Unassigned";
+      const cls = ((p as any).class_name as string | null)?.trim() || "Unassigned";
       classByUser.set(p.id, cls);
       get(cls).students += 1;
     }
@@ -628,4 +601,63 @@ export const getSchoolClassAnalytics = createServerFn({ method: "GET" })
       { students: 0, coursesStarted: 0, coursesCompleted: 0, certificatesPaid: 0, diplomasPaid: 0, revenue: 0 },
     );
     return { schoolName, classes, totals };
+  });
+
+/** List the authenticated school administrator's roster. */
+export const listRoster = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const schoolName = await getMySchool(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data, error } = await supabaseAdmin
+      .from("school_rosters")
+      .select("id, full_name, class_name, school_name, created_at")
+      .eq("school_admin_id", context.userId)
+      .order("created_at", { ascending: false });
+    if (error) throw error;
+    return { schoolName, roster: data ?? [] };
+  });
+
+/** Add roster names in one request, scoped to the current school admin. */
+export const bulkAddRoster = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { className?: string; names?: string[] }) => {
+    const className = (input?.className ?? "").trim().slice(0, 120) || null;
+    const names = Array.isArray(input?.names)
+      ? input.names.map((name) => String(name).trim().slice(0, 160)).filter(Boolean).slice(0, 500)
+      : [];
+    if (!names.length) throw new Error("Add at least one student name");
+    return { className, names };
+  })
+  .handler(async ({ data, context }) => {
+    const schoolName = await getMySchool(context);
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin.from("school_rosters").insert(
+      data.names.map((full_name) => ({
+        full_name,
+        class_name: data.className,
+        school_name: schoolName,
+        school_admin_id: context.userId,
+      })),
+    );
+    if (error) throw error;
+    return { success: true, added: data.names.length };
+  });
+
+/** Remove one roster row owned by the current school administrator. */
+export const removeRosterEntry = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .inputValidator((input: { id: string }) => {
+    if (!input?.id?.trim()) throw new Error("Missing roster entry");
+    return { id: input.id.trim() };
+  })
+  .handler(async ({ data, context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { error } = await supabaseAdmin
+      .from("school_rosters")
+      .delete()
+      .eq("id", data.id)
+      .eq("school_admin_id", context.userId);
+    if (error) throw error;
+    return { success: true };
   });

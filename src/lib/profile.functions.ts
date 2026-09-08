@@ -8,14 +8,16 @@ export const getMyFullName = createServerFn({ method: "GET" })
   .handler(async ({ context }) => {
     const { data } = await context.supabase
       .from("profiles")
-      .select("full_name, signup_type, school_name")
+      .select("full_name, signup_type, school_name, country")
       .eq("id", context.userId)
       .maybeSingle();
     return {
       fullName: data?.full_name ?? "",
       signupType: (data?.signup_type as string | null) ?? "standard",
       schoolName: (data?.school_name as string | null) ?? null,
+      country: (data?.country as string | null) ?? null,
     };
+
   });
 
 /** Verify / update the authenticated user's full name. Used right before the
@@ -119,4 +121,44 @@ export const submitAcademiaCertificate = createServerFn({ method: "POST" })
     }
 
     return { success: true, alreadySubmitted: false, certificateId };
+  });
+
+/** Ensure the signed-in user has a public profile row (self-healing if the
+ *  auth trigger did not run) and return their roles. */
+export const ensureMyProfile = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
+  .handler(async ({ context }) => {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const { data: existing } = await supabaseAdmin
+      .from("profiles")
+      .select("id")
+      .eq("id", context.userId)
+      .maybeSingle();
+
+    if (!existing) {
+      const { data: authUser } = await supabaseAdmin.auth.admin.getUserById(context.userId);
+      const meta = (authUser?.user?.user_metadata ?? {}) as Record<string, unknown>;
+      const email = authUser?.user?.email ?? null;
+      const str = (k: string) => {
+        const v = meta[k];
+        return typeof v === "string" && v.trim() ? v.trim() : null;
+      };
+      await supabaseAdmin.from("profiles").insert({
+        id: context.userId,
+        full_name: str("full_name") ?? (email ? email.split("@")[0] : null),
+        email,
+        country: str("country"),
+        mobile_number: str("mobile_number"),
+        signup_type: str("signup_type") ?? "standard",
+        school_name: str("school_name"),
+        class_name: str("class_name"),
+      });
+    }
+
+    const { data: roles } = await supabaseAdmin
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", context.userId);
+
+    return { roles: (roles ?? []).map((r) => r.role as string) };
   });
