@@ -529,7 +529,7 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
       /* never block payment recording */
     }
 
-    return { success: true, certificateId };
+    return { success: true, certificateId, receipt };
   });
 
 function escapeHtml(s: string): string {
