@@ -170,7 +170,7 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
       ids.length
         ? supabaseAdmin
             .from("certificate_payments")
-            .select("id, user_id, course_id, course_name, certificate_type, amount, payment_status, created_at")
+            .select("id, user_id, course_id, course_name, certificate_type, amount, payment_status, created_at, certificate_id, source, school_name, class_name")
             .in("user_id", ids)
             .order("created_at", { ascending: false })
         : Promise.resolve({ data: [] as any[], error: null }),
