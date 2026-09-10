@@ -30,6 +30,7 @@ import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
 import { Route as AdminCredentialRequestsRouteImport } from './routes/admin.credential-requests'
 import { Route as AdminCertificatesRouteImport } from './routes/admin.certificates'
 import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AuthenticatedSchoolAdminRouteImport } from './routes/_authenticated/school-admin'
 import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
 import { Route as AuthenticatedCertificateSuccessRouteImport } from './routes/_authenticated/certificate-success'
 import { Route as AuthenticatedCertificatePaymentRouteImport } from './routes/_authenticated/certificate-payment'
@@ -142,6 +143,12 @@ const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedSchoolAdminRoute =
+  AuthenticatedSchoolAdminRouteImport.update({
+    id: '/school-admin',
+    path: '/school-admin',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -194,6 +201,7 @@ export interface FileRoutesByFullPath {
   '/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/certificate-success': typeof AuthenticatedCertificateSuccessRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/school-admin': typeof AuthenticatedSchoolAdminRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/credential-requests': typeof AdminCredentialRequestsRoute
@@ -222,6 +230,7 @@ export interface FileRoutesByTo {
   '/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/certificate-success': typeof AuthenticatedCertificateSuccessRoute
   '/dashboard': typeof AuthenticatedDashboardRoute
+  '/school-admin': typeof AuthenticatedSchoolAdminRoute
   '/settings': typeof AuthenticatedSettingsRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/credential-requests': typeof AdminCredentialRequestsRoute
@@ -252,6 +261,7 @@ export interface FileRoutesById {
   '/_authenticated/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/_authenticated/certificate-success': typeof AuthenticatedCertificateSuccessRoute
   '/_authenticated/dashboard': typeof AuthenticatedDashboardRoute
+  '/_authenticated/school-admin': typeof AuthenticatedSchoolAdminRoute
   '/_authenticated/settings': typeof AuthenticatedSettingsRoute
   '/admin/certificates': typeof AdminCertificatesRoute
   '/admin/credential-requests': typeof AdminCredentialRequestsRoute
@@ -282,6 +292,7 @@ export interface FileRouteTypes {
     | '/certificate-payment'
     | '/certificate-success'
     | '/dashboard'
+    | '/school-admin'
     | '/settings'
     | '/admin/certificates'
     | '/admin/credential-requests'
@@ -310,6 +321,7 @@ export interface FileRouteTypes {
     | '/certificate-payment'
     | '/certificate-success'
     | '/dashboard'
+    | '/school-admin'
     | '/settings'
     | '/admin/certificates'
     | '/admin/credential-requests'
@@ -339,6 +351,7 @@ export interface FileRouteTypes {
     | '/_authenticated/certificate-payment'
     | '/_authenticated/certificate-success'
     | '/_authenticated/dashboard'
+    | '/_authenticated/school-admin'
     | '/_authenticated/settings'
     | '/admin/certificates'
     | '/admin/credential-requests'
@@ -524,6 +537,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedSettingsRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/school-admin': {
+      id: '/_authenticated/school-admin'
+      path: '/school-admin'
+      fullPath: '/school-admin'
+      preLoaderRoute: typeof AuthenticatedSchoolAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/dashboard': {
       id: '/_authenticated/dashboard'
       path: '/dashboard'
@@ -574,6 +594,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCertificatePaymentRoute: typeof AuthenticatedCertificatePaymentRoute
   AuthenticatedCertificateSuccessRoute: typeof AuthenticatedCertificateSuccessRoute
   AuthenticatedDashboardRoute: typeof AuthenticatedDashboardRoute
+  AuthenticatedSchoolAdminRoute: typeof AuthenticatedSchoolAdminRoute
   AuthenticatedSettingsRoute: typeof AuthenticatedSettingsRoute
   AuthenticatedLearnCourseIdLevelRoute: typeof AuthenticatedLearnCourseIdLevelRoute
 }
@@ -583,6 +604,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCertificatePaymentRoute: AuthenticatedCertificatePaymentRoute,
   AuthenticatedCertificateSuccessRoute: AuthenticatedCertificateSuccessRoute,
   AuthenticatedDashboardRoute: AuthenticatedDashboardRoute,
+  AuthenticatedSchoolAdminRoute: AuthenticatedSchoolAdminRoute,
   AuthenticatedSettingsRoute: AuthenticatedSettingsRoute,
   AuthenticatedLearnCourseIdLevelRoute: AuthenticatedLearnCourseIdLevelRoute,
 }
