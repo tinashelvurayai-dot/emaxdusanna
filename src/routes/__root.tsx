@@ -18,6 +18,7 @@ import { AuroraBg } from "../components/aurora-bg";
 import { AppErrorBoundary } from "../components/app-error-boundary";
 import { MobileBottomNav } from "../components/mobile-bottom-nav";
 import { initSentry } from "../lib/sentry";
+import { registerServiceWorker } from "../lib/pwa-register";
 
 function NotFoundComponent() {
   useEffect(() => {
@@ -153,6 +154,7 @@ function RootComponent() {
 
   useEffect(() => {
     void initSentry();
+    void registerServiceWorker();
   }, []);
 
   useEffect(() => {

@@ -66,12 +66,18 @@ export function InstallAppButton() {
 
   if (showIosHint) {
     return (
-      <p className="text-sm text-blue-700">
-        To install on iPhone: tap <span className="font-semibold">Share</span>, then
-        <span className="font-semibold"> Add to Home Screen</span>.
-      </p>
+      <div className="flex flex-wrap items-center gap-2">
+        <Button type="button" variant="outline" className="gap-2" onClick={() => setShowIosHint(false)}>
+          <Download className="h-4 w-4" /> Install app
+        </Button>
+        <p className="text-sm text-blue-700">Use Share, then Add to Home Screen.</p>
+      </div>
     );
   }
 
-  return null;
+  return (
+    <Button type="button" variant="outline" className="gap-2" onClick={() => window.location.reload()}>
+      <Download className="h-4 w-4" /> Install app
+    </Button>
+  );
 }
