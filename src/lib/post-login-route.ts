@@ -15,6 +15,12 @@ export async function resolvePostLoginRoute(userId: string): Promise<"/admin" | 
     const set = new Set((roles ?? []).map((r) => r.role));
     if (set.has("admin")) return "/admin";
     if (set.has("school_admin")) return "/school-admin";
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("signup_type")
+      .eq("id", userId)
+      .maybeSingle();
+    if (profile?.signup_type === "school_admin") return "/school-admin";
   } catch {
     /* fall through */
   }
