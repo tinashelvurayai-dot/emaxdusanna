@@ -468,3 +468,26 @@
   .portal-fx { display: none; }
   .portal-core, .portal-ring, .portal-spark { animation: none !important; }
 }
+
+/* Receipt printing: isolate the receipt sheet so a browser print gives just the
+   receipt on a clean page (the PDF path is handled in src/lib/receipt-pdf.ts). */
+@media print {
+  body:has(#receipt-print) > *:not([data-radix-portal]) {
+    display: none !important;
+  }
+  body:has(#receipt-print) [data-radix-portal] [role="dialog"] {
+    position: static !important;
+    transform: none !important;
+    max-width: none !important;
+    width: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    background: #fff !important;
+  }
+  #receipt-print {
+    box-shadow: none !important;
+  }
+}
