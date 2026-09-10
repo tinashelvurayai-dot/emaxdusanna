@@ -558,14 +558,16 @@ export const getSchoolClassAnalytics = createServerFn({ method: "GET" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
 
     const [profilesRes, rosterRes] = await Promise.all([
-      supabaseAdmin.from("profiles").select("id, full_name, school_name"),
+      supabaseAdmin.from("profiles").select("id, full_name, school_name, signup_type"),
       supabaseAdmin
         .from("school_rosters")
         .select("normalized_name, class_name")
         .eq("school_admin_id", context.userId),
     ]);
     const profiles = (profilesRes.data ?? []).filter(
-      (p) => (p.school_name ?? "").trim().toLowerCase() === target,
+      (p) =>
+        (p.school_name ?? "").trim().toLowerCase() === target &&
+        (p as any).signup_type !== "school_admin",
     );
     const ids = profiles.map((p) => p.id);
     const rosterClassByName = new Map<string, string | null>();
