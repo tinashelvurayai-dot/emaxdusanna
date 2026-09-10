@@ -42,6 +42,8 @@ function SettingsPage() {
   });
   const isAdmin = Boolean(adminCheck?.isAdmin);
 
+  // School admins manage a school account: deletion is handled by Edusanna support,
+  // so the self-service delete card is hidden for them (as it is for platform admins).
   const [profile, setProfile] = useState<{ fullName: string; signupType: string; schoolName: string | null } | null>(null);
   const [open, setOpen] = useState(false);
   const [deleting, setDeleting] = useState(false);
@@ -49,6 +51,7 @@ function SettingsPage() {
   const [unenrolling, setUnenrolling] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState("");
   const [changing, setChanging] = useState(false);
+  const isSchoolAdmin = profile?.signupType === "school_admin";
 
   const handleChangePassword = async () => {
     setChanging(true);
@@ -240,7 +243,7 @@ function SettingsPage() {
           </div>
 
 
-          {!isAdmin && (
+          {!isAdmin && !isSchoolAdmin && (
             <div className="glass-card-light p-6 border border-red-200">
               <div className="flex items-start gap-3 mb-3">
                 <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
