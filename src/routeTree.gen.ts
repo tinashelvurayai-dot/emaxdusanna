@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as WasteChemicalsWealthProgramRouteImport } from './routes/waste-chemicals-wealth-program'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as SuccessRouteImport } from './routes/success'
@@ -37,6 +38,12 @@ import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/
 import { Route as ApiPublicCronPurgeRetentionRouteImport } from './routes/api/public/cron/purge-retention'
 import { Route as AuthenticatedLearnCourseIdLevelRouteImport } from './routes/_authenticated/learn.$courseId.$level'
 
+const WasteChemicalsWealthProgramRoute =
+  WasteChemicalsWealthProgramRouteImport.update({
+    id: '/waste-chemicals-wealth-program',
+    path: '/waste-chemicals-wealth-program',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const VerifyRoute = VerifyRouteImport.update({
   id: '/verify',
   path: '/verify',
@@ -189,6 +196,7 @@ export interface FileRoutesByFullPath {
   '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
+  '/waste-chemicals-wealth-program': typeof WasteChemicalsWealthProgramRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/certificate-success': typeof AuthenticatedCertificateSuccessRoute
@@ -217,6 +225,7 @@ export interface FileRoutesByTo {
   '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
+  '/waste-chemicals-wealth-program': typeof WasteChemicalsWealthProgramRoute
   '/admin': typeof AuthenticatedAdminRoute
   '/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/certificate-success': typeof AuthenticatedCertificateSuccessRoute
@@ -247,6 +256,7 @@ export interface FileRoutesById {
   '/success': typeof SuccessRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
+  '/waste-chemicals-wealth-program': typeof WasteChemicalsWealthProgramRoute
   '/_authenticated/admin': typeof AuthenticatedAdminRoute
   '/_authenticated/certificate-payment': typeof AuthenticatedCertificatePaymentRoute
   '/_authenticated/certificate-success': typeof AuthenticatedCertificateSuccessRoute
@@ -277,6 +287,7 @@ export interface FileRouteTypes {
     | '/success'
     | '/terms'
     | '/verify'
+    | '/waste-chemicals-wealth-program'
     | '/admin'
     | '/certificate-payment'
     | '/certificate-success'
@@ -305,6 +316,7 @@ export interface FileRouteTypes {
     | '/success'
     | '/terms'
     | '/verify'
+    | '/waste-chemicals-wealth-program'
     | '/admin'
     | '/certificate-payment'
     | '/certificate-success'
@@ -334,6 +346,7 @@ export interface FileRouteTypes {
     | '/success'
     | '/terms'
     | '/verify'
+    | '/waste-chemicals-wealth-program'
     | '/_authenticated/admin'
     | '/_authenticated/certificate-payment'
     | '/_authenticated/certificate-success'
@@ -364,6 +377,7 @@ export interface RootRouteChildren {
   SuccessRoute: typeof SuccessRoute
   TermsRoute: typeof TermsRoute
   VerifyRoute: typeof VerifyRoute
+  WasteChemicalsWealthProgramRoute: typeof WasteChemicalsWealthProgramRoute
   AdminCertificatesRoute: typeof AdminCertificatesRoute
   AdminCredentialRequestsRoute: typeof AdminCredentialRequestsRoute
   AdminPaymentsRoute: typeof AdminPaymentsRoute
@@ -376,6 +390,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/waste-chemicals-wealth-program': {
+      id: '/waste-chemicals-wealth-program'
+      path: '/waste-chemicals-wealth-program'
+      fullPath: '/waste-chemicals-wealth-program'
+      preLoaderRoute: typeof WasteChemicalsWealthProgramRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verify': {
       id: '/verify'
       path: '/verify'
@@ -604,6 +625,7 @@ const rootRouteChildren: RootRouteChildren = {
   SuccessRoute: SuccessRoute,
   TermsRoute: TermsRoute,
   VerifyRoute: VerifyRoute,
+  WasteChemicalsWealthProgramRoute: WasteChemicalsWealthProgramRoute,
   AdminCertificatesRoute: AdminCertificatesRoute,
   AdminCredentialRequestsRoute: AdminCredentialRequestsRoute,
   AdminPaymentsRoute: AdminPaymentsRoute,

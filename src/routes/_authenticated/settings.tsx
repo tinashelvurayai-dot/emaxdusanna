@@ -1,20 +1,16 @@
-import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
-import { AlertTriangle, ArrowLeft, BookOpen, CheckCircle2, Loader2, Trash2, XCircle } from "lucide-react";
+import { ArrowLeft, BookOpen, CheckCircle2, Loader2, XCircle } from "lucide-react";
 import { toast } from "sonner";
 import { SiteNavbar } from "@/components/site-navbar";
 import { SiteFooter } from "@/components/site-footer";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle,
-} from "@/components/ui/dialog";
 import { useAuth } from "@/lib/auth";
 import { supabase } from "@/integrations/supabase/client";
 import { getMyFullName } from "@/lib/profile.functions";
-import { changeMyPassword, deleteMyAccount } from "@/lib/account.functions";
-import { checkIsAdmin } from "@/lib/admin.functions";
+import { changeMyPassword } from "@/lib/account.functions";
 import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_authenticated/settings")({
@@ -28,30 +24,14 @@ export const Route = createFileRoute("/_authenticated/settings")({
 });
 
 function SettingsPage() {
-  const { user, signOut } = useAuth();
-  const navigate = useNavigate();
+  const { user } = useAuth();
   const queryClient = useQueryClient();
   const fetchName = useServerFn(getMyFullName);
-  const deleteAccount = useServerFn(deleteMyAccount);
   const changePassword = useServerFn(changeMyPassword);
-  const isAdminFn = useServerFn(checkIsAdmin);
-  const { data: adminCheck } = useQuery({
-    queryKey: ["settings-is-admin", user?.id],
-    enabled: !!user,
-    queryFn: () => isAdminFn(),
-  });
-  const isAdmin = Boolean(adminCheck?.isAdmin);
-
-  // School admins manage a school account: deletion is handled by Edusanna support,
-  // so the self-service delete card is hidden for them (as it is for platform admins).
   const [profile, setProfile] = useState<{ fullName: string; signupType: string; schoolName: string | null } | null>(null);
-  const [open, setOpen] = useState(false);
-  const [deleting, setDeleting] = useState(false);
-  const [confirmText, setConfirmText] = useState("");
   const [unenrolling, setUnenrolling] = useState<string | null>(null);
   const [newPassword, setNewPassword] = useState("");
   const [changing, setChanging] = useState(false);
-  const isSchoolAdmin = profile?.signupType === "school_admin";
 
   const handleChangePassword = async () => {
     setChanging(true);
@@ -115,23 +95,6 @@ function SettingsPage() {
     queryClient.invalidateQueries({ queryKey: ["settings-enrollments", user.id] });
     queryClient.invalidateQueries({ queryKey: ["dashboard", user.id] });
     setUnenrolling(null);
-  };
-
-  const handleDelete = async () => {
-    if (confirmText.trim().toUpperCase() !== "DELETE") {
-      toast.error("Please type DELETE to confirm.");
-      return;
-    }
-    setDeleting(true);
-    try {
-      await deleteAccount({ data: { confirm: confirmText.trim().toUpperCase() } });
-      toast.success("Your account and all its data have been deleted.");
-      await signOut();
-      navigate({ to: "/", replace: true });
-    } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Could not delete your account.");
-      setDeleting(false);
-    }
   };
 
   return (
@@ -242,68 +205,8 @@ function SettingsPage() {
             </div>
           </div>
 
-
-          {!isAdmin && !isSchoolAdmin && (
-            <div className="glass-card-light p-6 border border-red-200">
-              <div className="flex items-start gap-3 mb-3">
-                <AlertTriangle className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
-                <div>
-                  <h2 className="text-lg font-bold text-red-700">Delete my account</h2>
-                  <p className="text-sm text-blue-700 mt-1">
-                    This permanently removes your profile, enrollments, course progress and credential
-                    records. Credentials already issued can no longer be verified. This cannot be undone.
-                  </p>
-                </div>
-              </div>
-              <Button
-                onClick={() => setOpen(true)}
-                variant="outline"
-                className="min-h-11 border-red-400 text-red-700 hover:bg-red-50"
-              >
-                <Trash2 className="w-4 h-4 mr-2" aria-hidden="true" /> Delete my account
-              </Button>
-            </div>
-          )}
         </div>
       </section>
-
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Delete your account?</DialogTitle>
-            <DialogDescription>
-              Everything tied to {user?.email} will be erased permanently. Type DELETE below, then press
-              "Confirm &amp; delete". This cannot be undone.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-2">
-            <label htmlFor="confirm-delete" className="text-sm font-semibold text-blue-900">
-              Type DELETE to confirm
-            </label>
-            <Input
-              id="confirm-delete"
-              value={confirmText}
-              onChange={(e) => setConfirmText(e.target.value)}
-              placeholder="DELETE"
-              autoComplete="off"
-              className="min-h-11"
-            />
-          </div>
-          <DialogFooter>
-            <Button variant="outline" className="min-h-11" onClick={() => setOpen(false)} disabled={deleting}>
-              Cancel
-            </Button>
-            <Button
-              onClick={handleDelete}
-              disabled={deleting || confirmText.trim().toUpperCase() !== "DELETE"}
-              className="min-h-11 bg-red-600 text-white hover:bg-red-700"
-            >
-              {deleting && <Loader2 className="w-4 h-4 mr-2 animate-spin" aria-hidden="true" />}
-              Confirm &amp; delete
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
       <SiteFooter />
     </div>
   );
