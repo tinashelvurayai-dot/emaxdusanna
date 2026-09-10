@@ -141,7 +141,7 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
     // Pull all profiles for the school (case-insensitive)
     const { data: profiles, error: pErr } = await supabaseAdmin
       .from("profiles")
-      .select("id, full_name, email, mobile_number, school_name, signup_type, created_at");
+      .select("id, full_name, email, mobile_number, school_name, signup_type, class_name, created_at");
     if (pErr) throw pErr;
 
     // School admin accounts are staff, never students - keep them out of the roster,
@@ -157,16 +157,8 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
     );
     const ids = myProfiles.map((p) => p.id);
 
-    // Roster (used for class assignment + show students yet to sign up)
-    const { data: roster } = await supabaseAdmin
-      .from("school_rosters")
-      .select("full_name, normalized_name, class_name")
-      .eq("school_admin_id", context.userId);
-
-    const rosterByName = new Map<string, { class_name: string | null }>();
-    for (const r of roster ?? []) {
-      rosterByName.set(r.normalized_name as string, { class_name: r.class_name as string | null });
-    }
+    // Students provide their school and class during Academia signup. The school dashboard
+    // therefore discovers the live student population directly from profiles.
 
     // Progress + payments for these students
     const [progRes, payRes] = await Promise.all([
@@ -195,8 +187,6 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
     };
 
     const students = myProfiles.map((p) => {
-      const key = (p.full_name ?? "").trim().toLowerCase();
-      const fromRoster = rosterByName.get(key);
       const myProg = progress.filter((q) => q.user_id === p.id);
       const myPay = payments.filter((q) => q.user_id === p.id);
       const lastActive = myProg.reduce<string | null>((acc, q) => {
@@ -215,7 +205,7 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
         fullName: p.full_name,
         email: p.email,
         mobileNumber: p.mobile_number,
-        className: fromRoster?.class_name ?? null,
+        className: p.class_name ?? null,
         enrolledAt: p.created_at,
         lastActive,
         avgQuizScore,
@@ -226,13 +216,7 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
       };
     });
 
-    // Roster entries with no matching signup yet
-    const signedUpKeys = new Set(myProfiles.map((p) => (p.full_name ?? "").trim().toLowerCase()));
-    const unmatched = (roster ?? [])
-      .filter((r) => !signedUpKeys.has(r.normalized_name as string))
-      .map((r) => ({ fullName: r.full_name, className: r.class_name }));
-
-    return { schoolName, students, unmatched };
+    return { schoolName, students, unmatched: [] };
   });
 
 /** Detailed drilldown for one student at this admin's school. */
@@ -341,18 +325,13 @@ export const sendClassBroadcast = createServerFn({ method: "POST" })
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const target = schoolName.trim().toLowerCase();
 
-    const [profilesRes, rosterRes] = await Promise.all([
-      supabaseAdmin.from("profiles").select("full_name, email, school_name"),
-      supabaseAdmin
-        .from("school_rosters")
-        .select("normalized_name, class_name")
-        .eq("school_admin_id", context.userId)
-        .eq("class_name", data.className),
-    ]);
-    const rosterKeys = new Set(((rosterRes.data ?? []) as any[]).map((r) => r.normalized_name as string));
-    const recipients = ((profilesRes.data ?? []) as any[])
+    const { data: profiles } = await supabaseAdmin
+      .from("profiles")
+      .select("full_name, email, school_name, class_name, signup_type")
+      .eq("class_name", data.className);
+    const recipients = ((profiles ?? []) as any[])
       .filter((p) => (p.school_name ?? "").trim().toLowerCase() === target)
-      .filter((p) => rosterKeys.has((p.full_name ?? "").trim().toLowerCase()))
+      .filter((p) => p.signup_type !== "school_admin")
       .map((p) => ({ fullName: p.full_name as string | null, email: p.email as string | null }));
 
     try {
@@ -460,7 +439,7 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
     // Look up student profile + roster class
     const { data: profile } = await supabaseAdmin
       .from("profiles")
-      .select("full_name, email, school_name")
+      .select("full_name, email, school_name, class_name")
       .eq("id", data.studentId)
       .maybeSingle();
     if (!profile) throw new Error("Student not found");
@@ -468,13 +447,7 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
       throw new Error("This student is not assigned to your school");
     }
 
-    const nameKey = (profile.full_name ?? "").trim().toLowerCase();
-    const { data: rosterRow } = await supabaseAdmin
-      .from("school_rosters")
-      .select("class_name")
-      .eq("school_admin_id", context.userId)
-      .eq("normalized_name", nameKey)
-      .maybeSingle();
+    const studentClass = profile.class_name as string | null;
 
     // Block duplicates
     const { data: existing } = await supabaseAdmin
@@ -501,7 +474,7 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
       certificate_id: certificateId,
       source: "school",
       school_name: schoolName,
-      class_name: rosterRow?.class_name ?? null,
+      class_name: studentClass,
     });
     if (error) throw error;
 

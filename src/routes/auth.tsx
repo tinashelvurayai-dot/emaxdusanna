@@ -45,6 +45,7 @@ function AuthPage() {
   const [signupType, setSignupType] = useState<SignupType | null>(null);
   const [fullName, setFullName] = useState("");
   const [schoolName, setSchoolName] = useState("");
+  const [className, setClassName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -113,18 +114,18 @@ function AuthPage() {
         const { error } = await supabase.auth.signUp({
           email,
           password,
-          options: {
-            captchaToken: captchaToken || undefined,
-            emailRedirectTo: `${window.location.origin}/dashboard`,
-            data: {
-              full_name: fullName,
-              // Country is derived from the phone country code (academia only).
-              country: isAcademia ? phoneCountry.name : null,
-              mobile_number: fullMobile,
-              signup_type: signupType ?? "standard",
-              school_name: isAcademia ? schoolName : null,
+            options: {
+              captchaToken: captchaToken || undefined,
+              emailRedirectTo: `${window.location.origin}/dashboard`,
+              data: {
+                full_name: fullName,
+                country: isAcademia ? phoneCountry.name : null,
+                mobile_number: fullMobile,
+                signup_type: signupType ?? "standard",
+                school_name: isAcademia ? schoolName : null,
+                class_name: isAcademia ? className : null,
+              },
             },
-          },
         });
         if (error) throw error;
         toast.success("Account created! Check your email to confirm, then log in.");
@@ -237,10 +238,16 @@ function AuthPage() {
             </div>
           )}
           {mode === "signup" && signupType === "academia" && (
-            <div>
-              <Label htmlFor="schoolName">School / Institution name</Label>
-              <Input id="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} required placeholder="Your school or institution" />
-            </div>
+            <>
+              <div>
+                <Label htmlFor="schoolName">School / Institution name</Label>
+                <Input id="schoolName" value={schoolName} onChange={(e) => setSchoolName(e.target.value)} required placeholder="Your school or institution" />
+              </div>
+              <div>
+                <Label htmlFor="className">Class (e.g. 3A, Form 4, Grade 10)</Label>
+                <Input id="className" value={className} onChange={(e) => setClassName(e.target.value)} required placeholder="3A" />
+              </div>
+            </>
           )}
           <div>
             <Label htmlFor="email">Email</Label>
