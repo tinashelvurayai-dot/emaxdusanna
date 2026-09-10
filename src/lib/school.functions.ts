@@ -141,10 +141,19 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
     // Pull all profiles for the school (case-insensitive)
     const { data: profiles, error: pErr } = await supabaseAdmin
       .from("profiles")
-      .select("id, full_name, email, mobile_number, school_name, created_at");
+      .select("id, full_name, email, mobile_number, school_name, signup_type, created_at");
     if (pErr) throw pErr;
+
+    // School admin accounts are staff, never students - keep them out of the roster,
+    // the counts, the charts and the risk flags.
+    const { data: staff } = await supabaseAdmin.from("school_admins").select("user_id");
+    const staffIds = new Set((staff ?? []).map((s) => s.user_id as string));
+
     const myProfiles = (profiles ?? []).filter(
-      (p) => (p.school_name ?? "").trim().toLowerCase() === target,
+      (p) =>
+        (p.school_name ?? "").trim().toLowerCase() === target &&
+        p.signup_type !== "school_admin" &&
+        !staffIds.has(p.id),
     );
     const ids = myProfiles.map((p) => p.id);
 
