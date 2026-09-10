@@ -216,6 +216,9 @@
 
 @keyframes benefit-marquee-left { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(calc(-50% - 0.5rem), 0, 0); } }
 @keyframes benefit-marquee-right { from { transform: translate3d(calc(-50% - 0.5rem), 0, 0); } to { transform: translate3d(0, 0, 0); } }
+.benefit-marquee-left { animation: benefit-marquee-left 32s linear infinite; }
+.benefit-marquee-right { animation: benefit-marquee-right 38s linear infinite; }
+.benefit-marquee-row:hover .benefit-marquee-track { animation-play-state: paused; }
 @media (prefers-reduced-motion: reduce) {
   .benefit-marquee-track { animation: none !important; flex-wrap: wrap; width: 100%; }
   .benefit-marquee-row { overflow: visible; }

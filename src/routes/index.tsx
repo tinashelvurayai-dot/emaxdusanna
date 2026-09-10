@@ -140,7 +140,7 @@ function Index() {
             className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 sm:gap-4"
             style={{ marginBottom: "clamp(0.75rem,2vh,1.5rem)" }}
           >
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-amber-200 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-blue-200 shadow-sm">
               <span className="flex text-amber-400">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <Star key={i} className="w-4 h-4 fill-amber-400" />
@@ -156,7 +156,7 @@ function Index() {
               <span className="text-sm font-bold text-blue-900">{userCount}</span>
               <span className="text-sm text-blue-600">Users</span>
             </div>
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-amber-200 shadow-sm">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-blue-200 shadow-sm">
               <TrendingUp className="w-4 h-4 text-purple-600" />
               <span className="text-sm font-bold text-blue-900">Join the race</span>
             </div>
@@ -280,13 +280,9 @@ function Index() {
               </Card>
             ))}
           </div>
-          <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {platformFeatures.map((feature, idx) => (
-              <div key={idx} className="flex items-center gap-2 p-4 bg-white rounded-xl border border-blue-100 shadow-sm">
-                <CheckCircle className="w-5 h-5 text-blue-600 flex-shrink-0" />
-                <span className="text-sm font-medium text-blue-800">{feature}</span>
-              </div>
-            ))}
+          <div className="mt-14 space-y-4 overflow-hidden" aria-label="Edusanna platform benefits">
+            <BenefitMarqueeRow features={platformFeatures.slice(0, 5)} direction="left" />
+            <BenefitMarqueeRow features={platformFeatures.slice(5, 10)} direction="right" />
           </div>
         </div>
       </section>
@@ -312,6 +308,22 @@ function Index() {
 
 
       <SiteFooter />
+    </div>
+  );
+}
+
+function BenefitMarqueeRow({ features, direction }: { features: string[]; direction: "left" | "right" }) {
+  const sequence = [...features, ...features];
+  return (
+    <div className="benefit-marquee-row overflow-hidden" role="list">
+      <div className={`benefit-marquee-track flex w-max gap-4 ${direction === "left" ? "benefit-marquee-left" : "benefit-marquee-right"}`}>
+        {sequence.map((feature, index) => (
+          <div key={`${feature}-${index}`} role="listitem" className="benefit-marquee-card flex w-[260px] shrink-0 items-center gap-2 rounded-xl border border-blue-100 bg-white p-4 shadow-sm transition-[box-shadow,transform] hover:-translate-y-1 hover:border-blue-300 hover:shadow-md">
+            <CheckCircle className="h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
+            <span className="text-sm font-medium text-blue-800">{feature}</span>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
