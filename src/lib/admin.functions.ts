@@ -18,6 +18,25 @@ export const adminGateState = createServerFn({ method: "GET" }).handler(async ()
   return { adminExists: (count ?? 0) > 0 };
 });
 
+/**
+ * Preferred database client for admin reads.
+ *
+ * Uses the service-role client when its key is configured (Lovable Cloud).
+ * On a self-hosted deploy (e.g. Vercel) where only the public key is set, it
+ * falls back to the signed-in admin's own client - the admin RLS policies
+ * already allow reading every profile, payment and role - so the admin
+ * dashboard keeps working instead of showing empty tables.
+ */
+async function adminDb(context: { supabase: any }) {
+  try {
+    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    void supabaseAdmin.from; // proxy throws here when the service key is absent
+    return supabaseAdmin as any;
+  } catch {
+    return context.supabase as any;
+  }
+}
+
 async function assertAdmin(context: { supabase: any; userId: string }) {
   const { data, error } = await context.supabase.rpc("has_role", {
     _user_id: context.userId,
@@ -42,7 +61,7 @@ export const getAdminStats = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
 
     const [users, payments, paid] = await Promise.all([
       supabaseAdmin.from("profiles").select("id", { count: "exact", head: true }),
@@ -69,7 +88,7 @@ export const listPayments = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { data, error } = await supabaseAdmin
       .from("certificate_payments")
       .select("*")
@@ -88,7 +107,7 @@ export const updatePaymentStatus = createServerFn({ method: "POST" })
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { error } = await supabaseAdmin
       .from("certificate_payments")
       .update({ payment_status: data.status })
@@ -102,7 +121,7 @@ export const listUsers = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { data, error } = await supabaseAdmin
       .from("profiles")
       .select("id, full_name, email, country, city, signup_type, school_name, created_at")
@@ -212,7 +231,7 @@ export const getLearnerCourses = createServerFn({ method: "POST" })
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { getCatalogItem, getCourseTitle } = await import("@/lib/courses");
 
     const { data: progress, error } = await supabaseAdmin
@@ -324,7 +343,7 @@ export const listContractedSchools = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { data, error } = await supabaseAdmin
       .from("contracted_schools")
       .select("id, name, created_at")
