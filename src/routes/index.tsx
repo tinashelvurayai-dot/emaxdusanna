@@ -43,17 +43,17 @@ const testimonials = [
   {
     name: "Tariro M.",
     badge: "+57%",
-    quote: "Edusanna took me from lost to confident. I learned for free, studied at my own pace and earned my Certificate without breaking the bank.",
+    quote: "I didn’t think online learning could be this easy and flexible. I could study whenever I had a free moment, track how I was doing and go back to anything I didn’t understand. I started with very little confidence and finished with a Certificate and a completely different mindset.",
   },
   {
     name: "Bongani K.",
     badge: "Top 5%",
-    quote: "Clear, practical, job-ready lessons. I studied free and only paid $18 for a Diploma that employers actually respect.",
+    quote: "I didn’t expect online learning to feel this practical. The lessons were easy to follow, I could learn at my own pace and I was building skills I could actually use. Earning my Diploma was the perfect bonus.",
   },
   {
     name: "Aisha R.",
     badge: "Distinction",
-    quote: "Lessons, quizzes and progress tracking all in one place. Edusanna helped me pass with a distinction - worth every minute.",
+    quote: "I loved being able to see my progress as I learned. The lessons and quizzes kept me motivated and helped me know where I needed to improve. When I finally earned my distinction, I felt genuinely proud of how far I’d come.",
   },
 ];
 
@@ -285,7 +285,7 @@ function Index() {
             <BenefitMarqueeRow features={platformFeatures.slice(5, 10)} direction="right" />
           </div>
           <div className="mt-10 flex justify-center">
-            <Link to="/partnership-request">
+            <Link to="/partnership-request" id="partnership-request">
               <Button className="premium-button text-base px-7 py-3">Partner with Us</Button>
             </Link>
           </div>
