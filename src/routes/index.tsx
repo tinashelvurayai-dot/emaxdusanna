@@ -61,7 +61,7 @@ function Index() {
   const { data: community } = useQuery({
     queryKey: ["community-stats"],
     queryFn: () => getCommunityStats(),
-    initialData: { totalUsers: 14317 },
+    initialData: { totalUsers: 104317 },
     staleTime: 30_000,
   });
   const userCount = community.totalUsers.toLocaleString("en-US");
@@ -283,6 +283,11 @@ function Index() {
           <div className="mt-14 space-y-4 overflow-hidden" aria-label="Edusanna platform benefits">
             <BenefitMarqueeRow features={platformFeatures.slice(0, 5)} direction="left" />
             <BenefitMarqueeRow features={platformFeatures.slice(5, 10)} direction="right" />
+          </div>
+          <div className="mt-10 flex justify-center">
+            <Link to="/partnership-request">
+              <Button className="premium-button text-base px-7 py-3">Partner with Us</Button>
+            </Link>
           </div>
         </div>
       </section>
