@@ -166,22 +166,34 @@ export type Database = {
           created_at: string
           created_by: string | null
           id: string
+          is_active: boolean
+          logo_url: string | null
           name: string
           normalized_name: string | null
+          notes: string | null
+          seat_limit: number | null
         }
         Insert: {
           created_at?: string
           created_by?: string | null
           id?: string
+          is_active?: boolean
+          logo_url?: string | null
           name: string
           normalized_name?: string | null
+          notes?: string | null
+          seat_limit?: number | null
         }
         Update: {
           created_at?: string
           created_by?: string | null
           id?: string
+          is_active?: boolean
+          logo_url?: string | null
           name?: string
           normalized_name?: string | null
+          notes?: string | null
+          seat_limit?: number | null
         }
         Relationships: []
       }
@@ -332,10 +344,65 @@ export type Database = {
         }
         Relationships: []
       }
+      partnership_program_requests: {
+        Row: {
+          audience: string
+          created_at: string
+          email: string
+          expected_reach: string | null
+          id: string
+          message: string | null
+          organization_name: string
+          organization_type: string
+          partner_name: string
+          phone: string | null
+          program_description: string
+          program_title: string
+          status: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          audience: string
+          created_at?: string
+          email: string
+          expected_reach?: string | null
+          id?: string
+          message?: string | null
+          organization_name: string
+          organization_type: string
+          partner_name: string
+          phone?: string | null
+          program_description: string
+          program_title: string
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          audience?: string
+          created_at?: string
+          email?: string
+          expected_reach?: string | null
+          id?: string
+          message?: string | null
+          organization_name?: string
+          organization_type?: string
+          partner_name?: string
+          phone?: string | null
+          program_description?: string
+          program_title?: string
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           anonymized_at: string | null
           city: string | null
+          class_name: string | null
           country: string | null
           created_at: string
           deleted_at: string | null
@@ -347,6 +414,8 @@ export type Database = {
           last_active_at: string
           last_password_change: string
           mobile_number: string | null
+          normalized_school: string | null
+          school_id: string | null
           school_name: string | null
           signup_type: string
           updated_at: string
@@ -354,6 +423,7 @@ export type Database = {
         Insert: {
           anonymized_at?: string | null
           city?: string | null
+          class_name?: string | null
           country?: string | null
           created_at?: string
           deleted_at?: string | null
@@ -365,6 +435,8 @@ export type Database = {
           last_active_at?: string
           last_password_change?: string
           mobile_number?: string | null
+          normalized_school?: string | null
+          school_id?: string | null
           school_name?: string | null
           signup_type?: string
           updated_at?: string
@@ -372,6 +444,7 @@ export type Database = {
         Update: {
           anonymized_at?: string | null
           city?: string | null
+          class_name?: string | null
           country?: string | null
           created_at?: string
           deleted_at?: string | null
@@ -383,11 +456,21 @@ export type Database = {
           last_active_at?: string
           last_password_change?: string
           mobile_number?: string | null
+          normalized_school?: string | null
+          school_id?: string | null
           school_name?: string | null
           signup_type?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "profiles_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "contracted_schools"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       rate_limit_hits: {
         Row: {
@@ -450,6 +533,7 @@ export type Database = {
           created_at: string
           created_by: string | null
           normalized_school: string | null
+          school_id: string | null
           school_name: string
           user_id: string
         }
@@ -459,6 +543,7 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           normalized_school?: string | null
+          school_id?: string | null
           school_name: string
           user_id: string
         }
@@ -468,10 +553,19 @@ export type Database = {
           created_at?: string
           created_by?: string | null
           normalized_school?: string | null
+          school_id?: string | null
           school_name?: string
           user_id?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "school_admins_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "contracted_schools"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       school_rosters: {
         Row: {
@@ -482,6 +576,7 @@ export type Database = {
           normalized_name: string | null
           normalized_school: string | null
           school_admin_id: string
+          school_id: string | null
           school_name: string
         }
         Insert: {
@@ -492,6 +587,7 @@ export type Database = {
           normalized_name?: string | null
           normalized_school?: string | null
           school_admin_id: string
+          school_id?: string | null
           school_name: string
         }
         Update: {
@@ -502,6 +598,7 @@ export type Database = {
           normalized_name?: string | null
           normalized_school?: string | null
           school_admin_id?: string
+          school_id?: string | null
           school_name?: string
         }
         Relationships: [
@@ -511,6 +608,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "school_admins"
             referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "school_rosters_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "contracted_schools"
+            referencedColumns: ["id"]
           },
         ]
       }
@@ -740,6 +844,7 @@ export type Database = {
       }
       run_engagement_sweep: { Args: never; Returns: Json }
       school_for_admin: { Args: { _user_id: string }; Returns: string }
+      school_id_for_admin: { Args: { _user_id: string }; Returns: string }
       session_risk_score: {
         Args: { _session_id?: string; _user_id: string }
         Returns: number

@@ -109,7 +109,7 @@ function CoursesPage() {
             <div className="min-w-0"><h2 className="text-lg font-bold text-blue-900">Global AHEP</h2><p className="text-sm text-blue-600">Certified Plastic Pollution Leadership Program - English &amp; Francais, diploma only.</p><span className="inline-flex mt-3 text-sm font-bold px-3 py-1 rounded-full bg-green-50 text-green-700">$30 USD</span></div>
           </Link>
           <Link to="/waste-chemicals-wealth-program" className="glass-card-light p-5 flex items-center gap-4 rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2">
-            <img src="https://i.postimg.cc/Hxf9MY2H/Chat-GPT-Image-Sep-5-2026-10-13-23-AM.png" alt="Certified Waste and Chemicals-to-Wealth Entrepreneurship Program" width={180} height={110} loading="eager" decoding="async" className="w-32 h-24 sm:w-44 sm:h-28 rounded-xl object-cover flex-shrink-0" />
+            <img src="/courses/waste-wealth-en.jpg" alt="Certified Waste and Chemicals-to-Wealth Entrepreneurship Program" width={180} height={110} loading="eager" decoding="async" className="w-32 h-24 sm:w-44 sm:h-28 rounded-xl object-cover flex-shrink-0" />
             <div className="min-w-0"><h2 className="text-lg font-bold text-blue-900">{WASTE_WEALTH_PROGRAM.name}</h2><p className="text-sm text-blue-600">{WASTE_WEALTH_PROGRAM.tagline}</p><span className="inline-flex mt-3 text-sm font-bold px-3 py-1 rounded-full bg-green-50 text-green-700">$15 USD</span></div>
           </Link>
         </div>
