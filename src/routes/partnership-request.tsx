@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
@@ -36,8 +36,8 @@ function PartnershipRequestPage() {
     } catch (error) { toast.error(error instanceof Error ? error.message : "Unable to submit request"); }
     finally { setSubmitting(false); }
   };
-  return <div className="min-h-screen"><SiteNavbar /><main className="pt-32 pb-20 px-4"><div className="max-w-5xl mx-auto grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
-    <section><p className="text-sm font-bold uppercase tracking-[0.2em] text-purple-600">Work with Edusanna</p><h1 className="mt-3 text-4xl md:text-5xl font-black text-blue-950 text-balance">Partnership &amp; Program Request</h1><p className="mt-5 text-lg leading-relaxed text-blue-700">Bring a meaningful learning experience to your community with Edusanna.</p><div className="mt-8 rounded-2xl border border-purple-200 bg-purple-50 p-6"><p className="font-bold text-purple-950">Interested Partners gain a worthy share of their proposed Organizational Program(s)</p></div></section>
+  return <div className="min-h-screen"><SiteNavbar /><main className="pt-32 pb-20 px-4"><div className="max-w-5xl mx-auto"><Link to="/" hash="partnership-request" className="mb-8 inline-flex items-center gap-2 text-sm font-semibold text-blue-700 hover:text-blue-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"><span aria-hidden="true">←</span> Back to Partnership &amp; Program Request</Link><div className="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
+    <section><p className="text-sm font-bold uppercase tracking-[0.2em] text-purple-600">Work with Edusanna</p><h1 className="mt-3 text-4xl md:text-5xl font-black text-sky-300 text-balance">Partnership &amp; Program Request</h1><p className="mt-5 text-lg leading-relaxed text-blue-700">Bring a meaningful learning experience to your community with Edusanna.</p><div className="mt-8 rounded-2xl border border-purple-200 bg-purple-50 p-6"><p className="font-bold text-purple-950">Interested Partners gain a worthy share of their proposed Organizational Program(s)</p></div></section>
     <form onSubmit={handleSubmit} className="glass-card-light p-6 md:p-8 grid sm:grid-cols-2 gap-5">{fields.map(([key, label, type]) => <div key={key}><Label htmlFor={key}>{label}</Label><Input id={key} type={type} value={form[key] ?? ""} onChange={(e) => update(key, e.target.value)} required={!label.includes("optional")} /></div>)}<div className="sm:col-span-2"><Label htmlFor="programDescription">Programme description</Label><Textarea id="programDescription" value={form.programDescription ?? ""} onChange={(e) => update("programDescription", e.target.value)} required rows={5} /></div><div className="sm:col-span-2"><Label htmlFor="message">Additional message (optional)</Label><Textarea id="message" value={form.message ?? ""} onChange={(e) => update("message", e.target.value)} rows={4} /></div><Button className="premium-button sm:col-span-2" disabled={submitting}>{submitting ? "Submitting..." : "Submit request"}</Button></form>
-  </div></main><SiteFooter /></div>;
+  </div></div></main><SiteFooter /></div>;
 }

@@ -116,32 +116,6 @@ function CoursesPage() {
       </section>
       )}
 
-      {!query.trim() && !category && (
-      <section className="px-4 sm:px-6 lg:px-8 pb-8">
-        <div className="max-w-7xl mx-auto">
-          <Link
-            to="/global-ahep"
-            className="glass-card-light p-6 flex flex-col sm:flex-row sm:items-center gap-4 justify-between rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
-          >
-            <div className="flex items-start gap-4">
-              <span className="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-500 to-green-500 flex items-center justify-center flex-shrink-0">
-                <Globe className="w-6 h-6 text-white" aria-hidden="true" />
-              </span>
-              <div>
-                <h2 className="text-lg font-bold text-blue-900">{GLOBAL_AHEP.name}</h2>
-                <p className="text-sm text-blue-600">
-                  {GLOBAL_AHEP.tagline} - English &amp; Francais, diploma only.
-                </p>
-              </div>
-            </div>
-            <span className="text-sm font-bold px-3 py-1.5 rounded-full bg-green-50 text-green-700 self-start sm:self-auto">
-              ${GLOBAL_AHEP_PRICE} USD
-            </span>
-          </Link>
-        </div>
-      </section>
-      )}
-
       <section className="pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           {grouped.length === 0 && (
