@@ -202,8 +202,8 @@ export const categoryImagePools: Record<string, string[]> = {
 export const specialCourseImages: Record<string, string> = {
   "ahep-plastic-pollution": "/courses/Chat-GPT-Image-Aug-9-2026-03-14-26-PM.webp",
   "ahep-pollution-plastique": "/courses/Chat-GPT-Image-Aug-9-2026-03-14-26-PM.webp",
-  "waste-chemicals-wealth": "https://i.postimg.cc/xTNq7jgK/Chat-GPT-Image-Sep-5-2026-09-47-07-AM.png",
-  "entrepreneuriat-dechets-produits-chimiques": "https://i.postimg.cc/xTNq7jgK/Chat-GPT-Image-Sep-5-2026-09-47-07-AM.png",
+  "waste-chemicals-wealth": "/courses/waste-wealth-en.jpg",
+  "entrepreneuriat-dechets-produits-chimiques": "/courses/waste-wealth-fr.jpg",
 };
 
 /** First image of each category - used as a lightweight fallback. */

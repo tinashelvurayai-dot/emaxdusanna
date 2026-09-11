@@ -50,7 +50,11 @@ function GlobalAhepPage() {
 
       <section className="pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
-          {specialCourseCatalog.map((course) => {
+          {/* Only the two AHEP plastic-pollution diplomas belong here. The
+              waste & chemicals programmes have their own dedicated page. */}
+          {specialCourseCatalog
+            .filter((course) => course.id.startsWith("ahep-"))
+            .map((course) => {
             const image = getCourseImage(course);
             const content = getCourseContent(course.id, "diploma");
             return (
