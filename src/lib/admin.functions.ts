@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { adminServerDb, serverDb } from "@/lib/db.server";
 
 const ALLOWED_STATUSES = ["paid_pending_admin", "noted", "certificate_sent"] as const;
 type PaymentStatus = (typeof ALLOWED_STATUSES)[number];
@@ -10,7 +11,7 @@ type PaymentStatus = (typeof ALLOWED_STATUSES)[number];
  * correct screen: sign up (no admin yet) or sign in (admin exists).
  */
 export const adminGateState = createServerFn({ method: "GET" }).handler(async () => {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const supabaseAdmin = await serverDb();
   const { count } = await supabaseAdmin
     .from("user_roles")
     .select("id", { count: "exact", head: true })
@@ -28,13 +29,7 @@ export const adminGateState = createServerFn({ method: "GET" }).handler(async ()
  * dashboard keeps working instead of showing empty tables.
  */
 async function adminDb(context: { supabase: any }) {
-  try {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
-    void supabaseAdmin.from; // proxy throws here when the service key is absent
-    return supabaseAdmin as any;
-  } catch {
-    return context.supabase as any;
-  }
+  return adminServerDb(context);
 }
 
 async function assertAdmin(context: { supabase: any; userId: string }) {
@@ -162,7 +157,7 @@ export const createManualPayment = createServerFn({ method: "POST" })
   )
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
 
     const { data: profile } = await supabaseAdmin
       .from("profiles")
@@ -205,7 +200,7 @@ export const bulkAddContractedSchools = createServerFn({ method: "POST" })
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const rows = data.names.map((name) => ({ name, created_by: context.userId }));
     const { data: inserted, error } = await supabaseAdmin
       .from("contracted_schools")
@@ -277,7 +272,7 @@ export const validateAcademiaSchool = createServerFn({ method: "POST" })
     return { name };
   })
   .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { data: school, error } = await supabaseAdmin
       .from("contracted_schools")
       .select("id, name")
@@ -297,7 +292,7 @@ export const submitPartnershipProgramRequest = createServerFn({ method: "POST" }
     return Object.fromEntries(Object.entries(input).map(([key, value]) => [key, typeof value === "string" ? value.trim().slice(0, 2000) : value]));
   })
   .handler(async ({ data }) => {
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { error } = await supabaseAdmin.from("partnership_program_requests").insert({
       partner_name: data.partnerName,
       email: data.email,
@@ -319,7 +314,7 @@ export const listPartnershipProgramRequests = createServerFn({ method: "GET" })
   .middleware([requireSupabaseAuth])
   .handler(async ({ context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { data, error } = await supabaseAdmin.from("partnership_program_requests").select("id, partner_name, email, phone, organization_name, organization_type, website, program_title, program_description, audience, expected_reach, message, status, created_at, updated_at").order("created_at", { ascending: false });
     if (error) throw error;
     return { requests: data ?? [] };
@@ -333,7 +328,7 @@ export const updatePartnershipProgramRequestStatus = createServerFn({ method: "P
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { error } = await supabaseAdmin.from("partnership_program_requests").update({ status: data.status }).eq("id", data.id);
     if (error) throw error;
     return { success: true };
@@ -361,7 +356,7 @@ export const addContractedSchool = createServerFn({ method: "POST" })
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { error } = await supabaseAdmin
       .from("contracted_schools")
       .insert({ name: data.name, created_by: context.userId });
@@ -380,7 +375,7 @@ export const removeContractedSchool = createServerFn({ method: "POST" })
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { error } = await supabaseAdmin.from("contracted_schools").delete().eq("id", data.id);
     if (error) throw error;
     return { success: true };
@@ -406,7 +401,7 @@ const DEFAULT_SAMPLE: SampleCertificateValue = {
 };
 
 export const getSampleCertificate = createServerFn({ method: "GET" }).handler(async () => {
-  const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+  const supabaseAdmin = await serverDb();
   const { data } = await supabaseAdmin
     .from("site_settings")
     .select("value")
@@ -429,7 +424,7 @@ export const saveSampleCertificate = createServerFn({ method: "POST" })
   })
   .handler(async ({ data, context }) => {
     await assertAdmin(context);
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminDb(context);
     const { error } = await supabaseAdmin
       .from("site_settings")
       .upsert({
