@@ -272,7 +272,7 @@ export const validateAcademiaSchool = createServerFn({ method: "POST" })
     return { name };
   })
   .handler(async ({ data }) => {
-    const supabaseAdmin = await adminDb(context);
+    const supabaseAdmin = await serverDb();
     const { data: school, error } = await supabaseAdmin
       .from("contracted_schools")
       .select("id, name")
@@ -292,7 +292,7 @@ export const submitPartnershipProgramRequest = createServerFn({ method: "POST" }
     return Object.fromEntries(Object.entries(input).map(([key, value]) => [key, typeof value === "string" ? value.trim().slice(0, 2000) : value]));
   })
   .handler(async ({ data }) => {
-    const supabaseAdmin = await adminDb(context);
+    const supabaseAdmin = await serverDb();
     const { error } = await supabaseAdmin.from("partnership_program_requests").insert({
       partner_name: data.partnerName,
       email: data.email,
