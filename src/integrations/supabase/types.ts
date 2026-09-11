@@ -344,6 +344,60 @@ export type Database = {
         }
         Relationships: []
       }
+      partnership_program_requests: {
+        Row: {
+          audience: string
+          created_at: string
+          email: string
+          expected_reach: string | null
+          id: string
+          message: string | null
+          organization_name: string
+          organization_type: string
+          partner_name: string
+          phone: string | null
+          program_description: string
+          program_title: string
+          status: string
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          audience: string
+          created_at?: string
+          email: string
+          expected_reach?: string | null
+          id?: string
+          message?: string | null
+          organization_name: string
+          organization_type: string
+          partner_name: string
+          phone?: string | null
+          program_description: string
+          program_title: string
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          audience?: string
+          created_at?: string
+          email?: string
+          expected_reach?: string | null
+          id?: string
+          message?: string | null
+          organization_name?: string
+          organization_type?: string
+          partner_name?: string
+          phone?: string | null
+          program_description?: string
+          program_title?: string
+          status?: string
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           anonymized_at: string | null
