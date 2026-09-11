@@ -167,6 +167,7 @@ export type Database = {
           created_by: string | null
           id: string
           is_active: boolean
+          logo_url: string | null
           name: string
           normalized_name: string | null
           notes: string | null
@@ -177,6 +178,7 @@ export type Database = {
           created_by?: string | null
           id?: string
           is_active?: boolean
+          logo_url?: string | null
           name: string
           normalized_name?: string | null
           notes?: string | null
@@ -187,6 +189,7 @@ export type Database = {
           created_by?: string | null
           id?: string
           is_active?: boolean
+          logo_url?: string | null
           name?: string
           normalized_name?: string | null
           notes?: string | null
@@ -345,6 +348,7 @@ export type Database = {
         Row: {
           anonymized_at: string | null
           city: string | null
+          class_name: string | null
           country: string | null
           created_at: string
           deleted_at: string | null
@@ -365,6 +369,7 @@ export type Database = {
         Insert: {
           anonymized_at?: string | null
           city?: string | null
+          class_name?: string | null
           country?: string | null
           created_at?: string
           deleted_at?: string | null
@@ -385,6 +390,7 @@ export type Database = {
         Update: {
           anonymized_at?: string | null
           city?: string | null
+          class_name?: string | null
           country?: string | null
           created_at?: string
           deleted_at?: string | null
