@@ -98,8 +98,8 @@ function TermsPage() {
                 displayed before checkout.
               </p>
               <p>
-                <strong>Refund Policy:</strong> Refund requests must be submitted within 14 days of purchase. Refunds are
-                granted at our discretion.
+                <strong>No refunds after payments:</strong> All payments are final and non-refundable once processed.
+                Please review the course, credential level, and payment details carefully before completing your purchase.
               </p>
               <p>
                 <strong>Taxes:</strong> You are responsible for any applicable taxes on certificate purchases.

@@ -44,6 +44,7 @@ export function SiteFooter() {
             <li><Link to="/" className="hover:text-white transition">Home</Link></li>
             <li><Link to="/courses" className="hover:text-white transition">All Courses</Link></li>
             <li><Link to="/auth" search={{ mode: "signup" }} className="hover:text-white transition">Get Started</Link></li>
+            <li><Link to="/partnership-request" className="hover:text-white transition">Partner with us</Link></li>
             <li><Link to="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
             <li><Link to="/terms" className="hover:text-white transition">Terms of Service</Link></li>
           </ul>
