@@ -64,10 +64,10 @@ export const getAdminStats = createServerFn({ method: "GET" })
       supabaseAdmin.from("certificate_payments").select("amount,certificate_type,payment_status"),
     ]);
 
-    const rows = paid.data ?? [];
-    const totalRevenue = rows.reduce((sum, r) => sum + Number(r.amount ?? 0), 0);
-    const certificatesSent = rows.filter((r) => r.payment_status === "certificate_sent").length;
-    const pending = rows.filter((r) => r.payment_status === "paid_pending_admin").length;
+    const rows: any[] = paid.data ?? [];
+    const totalRevenue = rows.reduce((sum: number, r: any) => sum + Number(r.amount ?? 0), 0);
+    const certificatesSent = rows.filter((r: any) => r.payment_status === "certificate_sent").length;
+    const pending = rows.filter((r: any) => r.payment_status === "paid_pending_admin").length;
 
     return {
       totalUsers: users.count ?? 0,
@@ -241,9 +241,9 @@ export const getLearnerCourses = createServerFn({ method: "POST" })
       .select("course_id, certificate_type")
       .eq("user_id", data.userId)
       .in("payment_status", ["paid_pending_admin", "noted", "certificate_sent"]);
-    const paidKey = new Set((paid ?? []).map((p) => `${p.course_id}::${p.certificate_type}`));
+    const paidKey = new Set((paid ?? []).map((p: any) => `${p.course_id}::${p.certificate_type}`));
 
-    const courses = (progress ?? []).map((row) => {
+    const courses = ((progress ?? []) as any[]).map((row: any) => {
       const item = getCatalogItem(row.course_id);
       const level = (row.level === "diploma" ? "diploma" : "certificate") as
         | "certificate"
