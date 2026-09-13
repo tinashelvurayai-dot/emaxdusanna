@@ -99,7 +99,7 @@ function AdminContent() {
   const { data: stats } = useQuery({ queryKey: ["admin-stats"], queryFn: () => fetchStats() });
   const { tab } = Route.useSearch();
   const validTabs = [
-    "userManagement", "certificates", "schools", "schoolAdmins", "sample", "health",
+    "userManagement", "certificates", "contractedSchools", "schools", "schoolAdmins", "sample", "health",
     "specialProgram", "hiddenCourses", "partnershipReception",
   ];
   const initialTab = tab && validTabs.includes(tab) ? tab : "userManagement";
@@ -127,8 +127,7 @@ function AdminContent() {
               <TabsTrigger value="partnershipReception">Partnership &amp; Program Reception</TabsTrigger>
               <TabsTrigger value="specialProgram">Special Program</TabsTrigger>
               <TabsTrigger value="hiddenCourses">Hidden courses</TabsTrigger>
-              <TabsTrigger value="schools">Schools</TabsTrigger>
-              <TabsTrigger value="schoolAdmins">School admins</TabsTrigger>
+              <TabsTrigger value="contractedSchools">Contracted Schools</TabsTrigger>
               <TabsTrigger value="sample">Home Sample</TabsTrigger>
               <TabsTrigger value="health">Health monitor</TabsTrigger>
             </TabsList>
@@ -137,8 +136,9 @@ function AdminContent() {
             <TabsContent value="partnershipReception"><PartnershipReceptionTab /></TabsContent>
             <TabsContent value="specialProgram"><SpecialProgramTab /></TabsContent>
             <TabsContent value="hiddenCourses"><HiddenCoursesTab /></TabsContent>
-            <TabsContent value="schools"><SchoolsTab /></TabsContent>
-            <TabsContent value="schoolAdmins"><SchoolAdminsTab /></TabsContent>
+            <TabsContent value="contractedSchools"><ContractedSchoolsTab /></TabsContent>
+            <TabsContent value="schools"><ContractedSchoolsTab /></TabsContent>
+            <TabsContent value="schoolAdmins"><ContractedSchoolsTab /></TabsContent>
             <TabsContent value="sample"><SampleCertificateTab /></TabsContent>
             <TabsContent value="health"><HealthTab /></TabsContent>
           </Tabs>
@@ -151,6 +151,10 @@ function AdminContent() {
 
 function UserManagementTab() {
   return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Payments</h2><PaymentsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Alternative payments</h2><AltPaymentsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Users</h2><UsersTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Credential IDs</h2><CredentialIdsTab /></section></div>;
+}
+
+function ContractedSchoolsTab() {
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Contracted schools</h2><SchoolsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">School administrators</h2><SchoolAdminsTab /></section></div>;
 }
 
 function PartnershipReceptionTab() {
