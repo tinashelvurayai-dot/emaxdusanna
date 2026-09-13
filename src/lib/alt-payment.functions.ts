@@ -3,7 +3,7 @@ import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
 import { getCoursePrice, type PriceLevel } from "@/lib/pricing";
 import { isSpecialCourse } from "@/lib/special-courses";
-const ALLOWED_METHODS = ["ecocash", "mukuru", "western_union", "wechat_pay", "bank_transfer", "cash", "paypal"] as const;
+const ALLOWED_METHODS = ["ecocash", "mukuru", "wechat_pay", "bank_transfer", "cash", "paypal"] as const;
 type Method = (typeof ALLOWED_METHODS)[number];
 
 /** Standard user submits an alt-payment request after picking 1-3 methods. */
@@ -71,7 +71,6 @@ export const submitAltPaymentRequest = createServerFn({ method: "POST" })
       const labels: Record<string, string> = {
         wechat_pay: "WeChat Pay",
         mukuru: "Mukuru",
-        western_union: "Western Union",
         ecocash: "Ecocash",
         bank_transfer: "Bank transfer",
         cash: "Cash",

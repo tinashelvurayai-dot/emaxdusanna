@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WasteChemicalsWealthProgramRouteImport } from './routes/waste-chemicals-wealth-program'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SupportRouteImport } from './routes/support'
 import { Route as SuccessRouteImport } from './routes/success'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as PrivacyRouteImport } from './routes/privacy'
@@ -53,11 +52,6 @@ const VerifyRoute = VerifyRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SupportRoute = SupportRouteImport.update({
-  id: '/support',
-  path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuccessRoute = SuccessRouteImport.update({
@@ -200,7 +194,6 @@ export interface FileRoutesByFullPath {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success': typeof SuccessRoute
-  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
   '/waste-chemicals-wealth-program': typeof WasteChemicalsWealthProgramRoute
@@ -230,7 +223,6 @@ export interface FileRoutesByTo {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success': typeof SuccessRoute
-  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
   '/waste-chemicals-wealth-program': typeof WasteChemicalsWealthProgramRoute
@@ -262,7 +254,6 @@ export interface FileRoutesById {
   '/privacy': typeof PrivacyRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/success': typeof SuccessRoute
-  '/support': typeof SupportRoute
   '/terms': typeof TermsRoute
   '/verify': typeof VerifyRoute
   '/waste-chemicals-wealth-program': typeof WasteChemicalsWealthProgramRoute
@@ -294,7 +285,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/success'
-    | '/support'
     | '/terms'
     | '/verify'
     | '/waste-chemicals-wealth-program'
@@ -324,7 +314,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/success'
-    | '/support'
     | '/terms'
     | '/verify'
     | '/waste-chemicals-wealth-program'
@@ -355,7 +344,6 @@ export interface FileRouteTypes {
     | '/privacy'
     | '/sitemap.xml'
     | '/success'
-    | '/support'
     | '/terms'
     | '/verify'
     | '/waste-chemicals-wealth-program'
@@ -387,7 +375,6 @@ export interface RootRouteChildren {
   PrivacyRoute: typeof PrivacyRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SuccessRoute: typeof SuccessRoute
-  SupportRoute: typeof SupportRoute
   TermsRoute: typeof TermsRoute
   VerifyRoute: typeof VerifyRoute
   WasteChemicalsWealthProgramRoute: typeof WasteChemicalsWealthProgramRoute
@@ -422,13 +409,6 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/support': {
-      id: '/support'
-      path: '/support'
-      fullPath: '/support'
-      preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/success': {
@@ -643,7 +623,6 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   SuccessRoute: SuccessRoute,
-  SupportRoute: SupportRoute,
   TermsRoute: TermsRoute,
   VerifyRoute: VerifyRoute,
   WasteChemicalsWealthProgramRoute: WasteChemicalsWealthProgramRoute,

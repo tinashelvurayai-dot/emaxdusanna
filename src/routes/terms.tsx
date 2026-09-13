@@ -98,7 +98,7 @@ function TermsPage() {
                 displayed before checkout.
               </p>
               <p>
-                <strong>No Refunds after payment:</strong> All payments are final and non-refundable once processed.
+                <strong>No refunds after payments:</strong> All payments are final and non-refundable once processed.
                 Please review the course, credential level, and payment details carefully before completing your purchase.
               </p>
               <p>

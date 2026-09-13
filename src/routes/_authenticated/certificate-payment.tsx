@@ -50,7 +50,6 @@ function CertificatePaymentPage() {
   const [savingName, setSavingName] = useState(false);
   const [altMethods, setAltMethods] = useState<string[]>([]);
   const [altSubmitting, setAltSubmitting] = useState(false);
-  const [altSubmitted, setAltSubmitted] = useState(false);
   const [showAltConfirm, setShowAltConfirm] = useState(false);
 
   const item = getCatalogItem(courseId);
@@ -94,10 +93,6 @@ function CertificatePaymentPage() {
   };
 
   const handlePay = async () => {
-    if (altSubmitted) {
-      toast.info("Your payment details have already been submitted.");
-      return;
-    }
     if (!item) {
       toast.error("Course not found.");
       return;
@@ -159,7 +154,6 @@ function CertificatePaymentPage() {
       if (r.alreadySubmitted) {
         toast.info("You already submitted a request for this course. Our team will be in touch.");
       }
-      setAltSubmitted(true);
       setShowAltConfirm(true);
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "Could not submit request.");
@@ -170,9 +164,8 @@ function CertificatePaymentPage() {
 
   return (
     <div className="min-h-screen">
-  <SiteNavbar />
-  <div className="pt-28 text-center"><Link to="/support" className="text-sm font-semibold text-blue-700 underline-offset-4 hover:underline">Need help with a payment or dispute?</Link></div>
-  <section className="pt-8 pb-20 px-4">
+      <SiteNavbar />
+      <section className="pt-32 pb-20 px-4">
         <div className="max-w-lg mx-auto">
           <button onClick={() => navigate({ to: "/course/$id", params: { id: courseId } })} className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 mb-6">
             <ArrowLeft className="w-4 h-4 mr-1" /> Back to course
@@ -196,7 +189,7 @@ function CertificatePaymentPage() {
               <p className="text-xs text-amber-800 mb-3">
                 This is exactly how your name will appear on your certificate. Please double-check the spelling.
               </p>
-              <Label htmlFor="full-name" className="text-xs text-black">Full name</Label>
+              <Label htmlFor="full-name" className="text-xs text-blue-900">Full name</Label>
               <Input
                 id="full-name"
                 value={fullName}
@@ -206,7 +199,7 @@ function CertificatePaymentPage() {
                   setVerified(false);
                 }}
                 placeholder="Your full legal name"
-                className="mt-1 mb-3 text-black placeholder:text-gray-500"
+                className="mt-1 mb-3"
               />
               <Button
                 type="button"
@@ -260,6 +253,7 @@ function CertificatePaymentPage() {
                   Submit details to Edusanna
                 </Button>
                 <p className="flex items-center justify-center gap-1.5 text-xs text-blue-500 mt-3">
+                  <ShieldCheck className="w-4 h-4" /> Your submission appears in the admin dashboard
                 </p>
               </div>
             ) : isAcademia ? (
@@ -300,7 +294,7 @@ function CertificatePaymentPage() {
                   </div>
                 </div>
 
-                <Button onClick={handlePay} disabled={loading || !verified || altSubmitted} className="premium-button w-full py-3 text-lg">
+                <Button onClick={handlePay} disabled={loading || !verified} className="premium-button w-full py-3 text-lg">
                   {loading ? <Loader2 className="w-5 h-5 mr-2 animate-spin" /> : null}
                   Pay with PayPal
                 </Button>
@@ -330,10 +324,10 @@ function CertificatePaymentPage() {
                       label="Mukuru"
                     />
                     <AltMethodButton
-                      active={altMethods.includes("western_union")}
-                      onClick={() => toggleAltMethod("western_union")}
-                      icon={<Wallet className="w-4 h-4" />}
-                      label="Western Union"
+                      active={altMethods.includes("wechat_pay")}
+                      onClick={() => toggleAltMethod("wechat_pay")}
+                      icon={<MessageCircle className="w-4 h-4" />}
+                      label="WeChat Pay"
                     />
                   </div>
                   <Button
