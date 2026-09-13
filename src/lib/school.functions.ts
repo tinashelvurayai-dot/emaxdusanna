@@ -216,7 +216,8 @@ export const listSchoolStudents = createServerFn({ method: "GET" })
       };
     });
 
-    return { schoolName, students, unmatched: [] };
+    const unmatched: Array<{ fullName: string; className: string | null }> = [];
+    return { schoolName, students, unmatched };
   });
 
 /** Detailed drilldown for one student at this admin's school. */
