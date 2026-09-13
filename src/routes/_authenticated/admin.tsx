@@ -99,8 +99,8 @@ function AdminContent() {
   const { data: stats } = useQuery({ queryKey: ["admin-stats"], queryFn: () => fetchStats() });
   const { tab } = Route.useSearch();
   const validTabs = [
-    "userManagement", "certificates", "contractedSchools", "schools", "schoolAdmins", "sample", "health",
-    "specialProgram", "hiddenCourses", "partnershipReception",
+    "userManagement", "contractedSchools", "certificates", "programsContent", "operations",
+    "schools", "schoolAdmins", "sample", "health", "specialProgram", "hiddenCourses", "partnershipReception",
   ];
   const initialTab = tab && validTabs.includes(tab) ? tab : "userManagement";
 
@@ -123,20 +123,16 @@ function AdminContent() {
           <Tabs defaultValue={initialTab}>
             <TabsList className="mb-6 flex-wrap h-auto">
               <TabsTrigger value="userManagement">User Management</TabsTrigger>
-              <TabsTrigger value="certificates">Certificates</TabsTrigger>
-              <TabsTrigger value="partnershipReception">Partnership &amp; Program Reception</TabsTrigger>
-              <TabsTrigger value="specialProgram">Special Program</TabsTrigger>
-              <TabsTrigger value="hiddenCourses">Hidden courses</TabsTrigger>
               <TabsTrigger value="contractedSchools">Contracted Schools</TabsTrigger>
-              <TabsTrigger value="sample">Home Sample</TabsTrigger>
-              <TabsTrigger value="health">Health monitor</TabsTrigger>
+              <TabsTrigger value="certificates">Certificates</TabsTrigger>
+              <TabsTrigger value="programsContent">Programs &amp; Content</TabsTrigger>
+              <TabsTrigger value="operations">Operations</TabsTrigger>
             </TabsList>
             <TabsContent value="userManagement"><UserManagementTab /></TabsContent>
-            <TabsContent value="certificates"><CertificatesTab /></TabsContent>
-            <TabsContent value="partnershipReception"><PartnershipReceptionTab /></TabsContent>
-            <TabsContent value="specialProgram"><SpecialProgramTab /></TabsContent>
-            <TabsContent value="hiddenCourses"><HiddenCoursesTab /></TabsContent>
             <TabsContent value="contractedSchools"><ContractedSchoolsTab /></TabsContent>
+            <TabsContent value="certificates"><CertificatesTab /></TabsContent>
+            <TabsContent value="programsContent"><ProgramsContentTab /></TabsContent>
+            <TabsContent value="operations"><OperationsTab /></TabsContent>
             <TabsContent value="schools"><ContractedSchoolsTab /></TabsContent>
             <TabsContent value="schoolAdmins"><ContractedSchoolsTab /></TabsContent>
             <TabsContent value="sample"><SampleCertificateTab /></TabsContent>
@@ -154,7 +150,15 @@ function UserManagementTab() {
 }
 
 function ContractedSchoolsTab() {
-  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Contracted schools</h2><SchoolsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">School administrators</h2><SchoolAdminsTab /></section></div>;
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Schools and school payments</h2><SchoolsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">School administrators, enrolled students and progress</h2><SchoolAdminsTab /></section></div>;
+}
+
+function ProgramsContentTab() {
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Special programs</h2><SpecialProgramTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Hidden courses</h2><HiddenCoursesTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Sample certificates</h2><SampleCertificateTab /></section></div>;
+}
+
+function OperationsTab() {
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Partnerships</h2><PartnershipReceptionTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Health monitor</h2><HealthTab /></section><section className="glass-card-light p-6"><h2 className="text-xl font-bold text-blue-950">Audit logs</h2><p className="mt-2 text-sm text-blue-700">Operational actions should be retained with the actor, timestamp, resource, and outcome. Connect the audit-log table here when enabled in the database.</p></section></div>;
 }
 
 function PartnershipReceptionTab() {

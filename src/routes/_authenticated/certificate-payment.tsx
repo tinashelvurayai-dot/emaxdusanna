@@ -170,8 +170,9 @@ function CertificatePaymentPage() {
 
   return (
     <div className="min-h-screen">
-      <SiteNavbar />
-      <section className="pt-32 pb-20 px-4">
+  <SiteNavbar />
+  <div className="pt-28 text-center"><Link to="/support" className="text-sm font-semibold text-blue-700 underline-offset-4 hover:underline">Need help with a payment or dispute?</Link></div>
+  <section className="pt-8 pb-20 px-4">
         <div className="max-w-lg mx-auto">
           <button onClick={() => navigate({ to: "/course/$id", params: { id: courseId } })} className="inline-flex items-center text-sm text-blue-600 hover:text-blue-800 mb-6">
             <ArrowLeft className="w-4 h-4 mr-1" /> Back to course

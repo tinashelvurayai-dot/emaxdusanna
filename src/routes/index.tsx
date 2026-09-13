@@ -17,9 +17,9 @@ import { pageHead } from "@/lib/site";
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
-      title: "Edusanna - Free Online Learning Platform | African Education",
+      title: "Edusanna | Practical Online Learning & Professional Credentials",
       description:
-        "Create a free Edusanna account and study 200+ certificate and diploma courses A-Z. Learn free, track your progress, and only pay when you're ready for an official credential.",
+        "Learn online with Edusanna through flexible courses, practical skills training, certificates, diplomas and trusted learning support for students and professionals.",
       path: "/",
     }),
   component: Index,
@@ -107,9 +107,11 @@ function Index() {
             className="font-black leading-tight tracking-tight"
             style={{ fontSize: "clamp(2.25rem, 5.2vh + 1vw, 4rem)", marginBottom: "clamp(0.75rem,2vh,1.5rem)" }}
           >
-            <span className="text-white">Learn Anything.</span>
+            <span className="text-white">Learn practical skills.</span>
             <br />
-            <span className="text-[#03A9F4]">Completely Free.</span>
+            <span className="text-[#03A9F4]">Build professional credentials.</span>
+            <br />
+            <span className="text-white">Move forward with confidence.</span>
 
           </motion.h1>
 
@@ -117,8 +119,7 @@ function Index() {
             className="text-blue-800 max-w-3xl mx-auto leading-relaxed font-light"
             style={{ fontSize: "clamp(0.95rem, 1.9vh, 1.25rem)", marginBottom: "clamp(0.75rem,2vh,1.25rem)" }}
           >
-            Create a free account and access all courses instantly. Learn at your own pace, track your progress and
-            only pay when you're ready for an official Certificate or Diploma.
+            Edusanna gives learners flexible, affordable access to practical online education designed for real-world progress.
           </p>
 
           <div
