@@ -130,7 +130,7 @@ function AdminContent() {
               <TabsTrigger value="schools">Schools</TabsTrigger>
               <TabsTrigger value="schoolAdmins">School admins</TabsTrigger>
               <TabsTrigger value="sample">Home Sample</TabsTrigger>
-              <TabsTrigger value="health">Health monitor</TabsTrigger>
+              <TabsTrigger value="health">System management</TabsTrigger>
             </TabsList>
             <TabsContent value="userManagement"><UserManagementTab /></TabsContent>
             <TabsContent value="certificates"><CertificatesTab /></TabsContent>
@@ -996,7 +996,7 @@ function HealthTab() {
       <div className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-4 sm:flex sm:justify-between">
         <div className="min-w-0">
           <h2 className="text-lg font-bold text-blue-900 flex items-center gap-2">
-            <Activity className="w-5 h-5 text-blue-600" aria-hidden="true" /> Backend health monitor
+            <Activity className="w-5 h-5 text-blue-600" aria-hidden="true" /> System management &amp; backend health
           </h2>
           <p className="text-sm text-blue-600">
             Live checks of the database, auth, credential pipeline and integrations. Refreshes every minute.
