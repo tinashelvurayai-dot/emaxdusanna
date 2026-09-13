@@ -484,7 +484,7 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
       receiptNo: `RC-${certificateId.replace(/^EDU-SCH-/, "")}`,
       issuedAt,
       schoolName,
-      className: rosterRow?.class_name ?? null,
+      className: studentClass,
       studentName: profile.full_name ?? "(unknown)",
       email: profile.email ?? null,
       courseName: data.courseName,
@@ -501,7 +501,7 @@ export const verifySchoolPayment = createServerFn({ method: "POST" })
       await notifyAdminTelegram(
         `🏫 School-cash payment verified\n` +
           `<b>School:</b> ${escapeHtml(schoolName)}\n` +
-          (rosterRow?.class_name ? `<b>Class:</b> ${escapeHtml(rosterRow.class_name)}\n` : "") +
+          (studentClass ? `<b>Class:</b> ${escapeHtml(studentClass)}\n` : "") +
           `<b>Student:</b> ${escapeHtml(profile.full_name ?? "(unknown)")}\n` +
           `<b>Course:</b> ${escapeHtml(data.courseName)} (${label})\n` +
           `<b>Amount:</b> $${data.amount.toFixed(2)}\n` +
