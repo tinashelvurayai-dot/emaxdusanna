@@ -17,9 +17,9 @@ import { pageHead } from "@/lib/site";
 export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
-      title: "Edusanna | Practical Online Learning & Professional Credentials",
+      title: "Edusanna - Free Online Learning Platform | African Education",
       description:
-        "Learn online with Edusanna through flexible courses, practical skills training, certificates, diplomas and trusted learning support for students and professionals.",
+        "Create a free Edusanna account and study 200+ certificate and diploma courses A-Z. Learn free, track your progress, and only pay when you're ready for an official credential.",
       path: "/",
     }),
   validateSearch: (search: Record<string, unknown>): { hideUsers?: boolean } => ({
@@ -156,11 +156,9 @@ function Index() {
             className="font-black leading-tight tracking-tight"
             style={{ fontSize: "clamp(2.25rem, 5.2vh + 1vw, 4rem)", marginBottom: "clamp(0.75rem,2vh,1.5rem)" }}
           >
-            <span className="text-white">Learn practical skills.</span>
+            <span className="text-white">Learn Anything.</span>
             <br />
-            <span className="text-[#03A9F4]">Build professional credentials.</span>
-            <br />
-            <span className="text-white">Move forward with confidence.</span>
+            <span className="text-[#03A9F4]">Completely Free.</span>
 
           </motion.h1>
 
@@ -168,7 +166,8 @@ function Index() {
             className="text-blue-800 max-w-3xl mx-auto leading-relaxed font-light"
             style={{ fontSize: "clamp(0.95rem, 1.9vh, 1.25rem)", marginBottom: "clamp(0.75rem,2vh,1.25rem)" }}
           >
-            Edusanna gives learners flexible, affordable access to practical online education designed for real-world progress.
+            Create a free account and access all courses instantly. Learn at your own pace, track your progress and
+            only pay when you're ready for an official Certificate or Diploma.
           </p>
 
           <div

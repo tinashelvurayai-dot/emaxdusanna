@@ -4,7 +4,7 @@ import { createFileRoute } from "@tanstack/react-router";
  * Cron endpoint: permanently deletes archived compliance records whose
  * retention period has expired. Call it once a day with the shared secret:
  *
- *   curl -X POST https://project--<id>.lovable.app/api/public/cron/purge-retention \
+ *   curl -X POST https://your-domain.example/api/public/cron/purge-retention \
  *     -H "x-cron-secret: $RETENTION_CRON_SECRET"
  */
 export const Route = createFileRoute("/api/public/cron/purge-retention")({

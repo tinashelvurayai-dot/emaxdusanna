@@ -1,5 +1,6 @@
 import { createServerFn } from "@tanstack/react-start";
 import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
+import { adminServerDb, hasServiceRole } from "@/lib/db.server";
 
 export type HealthState = "ok" | "warn" | "down";
 
@@ -35,7 +36,8 @@ export const getBackendHealth = createServerFn({ method: "GET" })
     });
     if (!isAdmin) throw new Error("Forbidden: admin access required");
 
-    const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
+    const supabaseAdmin = await adminServerDb(context);
+    const privileged = hasServiceRole();
     const checks: HealthCheck[] = [];
 
     // --- Database + per-table reads -------------------------------------
@@ -50,6 +52,8 @@ export const getBackendHealth = createServerFn({ method: "GET" })
       "contracted_schools",
       "school_admins",
       "site_settings",
+      "special_program_diplomas",
+      "partnership_program_requests",
     ] as const;
 
     let dbWorst: HealthState = "ok";
@@ -89,17 +93,19 @@ export const getBackendHealth = createServerFn({ method: "GET" })
     });
 
     // --- Auth service ----------------------------------------------------
-    const auth = await timed(async () => {
+    const auth = privileged ? await timed(async () => {
       const { data, error } = await supabaseAdmin.auth.admin.listUsers({ page: 1, perPage: 1 });
       if (error) throw new Error(error.message);
       return data.users.length;
-    });
+    }) : { ms: 0, error: undefined as string | undefined };
     checks.push({
       id: "auth",
       label: "Authentication service",
-      state: auth.error ? "down" : auth.ms > 2500 ? "warn" : "ok",
-      ms: auth.ms,
-      detail: auth.error ?? "Auth admin API responding",
+      state: !privileged ? "warn" : auth.error ? "down" : auth.ms > 2500 ? "warn" : "ok",
+      ms: privileged ? auth.ms : undefined,
+      detail: !privileged
+        ? "Skipped - private service key is not configured on this deployment"
+        : (auth.error ?? "Auth admin API responding"),
     });
 
     // --- Enrollment trigger (certificate ID allocation) ------------------

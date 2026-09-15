@@ -10,13 +10,13 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
-import { reportLovableError } from "../lib/lovable-error-reporting";
 import { AuthProvider } from "../lib/auth";
 import { Toaster } from "../components/ui/sonner";
 import { supabase } from "../integrations/supabase/client";
 import { AuroraBg } from "../components/aurora-bg";
 import { AppErrorBoundary } from "../components/app-error-boundary";
 import { MobileBottomNav } from "../components/mobile-bottom-nav";
+import { InstallAppPrompt } from "../components/install-app-prompt";
 import { initSentry } from "../lib/sentry";
 import { registerServiceWorker } from "../lib/pwa-register";
 
@@ -66,7 +66,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
   useEffect(() => {
-    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+    captureError(error, { boundary: "tanstack_root_error_component" });
   }, [error]);
 
   return (
@@ -106,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Edusanna - Free Online Learning Platform | African Education" },
-      { name: "description", content: "Learn online with Edusanna through flexible courses, practical skills training, certificates, diplomas and trusted learning support for students and professionals." },
+      { name: "description", content: "Edusanna is Africa's free online learning platform. Study 200+ certificate and diploma courses A-Z at your own pace and only pay when you're ready for an official credential." },
       { name: "author", content: "Edusanna" },
       { name: "theme-color", content: "#3b82f6" },
       { property: "og:site_name", content: "Edusanna" },
@@ -182,6 +182,7 @@ function RootComponent() {
             <Outlet />
           </main>
           <MobileBottomNav />
+          <InstallAppPrompt />
         </div>
         <Toaster richColors position="top-center" theme="dark" />
       </AuthProvider>

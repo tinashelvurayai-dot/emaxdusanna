@@ -9,7 +9,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/lib/auth";
 import { PhoneInput, COUNTRIES, type Country } from "@/components/phone-input";
 import { TurnstileCaptcha, captchaEnabled } from "@/components/turnstile-captcha";
@@ -159,13 +158,13 @@ function AuthPage() {
   };
 
   const handleGoogle = async () => {
-    const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (result.error) {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/auth` },
+    });
+    if (error) {
       toast.error("Google sign-in failed. Please try again.");
-      return;
     }
-    if (result.redirected) return;
-    navigate({ to: "/dashboard" });
   };
 
   return (

@@ -35,7 +35,7 @@ export function SiteFooter() {
             <span className="text-xl font-bold text-white">EDUSANNA</span>
           </div>
           <p className="text-sm text-blue-300 max-w-xs">
-            Flexible, practical online learning that helps students and professionals build confidence and professional credentials.
+            Africa's free online learning platform. Elevate your mind with certificate and diploma programs A-Z.
           </p>
         </div>
         <div>
@@ -45,14 +45,12 @@ export function SiteFooter() {
             <li><Link to="/courses" className="hover:text-white transition">All Courses</Link></li>
             <li><Link to="/auth" search={{ mode: "signup" }} className="hover:text-white transition">Get Started</Link></li>
             <li><Link to="/partnership-request" className="hover:text-white transition">Partner with us</Link></li>
-            <li><Link to="/support" className="hover:text-white transition">Support &amp; Payment Issues</Link></li>
             <li><Link to="/privacy" className="hover:text-white transition">Privacy Policy</Link></li>
             <li><Link to="/terms" className="hover:text-white transition">Terms of Service</Link></li>
           </ul>
         </div>
         <div>
           <h4 className="font-semibold text-white mb-3">Contact</h4>
-          <Link to="/support" className="mb-3 inline-flex items-center gap-2 text-sm font-semibold text-sky-300 hover:text-white transition">Support &amp; payment issues</Link>
           <a href="mailto:edusannaonlinelearning@gmail.com" className="flex items-center gap-2 text-sm hover:text-white transition">
             <Mail className="w-4 h-4" />
             edusannaonlinelearning@gmail.com

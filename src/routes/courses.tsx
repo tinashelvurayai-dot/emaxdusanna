@@ -20,7 +20,7 @@ export const Route = createFileRoute("/courses")({
     pageHead({
       title: "All Courses A-Z | Edusanna Online Learning",
       description:
-        "Learn online with Edusanna through flexible courses, practical skills training, certificates, diplomas and trusted learning support for students and professionals.",
+        "Browse 200+ free Edusanna courses from A to Z across technology, business, health, finance, agriculture and more. Earn a certificate or diploma.",
       path: "/courses",
     }),
   component: CoursesPage,
