@@ -1,65 +1,61 @@
-# Scope confirmation
+# Complete backend migration to your own Supabase project
 
-You sent ~15 distinct asks in one message. Some are 2-minute tweaks, others are full features (course-image mapping for 70+ courses, contracted-schools registry, admin sample-cert page, search). I want to confirm the breakdown and order before I touch code so I don't waste your credits.
+## Goal
+Move Edusanna’s database, authentication, privileged operations, scheduled work, and deployment configuration away from Lovable Cloud. Keep the current interface and user workflows, use email/password plus native Google sign-in, preserve user IDs and password hashes where the source export permits it, and prepare an immediate Vercel cutover.
 
-## A. Quick visual fixes (I'll do these in one pass)
-1. Home hero: remove the sparkle icon next to "Free Learning · Certificate & Diploma Programs A-Z".
-2. Home hero: make "Completely Free." light blue (solid), not gradient.
-3. `/auth` STANDARD card: add the same light-blue outline ACADEMIA has.
-4. `/privacy` and `/terms`: body text white, sub-headings purple.
-5. `/privacy` and `/terms`: replace "Back to Home" with a back arrow that returns to `/auth` if that's where the user came from, else previous page.
-6. Remove "Back to Home" buttons across other pages; replace with a simple back arrow that goes to history -1.
-7. Dashboard (ACADEMIA users only): show two notes — "ACADEMIA Users Are To Pay At School Reception/Administration" and "You Shall Receive Both Soft & Hard Copies With No Additional Costs".
+## Important boundary
+Installing the Supabase CLI does not create a production project inside your personal Supabase account. I can make the application and migration package ready, rehearse it locally, and remove runtime Lovable dependencies. The final production switch requires a target Supabase project owned by you and its credentials supplied securely. I will not invent credentials, expose secrets, or claim the migration is complete before the target project and major workflows are verified.
 
-## B. Header 17-tap admin shortcut
-Tap the navbar logo 17 times within a few seconds → opens `/admin-gate`. If the signed-in user has the admin role, grant a 1-hour client-side admin session token (sessionStorage with expiry) so `/admin` is reachable without re-auth for 1 hour. (Footer 7-tap stays as-is.)
+## What I will build
 
-## C. Course search bar
-Add a search input at the top of `/courses` that filters the catalog by title/category as you type. Pure client-side, instant.
+### 1. Capture a reproducible backend baseline
+- Create a canonical baseline migration for all current public tables, enums, indexes, grants, RLS policies, functions, and triggers; the existing migration folder contains only later patches and cannot initialize a fresh project by itself.
+- Preserve the final hardened permissions, including role checks and restricted security-definer functions.
+- Add verification SQL for table counts, relationships, policies, grants, functions, and triggers.
+- Keep production data untouched while preparing and rehearsing this package.
 
-## D. Course images per category (biggest item)
-You gave 4-7 image URLs per category but most categories have more courses than images. I will:
-- Download each image once, upload to Lovable CDN (`lovable-assets`), and store as `.asset.json` pointers (so postimg.cc going down doesn't break the site).
-- Map images to courses **in the order courses appear in each category**, cycling through the list if a category has more courses than images.
-- Replace the lucide icon on course cards (`/courses`, `/course/$id`, dashboard tiles) with the mapped image.
+### 2. Build data and authentication transfer tooling
+- Add export/import scripts and an ordered manifest for every application table.
+- Preserve existing UUIDs so profiles, enrollments, progress, payments, certificates, roles, schools, and audit records remain connected.
+- Add an Auth migration script designed for Supabase-to-Supabase password-hash import where supported, plus a safe forced-password-reset fallback for records the target Auth API rejects.
+- Exclude active sessions, refresh tokens, MFA factors, and OAuth grants from transfer; these cannot be safely carried between projects. Users will sign in again after cutover, and Google users will relink through the new project.
+- Add reconciliation reports for row counts, orphaned references, duplicate emails, and role ownership.
 
-Confirm: cycling is OK, or do you want me to pause and have you hand-map each course to a specific image? Hand-mapping = another long message from you.
+### 3. Remove runtime Lovable dependencies
+- Replace the Lovable Google broker with native `supabase.auth.signInWithOAuth` and a public callback flow.
+- Replace preview-specific auth storage with ordinary Supabase session persistence suitable for Vercel.
+- Remove the Lovable auth package, Lovable proxy rewrite, and runtime error-reporting dependency; keep Sentry.
+- Retain TanStack server functions and Vercel server routes where they are already the correct secure boundary. Supabase Edge Functions will only be introduced where they provide a real deployment benefit; no functionality will be moved merely to rewrite it.
 
-## E. Admin: sample certificate manager
-- New admin sub-page `/admin` → "Sample Certificate" tab.
-- Admin edits student name, course name, level, date, certificate ID; saves to a new `sample_certificate` table (single row).
-- Home page renders that sample certificate above the footer using the existing `CertificatePreview` component.
-- Includes the PDF/print button using the existing cert template (this is the "must work" part).
+### 4. Make environment and deployment configuration portable
+- Document client-safe and server-only variables separately for local development, Vercel Preview, and Vercel Production.
+- Require the target URL, publishable key, project reference, service-role key, and database connection string through secure environment settings—not committed files.
+- Carry over Telegram, PayPal, CAPTCHA, Sentry, and retention-job settings.
+- Add production-safe scheduled retention cleanup for Vercel and remove the Lovable preview proxy.
+- Update OAuth callback and allowed-origin documentation for the final Vercel domains.
 
-## F. Admin: contracted-schools registry + ACADEMIA flow
-- New `contracted_schools` table (name, country, contact, notes). Admin CRUD in `/admin` → "Schools" tab.
-- On ACADEMIA signup: school is accepted regardless. If the entered `school_name` doesn't match any contracted school (case-insensitive trim), the new profile row is flagged `school_contracted=false`.
-- Admin dashboard users table highlights non-contracted ACADEMIA users in amber.
-- Their learner dashboard shows the long notice: "Your School has not been contracted, so Admin will reach you via formal Email or WhatsApp after you complete your course and you can pay via any of suggested possible means in relation to your country payment methods".
+### 5. Storage and realtime
+- Confirm the current app has no active Storage or Realtime calls.
+- Provide an idempotent storage setup migration/script only for source buckets discovered during the live export; do not create unnecessary empty buckets.
+- Copy any discovered files with metadata and validate object counts and access rules.
 
-## G. Course-completion verification prompt
-When a learner finishes the last module of a course, show a modal: "Please verify your details before we issue your credential" with editable full name + country + city + mobile + email (read-only). Saves to `profiles`. Then routes to the payment page.
+### 6. Security and validation
+- Recheck every user-facing table for explicit grants and least-privilege RLS.
+- Verify students cannot read other learners’ private data and admin access is enforced in the database/server, not only in the interface.
+- Scan for exposed secrets, insecure public endpoints, unsafe privileged-client use, and remaining Lovable runtime references.
+- Rehearse schema creation and imports against a local Supabase stack before production cutover.
 
-## H. Things I will NOT do this turn (tell me which to keep)
-- Replacing the dashboard course icons (only the `/courses` card icons are clearly in scope — confirm if you also want dashboard tiles and course detail page).
-- Touching the existing certificate-payment flow beyond hooking the verification modal in front of it.
+### 7. Immediate production cutover
+- Freeze writes briefly, take final schema/data/Auth exports, import in dependency order, reconcile counts, then update Vercel variables to the target project and redeploy.
+- Test registration, email login, Google login, logout, reset, dashboards, enrollment, learning progress, payments, certificates, school administration, full admin operations, notifications, downloads, and retention cleanup.
+- Keep rollback instructions and the source backend unchanged until the target passes verification.
 
-## I. Written answers (no code, just replies in chat after building)
-After the build I'll answer in chat:
-- End-to-end learner journey (signup → browse → learn → quiz → verify → pay → cert).
-- What admin sees + does post-completion.
-- What's in the admin dashboard and how each tab works.
-- Whether everything is currently working (I'll spot-check key flows).
-- Whether Google sign-in is supported on Lovable (short answer: yes via the Lovable broker — I'll confirm it's wired in your `/auth`).
+## Technical deliverables
+- Canonical baseline and incremental SQL migrations.
+- Auth/data export, import, reconciliation, and rollback scripts.
+- Native Supabase browser/server clients and Google OAuth callback.
+- Vercel environment template, cron configuration, and cutover runbook.
+- Final migration report covering all 16 requested areas, with explicit passed, failed, blocked, and manual-verification items.
 
-## Order I'll build in
-1. A (quick fixes) + C (search) + G (verify modal) + B (17-tap)  ← one batch
-2. D (course images, asset uploads)  ← one batch
-3. E + F (admin sample cert + schools registry, DB migration)  ← one batch, requires migration approval
-4. Final chat answers for I.
-
-## What I need from you
-Reply with any of:
-- "go" → proceed exactly as above with cycling images for D.
-- "hand-map D" → I'll list each category's courses and you assign images.
-- Edits/removals to any item.
+## Required production handoff
+When the code and local rehearsal are ready, you must create or identify the production Supabase project in your own account and securely provide its URL, publishable key, service-role key, database connection string, and Google OAuth credentials. Those values cannot be generated from this repository or copied from Lovable Cloud, and they will never be committed.
