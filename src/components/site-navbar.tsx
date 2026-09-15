@@ -62,6 +62,9 @@ export function SiteNavbar() {
           </Link>
 
           <div className="flex items-center gap-1 sm:gap-3 flex-shrink-0">
+            <Link to="/about" className="hidden sm:inline">
+              <Button variant="ghost" className="text-blue-700 hover:text-blue-800 hover:bg-blue-50 text-sm">About</Button>
+            </Link>
             <Link to="/courses" className="hidden sm:inline">
               <Button variant="ghost" className="text-blue-700 hover:text-blue-800 hover:bg-blue-50 text-sm">Courses</Button>
             </Link>
@@ -135,6 +138,9 @@ export function SiteNavbar() {
             id="mobile-nav"
             className="relative z-50 border-t border-blue-100 bg-white/95 backdrop-blur-xl px-4 py-4 space-y-2 shadow-xl"
           >
+            <Link to="/about" className={mobileLink} onClick={() => setMobileMenuOpen(false)}>
+              About Edusanna
+            </Link>
             <Link to="/courses" className={mobileLink} onClick={() => setMobileMenuOpen(false)}>
               Courses
             </Link>

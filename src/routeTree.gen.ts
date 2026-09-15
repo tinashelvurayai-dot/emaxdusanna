@@ -21,6 +21,7 @@ import { Route as GlobalAhepRouteImport } from './routes/global-ahep'
 import { Route as CoursesRouteImport } from './routes/courses'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AdminGateRouteImport } from './routes/admin-gate'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardUsersRouteImport } from './routes/dashboard.users'
@@ -98,6 +99,11 @@ const AuthRoute = AuthRouteImport.update({
 const AdminGateRoute = AdminGateRouteImport.update({
   id: '/admin-gate',
   path: '/admin-gate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -192,6 +198,7 @@ const AuthenticatedLearnCourseIdLevelRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin-gate': typeof AdminGateRoute
   '/auth': typeof AuthRoute
   '/courses': typeof CoursesRoute
@@ -222,6 +229,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/admin-gate': typeof AdminGateRoute
   '/auth': typeof AuthRoute
   '/courses': typeof CoursesRoute
@@ -254,6 +262,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRoute
   '/admin-gate': typeof AdminGateRoute
   '/auth': typeof AuthRoute
   '/courses': typeof CoursesRoute
@@ -286,6 +295,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
     | '/admin-gate'
     | '/auth'
     | '/courses'
@@ -316,6 +326,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/admin-gate'
     | '/auth'
     | '/courses'
@@ -347,6 +358,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/about'
     | '/admin-gate'
     | '/auth'
     | '/courses'
@@ -379,6 +391,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
   AdminGateRoute: typeof AdminGateRoute
   AuthRoute: typeof AuthRoute
   CoursesRoute: typeof CoursesRoute
@@ -485,6 +498,13 @@ declare module '@tanstack/react-router' {
       path: '/admin-gate'
       fullPath: '/admin-gate'
       preLoaderRoute: typeof AdminGateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -635,6 +655,7 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
   AdminGateRoute: AdminGateRoute,
   AuthRoute: AuthRoute,
   CoursesRoute: CoursesRoute,
