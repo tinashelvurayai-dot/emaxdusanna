@@ -8,13 +8,12 @@ SET statement_timeout = 0;
 SET lock_timeout = 0;
 SET idle_in_transaction_session_timeout = 0;
 SET transaction_timeout = 0;
-SET client_encoding = 'SQL_ASCII';
-SET standard_conforming_strings = off;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
 SELECT pg_catalog.set_config('search_path', '', false);
 SET check_function_bodies = false;
 SET xmloption = content;
 SET client_min_messages = warning;
-SET escape_string_warning = off;
 SET row_security = off;
 
 --
@@ -1988,6 +1987,462 @@ CREATE POLICY "users view own alt payment" ON public.alt_payment_requests FOR SE
 --
 
 ALTER TABLE public.ux_failures ENABLE ROW LEVEL SECURITY;
+
+--
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: -
+--
+
+GRANT USAGE ON SCHEMA public TO postgres;
+GRANT USAGE ON SCHEMA public TO anon;
+GRANT USAGE ON SCHEMA public TO authenticated;
+GRANT USAGE ON SCHEMA public TO service_role;
+GRANT USAGE ON SCHEMA public TO sandbox_exec;
+
+
+--
+-- Name: FUNCTION adopt_rows_for_school(); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.adopt_rows_for_school() TO anon;
+GRANT ALL ON FUNCTION public.adopt_rows_for_school() TO authenticated;
+GRANT ALL ON FUNCTION public.adopt_rows_for_school() TO service_role;
+
+
+--
+-- Name: FUNCTION allocate_enrollment_certificate_id(); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.allocate_enrollment_certificate_id() TO anon;
+GRANT ALL ON FUNCTION public.allocate_enrollment_certificate_id() TO authenticated;
+GRANT ALL ON FUNCTION public.allocate_enrollment_certificate_id() TO service_role;
+
+
+--
+-- Name: FUNCTION audit_profile_changes(); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.audit_profile_changes() FROM PUBLIC;
+GRANT ALL ON FUNCTION public.audit_profile_changes() TO service_role;
+
+
+--
+-- Name: FUNCTION handle_new_user(); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.handle_new_user() TO anon;
+GRANT ALL ON FUNCTION public.handle_new_user() TO authenticated;
+GRANT ALL ON FUNCTION public.handle_new_user() TO service_role;
+
+
+--
+-- Name: FUNCTION has_role(_user_id uuid, _role public.app_role); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.has_role(_user_id uuid, _role public.app_role) TO anon;
+GRANT ALL ON FUNCTION public.has_role(_user_id uuid, _role public.app_role) TO authenticated;
+GRANT ALL ON FUNCTION public.has_role(_user_id uuid, _role public.app_role) TO service_role;
+
+
+--
+-- Name: FUNCTION is_admin(); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.is_admin() TO anon;
+GRANT ALL ON FUNCTION public.is_admin() TO authenticated;
+GRANT ALL ON FUNCTION public.is_admin() TO service_role;
+
+
+--
+-- Name: FUNCTION is_school_contracted(_name text); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.is_school_contracted(_name text) TO anon;
+GRANT ALL ON FUNCTION public.is_school_contracted(_name text) TO authenticated;
+GRANT ALL ON FUNCTION public.is_school_contracted(_name text) TO service_role;
+
+
+--
+-- Name: FUNCTION link_school_id(); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.link_school_id() TO anon;
+GRANT ALL ON FUNCTION public.link_school_id() TO authenticated;
+GRANT ALL ON FUNCTION public.link_school_id() TO service_role;
+
+
+--
+-- Name: FUNCTION log_audit_event(_user_id uuid, _event_type text, _event_category text, _event_details jsonb, _ip_address text, _user_agent text, _severity text); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.log_audit_event(_user_id uuid, _event_type text, _event_category text, _event_details jsonb, _ip_address text, _user_agent text, _severity text) FROM PUBLIC;
+GRANT ALL ON FUNCTION public.log_audit_event(_user_id uuid, _event_type text, _event_category text, _event_details jsonb, _ip_address text, _user_agent text, _severity text) TO service_role;
+
+
+--
+-- Name: FUNCTION pretty_name_from_email(_email text); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.pretty_name_from_email(_email text) TO anon;
+GRANT ALL ON FUNCTION public.pretty_name_from_email(_email text) TO authenticated;
+GRANT ALL ON FUNCTION public.pretty_name_from_email(_email text) TO service_role;
+
+
+--
+-- Name: FUNCTION purge_expired_retention_archive(); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.purge_expired_retention_archive() FROM PUBLIC;
+GRANT ALL ON FUNCTION public.purge_expired_retention_archive() TO service_role;
+
+
+--
+-- Name: FUNCTION register_rate_limit_hit(_bucket_key text, _ip text, _method text, _limit integer, _window_seconds integer); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.register_rate_limit_hit(_bucket_key text, _ip text, _method text, _limit integer, _window_seconds integer) FROM PUBLIC;
+GRANT ALL ON FUNCTION public.register_rate_limit_hit(_bucket_key text, _ip text, _method text, _limit integer, _window_seconds integer) TO service_role;
+
+
+--
+-- Name: FUNCTION run_engagement_sweep(); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.run_engagement_sweep() FROM PUBLIC;
+GRANT ALL ON FUNCTION public.run_engagement_sweep() TO service_role;
+
+
+--
+-- Name: FUNCTION school_for_admin(_user_id uuid); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.school_for_admin(_user_id uuid) TO anon;
+GRANT ALL ON FUNCTION public.school_for_admin(_user_id uuid) TO authenticated;
+GRANT ALL ON FUNCTION public.school_for_admin(_user_id uuid) TO service_role;
+
+
+--
+-- Name: FUNCTION school_id_for_admin(_user_id uuid); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.school_id_for_admin(_user_id uuid) FROM PUBLIC;
+GRANT ALL ON FUNCTION public.school_id_for_admin(_user_id uuid) TO authenticated;
+GRANT ALL ON FUNCTION public.school_id_for_admin(_user_id uuid) TO service_role;
+
+
+--
+-- Name: FUNCTION session_risk_score(_user_id uuid, _session_id text); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.session_risk_score(_user_id uuid, _session_id text) FROM PUBLIC;
+GRANT ALL ON FUNCTION public.session_risk_score(_user_id uuid, _session_id text) TO service_role;
+
+
+--
+-- Name: FUNCTION set_partnership_program_requests_updated_at(); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.set_partnership_program_requests_updated_at() TO anon;
+GRANT ALL ON FUNCTION public.set_partnership_program_requests_updated_at() TO authenticated;
+GRANT ALL ON FUNCTION public.set_partnership_program_requests_updated_at() TO service_role;
+
+
+--
+-- Name: FUNCTION touch_last_active(); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.touch_last_active() FROM PUBLIC;
+GRANT ALL ON FUNCTION public.touch_last_active() TO authenticated;
+GRANT ALL ON FUNCTION public.touch_last_active() TO service_role;
+
+
+--
+-- Name: FUNCTION touch_last_password_change(_user_id uuid); Type: ACL; Schema: public; Owner: -
+--
+
+REVOKE ALL ON FUNCTION public.touch_last_password_change(_user_id uuid) FROM PUBLIC;
+GRANT ALL ON FUNCTION public.touch_last_password_change(_user_id uuid) TO service_role;
+
+
+--
+-- Name: FUNCTION update_updated_at_column(); Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON FUNCTION public.update_updated_at_column() TO anon;
+GRANT ALL ON FUNCTION public.update_updated_at_column() TO authenticated;
+GRANT ALL ON FUNCTION public.update_updated_at_column() TO service_role;
+
+
+--
+-- Name: TABLE alt_payment_requests; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.alt_payment_requests TO anon;
+GRANT ALL ON TABLE public.alt_payment_requests TO authenticated;
+GRANT ALL ON TABLE public.alt_payment_requests TO service_role;
+GRANT SELECT,INSERT ON TABLE public.alt_payment_requests TO sandbox_exec;
+
+
+--
+-- Name: TABLE audit_logs; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.audit_logs TO anon;
+GRANT ALL ON TABLE public.audit_logs TO authenticated;
+GRANT ALL ON TABLE public.audit_logs TO service_role;
+GRANT SELECT,INSERT ON TABLE public.audit_logs TO sandbox_exec;
+
+
+--
+-- Name: TABLE certificate_payments; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.certificate_payments TO anon;
+GRANT ALL ON TABLE public.certificate_payments TO authenticated;
+GRANT ALL ON TABLE public.certificate_payments TO service_role;
+GRANT SELECT,INSERT ON TABLE public.certificate_payments TO sandbox_exec;
+
+
+--
+-- Name: TABLE contracted_schools; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.contracted_schools TO anon;
+GRANT ALL ON TABLE public.contracted_schools TO authenticated;
+GRANT ALL ON TABLE public.contracted_schools TO service_role;
+GRANT SELECT,INSERT ON TABLE public.contracted_schools TO sandbox_exec;
+
+
+--
+-- Name: TABLE course_progress; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.course_progress TO anon;
+GRANT ALL ON TABLE public.course_progress TO authenticated;
+GRANT ALL ON TABLE public.course_progress TO service_role;
+GRANT SELECT,INSERT ON TABLE public.course_progress TO sandbox_exec;
+
+
+--
+-- Name: TABLE enrollment_certificate_ids; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.enrollment_certificate_ids TO anon;
+GRANT ALL ON TABLE public.enrollment_certificate_ids TO authenticated;
+GRANT ALL ON TABLE public.enrollment_certificate_ids TO service_role;
+GRANT SELECT,INSERT ON TABLE public.enrollment_certificate_ids TO sandbox_exec;
+
+
+--
+-- Name: TABLE enrollments; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.enrollments TO anon;
+GRANT ALL ON TABLE public.enrollments TO authenticated;
+GRANT ALL ON TABLE public.enrollments TO service_role;
+GRANT SELECT,INSERT ON TABLE public.enrollments TO sandbox_exec;
+
+
+--
+-- Name: TABLE ip_reputation; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.ip_reputation TO anon;
+GRANT ALL ON TABLE public.ip_reputation TO authenticated;
+GRANT ALL ON TABLE public.ip_reputation TO service_role;
+GRANT SELECT,INSERT ON TABLE public.ip_reputation TO sandbox_exec;
+
+
+--
+-- Name: TABLE notification_log; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.notification_log TO anon;
+GRANT ALL ON TABLE public.notification_log TO authenticated;
+GRANT ALL ON TABLE public.notification_log TO service_role;
+GRANT SELECT,INSERT ON TABLE public.notification_log TO sandbox_exec;
+
+
+--
+-- Name: TABLE partnership_program_requests; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.partnership_program_requests TO service_role;
+GRANT SELECT,INSERT ON TABLE public.partnership_program_requests TO sandbox_exec;
+GRANT INSERT ON TABLE public.partnership_program_requests TO anon;
+GRANT INSERT ON TABLE public.partnership_program_requests TO authenticated;
+
+
+--
+-- Name: TABLE profiles; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.profiles TO anon;
+GRANT ALL ON TABLE public.profiles TO authenticated;
+GRANT ALL ON TABLE public.profiles TO service_role;
+GRANT SELECT,INSERT ON TABLE public.profiles TO sandbox_exec;
+
+
+--
+-- Name: TABLE rate_limit_hits; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.rate_limit_hits TO anon;
+GRANT ALL ON TABLE public.rate_limit_hits TO authenticated;
+GRANT ALL ON TABLE public.rate_limit_hits TO service_role;
+GRANT SELECT,INSERT ON TABLE public.rate_limit_hits TO sandbox_exec;
+
+
+--
+-- Name: TABLE retention_archive; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.retention_archive TO anon;
+GRANT ALL ON TABLE public.retention_archive TO authenticated;
+GRANT ALL ON TABLE public.retention_archive TO service_role;
+GRANT SELECT,INSERT ON TABLE public.retention_archive TO sandbox_exec;
+
+
+--
+-- Name: TABLE school_admins; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.school_admins TO anon;
+GRANT ALL ON TABLE public.school_admins TO authenticated;
+GRANT ALL ON TABLE public.school_admins TO service_role;
+GRANT SELECT,INSERT ON TABLE public.school_admins TO sandbox_exec;
+
+
+--
+-- Name: TABLE school_rosters; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.school_rosters TO anon;
+GRANT ALL ON TABLE public.school_rosters TO authenticated;
+GRANT ALL ON TABLE public.school_rosters TO service_role;
+GRANT SELECT,INSERT ON TABLE public.school_rosters TO sandbox_exec;
+
+
+--
+-- Name: TABLE session_anomalies; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.session_anomalies TO anon;
+GRANT ALL ON TABLE public.session_anomalies TO authenticated;
+GRANT ALL ON TABLE public.session_anomalies TO service_role;
+GRANT SELECT,INSERT ON TABLE public.session_anomalies TO sandbox_exec;
+
+
+--
+-- Name: TABLE site_settings; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.site_settings TO anon;
+GRANT ALL ON TABLE public.site_settings TO authenticated;
+GRANT ALL ON TABLE public.site_settings TO service_role;
+GRANT SELECT,INSERT ON TABLE public.site_settings TO sandbox_exec;
+
+
+--
+-- Name: TABLE special_program_diplomas; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.special_program_diplomas TO anon;
+GRANT ALL ON TABLE public.special_program_diplomas TO authenticated;
+GRANT ALL ON TABLE public.special_program_diplomas TO service_role;
+GRANT SELECT,INSERT ON TABLE public.special_program_diplomas TO sandbox_exec;
+
+
+--
+-- Name: TABLE user_engagement; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.user_engagement TO anon;
+GRANT ALL ON TABLE public.user_engagement TO authenticated;
+GRANT ALL ON TABLE public.user_engagement TO service_role;
+GRANT SELECT,INSERT ON TABLE public.user_engagement TO sandbox_exec;
+
+
+--
+-- Name: TABLE user_roles; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.user_roles TO anon;
+GRANT ALL ON TABLE public.user_roles TO authenticated;
+GRANT ALL ON TABLE public.user_roles TO service_role;
+GRANT SELECT,INSERT ON TABLE public.user_roles TO sandbox_exec;
+
+
+--
+-- Name: TABLE ux_failures; Type: ACL; Schema: public; Owner: -
+--
+
+GRANT ALL ON TABLE public.ux_failures TO anon;
+GRANT ALL ON TABLE public.ux_failures TO authenticated;
+GRANT ALL ON TABLE public.ux_failures TO service_role;
+GRANT SELECT,INSERT ON TABLE public.ux_failures TO sandbox_exec;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: public; Owner: -
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT,USAGE ON SEQUENCES TO sandbox_exec;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR SEQUENCES; Type: DEFAULT ACL; Schema: public; Owner: -
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON SEQUENCES TO service_role;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: public; Owner: -
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS TO service_role;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR FUNCTIONS; Type: DEFAULT ACL; Schema: public; Owner: -
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON FUNCTIONS TO service_role;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: -
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO service_role;
+ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT SELECT,INSERT ON TABLES TO sandbox_exec;
+
+
+--
+-- Name: DEFAULT PRIVILEGES FOR TABLES; Type: DEFAULT ACL; Schema: public; Owner: -
+--
+
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON TABLES TO postgres;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON TABLES TO anon;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON TABLES TO authenticated;
+ALTER DEFAULT PRIVILEGES FOR ROLE supabase_admin IN SCHEMA public GRANT ALL ON TABLES TO service_role;
+
 
 --
 -- PostgreSQL database dump complete
