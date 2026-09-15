@@ -123,24 +123,16 @@ function AdminContent() {
           <Tabs defaultValue={initialTab}>
             <TabsList className="mb-6 flex-wrap h-auto">
               <TabsTrigger value="userManagement">User Management</TabsTrigger>
+              <TabsTrigger value="contractedSchools">Contracted Schools</TabsTrigger>
               <TabsTrigger value="certificates">Certificates</TabsTrigger>
-              <TabsTrigger value="partnershipReception">Partnership &amp; Program Reception</TabsTrigger>
-              <TabsTrigger value="specialProgram">Special Program</TabsTrigger>
-              <TabsTrigger value="hiddenCourses">Hidden courses</TabsTrigger>
-              <TabsTrigger value="schools">Schools</TabsTrigger>
-              <TabsTrigger value="schoolAdmins">School admins</TabsTrigger>
-              <TabsTrigger value="sample">Home Sample</TabsTrigger>
-              <TabsTrigger value="health">System management</TabsTrigger>
+              <TabsTrigger value="programsContent">Programs &amp; Content</TabsTrigger>
+              <TabsTrigger value="operations">Operations</TabsTrigger>
             </TabsList>
             <TabsContent value="userManagement"><UserManagementTab /></TabsContent>
+            <TabsContent value="contractedSchools"><ContractedSchoolsTab /></TabsContent>
             <TabsContent value="certificates"><CertificatesTab /></TabsContent>
-            <TabsContent value="partnershipReception"><PartnershipReceptionTab /></TabsContent>
-            <TabsContent value="specialProgram"><SpecialProgramTab /></TabsContent>
-            <TabsContent value="hiddenCourses"><HiddenCoursesTab /></TabsContent>
-            <TabsContent value="schools"><SchoolsTab /></TabsContent>
-            <TabsContent value="schoolAdmins"><SchoolAdminsTab /></TabsContent>
-            <TabsContent value="sample"><SampleCertificateTab /></TabsContent>
-            <TabsContent value="health"><HealthTab /></TabsContent>
+            <TabsContent value="programsContent"><ProgramsContentTab /></TabsContent>
+            <TabsContent value="operations"><OperationsTab /></TabsContent>
           </Tabs>
         </div>
       </section>
@@ -151,6 +143,18 @@ function AdminContent() {
 
 function UserManagementTab() {
   return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Payments</h2><PaymentsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Alternative payments</h2><AltPaymentsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Users</h2><UsersTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Credential IDs</h2><CredentialIdsTab /></section></div>;
+}
+
+function ContractedSchoolsTab() {
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Schools and school payments</h2><SchoolsTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">School administrators, enrolled students and progress</h2><SchoolAdminsTab /></section></div>;
+}
+
+function ProgramsContentTab() {
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Special programs</h2><SpecialProgramTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Hidden courses</h2><HiddenCoursesTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Sample certificates</h2><SampleCertificateTab /></section></div>;
+}
+
+function OperationsTab() {
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Partnerships</h2><PartnershipReceptionTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Health monitor</h2><HealthTab /></section><section className="glass-card-light p-6"><h2 className="text-xl font-bold text-blue-950">Audit logs</h2><p className="mt-2 text-sm text-blue-700">Review operational actions with actor, timestamp, resource and outcome when audit logging is enabled.</p></section></div>;
 }
 
 function PartnershipReceptionTab() {

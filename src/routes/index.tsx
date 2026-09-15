@@ -113,7 +113,7 @@ function Index() {
     initialData: { totalUsers: 104317 },
     staleTime: 30_000,
   });
-  const userCount = hideUsers ? "our growing community" : community.totalUsers.toLocaleString("en-US");
+  const userCount = hideUsers ? "International Users" : community.totalUsers.toLocaleString("en-US");
 
   const { data: sample } = useQuery({
     queryKey: ["sample-cert"],
