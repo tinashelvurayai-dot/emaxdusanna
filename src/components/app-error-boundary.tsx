@@ -1,5 +1,4 @@
 import { Component, type ReactNode } from "react";
-import { reportLovableError } from "@/lib/lovable-error-reporting";
 import { captureError } from "@/lib/sentry";
 
 interface Props {
@@ -23,7 +22,6 @@ export class AppErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: unknown) {
-    reportLovableError(error, { boundary: "app_error_boundary" });
     captureError(error, { boundary: "app_error_boundary" });
   }
 

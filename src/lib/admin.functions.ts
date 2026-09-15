@@ -22,7 +22,7 @@ export const adminGateState = createServerFn({ method: "GET" }).handler(async ()
 /**
  * Preferred database client for admin reads.
  *
- * Uses the service-role client when its key is configured (Lovable Cloud).
+ * Uses the service-role client when its key is configured.
  * On a self-hosted deploy (e.g. Vercel) where only the public key is set, it
  * falls back to the signed-in admin's own client - the admin RLS policies
  * already allow reading every profile, payment and role - so the admin
