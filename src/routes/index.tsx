@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Award, Users, Globe, GraduationCap, Play, CheckCircle, ShieldCheck, Star, TrendingUp, ChevronLeft, ChevronRight, Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,9 @@ export const Route = createFileRoute("/")({
         "Learn online with Edusanna through flexible courses, practical skills training, certificates, diplomas and trusted learning support for students and professionals.",
       path: "/",
     }),
+  validateSearch: (search: Record<string, unknown>): { hideUsers?: boolean } => ({
+    hideUsers: search.hideUsers === true || search.hideUsers === "true",
+  }),
   component: Index,
 });
 
@@ -57,14 +60,60 @@ const testimonials = [
   },
 ];
 
+function TrustRevealTestimonials({ userCount }: { userCount: number }) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [revealed, setRevealed] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setRevealed(true);
+        observer.disconnect();
+      }
+    }, { threshold: 0.2 });
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="bg-white px-4 py-20 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-14 text-center">
+          <h2 className="mb-4 text-4xl font-bold gradient-text">What users say</h2>
+          <p className="mx-auto max-w-2xl text-xl text-blue-700">Real learners. Real results. Join {userCount} people preparing right now.</p>
+        </div>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3" style={{ perspective: "1200px" }}>
+          {testimonials.map((t, index) => (
+            <div
+              key={t.name}
+              className={`group flex flex-col rounded-2xl border border-blue-100 bg-gradient-to-br from-white to-blue-50 p-8 shadow-md transition-[transform,box-shadow,border-color] duration-300 hover:-translate-y-1 hover:border-blue-200 hover:shadow-xl ${revealed ? "trust-card-visible" : "trust-card-hidden"}`}
+              style={{ animationDelay: `${index * 180}ms`, "--trust-breathe": `${6.5 + index * 0.35}s` } as Record<string, string>}
+            >
+              <div className="mb-4 flex items-center justify-between trust-layer-identity" style={{ animationDelay: `${index * 180 + 120}ms` }}>
+                <span className="font-bold text-blue-900 transition-colors group-hover:text-blue-700">{t.name}</span>
+                <span className="inline-flex items-center rounded-full bg-blue-600 px-3 py-1 text-xs font-bold text-white transition-colors group-hover:bg-blue-700">{t.badge}</span>
+              </div>
+              <span className="flex text-amber-400 trust-layer-rating" style={{ animationDelay: `${index * 180 + 260}ms` }} aria-label="Five star rating">
+                {Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-amber-400" style={{ animationDelay: `${index * 180 + 300 + i * 70}ms` }} />)}
+              </span>
+              <p className="mt-3 leading-relaxed italic text-blue-800 trust-layer-quote" style={{ animationDelay: `${index * 180 + 420}ms` }}>&quot;{t.quote}&quot;</p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`\n        .trust-card-hidden { opacity: 0; transform: translate3d(0, 45px, -20px) scale(.88) rotateX(3deg); filter: blur(6px) brightness(.92); }\n        .trust-card-visible { animation: trust-emerge 820ms cubic-bezier(.22,1,.36,1) forwards, trust-breathe var(--trust-breathe) ease-in-out 1.15s infinite; }\n        .trust-layer-identity, .trust-layer-rating, .trust-layer-quote { opacity: 0; transform: translateY(10px); animation: trust-layer 520ms cubic-bezier(.22,1,.36,1) forwards; }\n        .trust-layer-rating svg { opacity: 0; animation: trust-star 420ms ease-out forwards; }\n        @keyframes trust-emerge { to { opacity: 1; transform: translate3d(0,0,0) scale(1) rotateX(0); filter: blur(0) brightness(1); } }\n        @keyframes trust-layer { to { opacity: 1; transform: translateY(0); } }\n        @keyframes trust-star { to { opacity: 1; } }\n        @keyframes trust-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.008); } }\n        @media (prefers-reduced-motion: reduce) { .trust-card-hidden, .trust-card-visible, .trust-layer-identity, .trust-layer-rating, .trust-layer-quote, .trust-layer-rating svg { animation: none !important; opacity: 1 !important; transform: none !important; filter: none !important; } }\n      `}</style>
+    </section>
+  );
+}
+
 function Index() {
+  const { hideUsers } = Route.useSearch();
   const { data: community } = useQuery({
     queryKey: ["community-stats"],
     queryFn: () => getCommunityStats(),
     initialData: { totalUsers: 104317 },
     staleTime: 30_000,
   });
-  const userCount = community.totalUsers.toLocaleString("en-US");
+  const userCount = hideUsers ? "our growing community" : community.totalUsers.toLocaleString("en-US");
 
   const { data: sample } = useQuery({
     queryKey: ["sample-cert"],
@@ -201,38 +250,8 @@ function Index() {
       </section>
 
 
-      {/* What students say */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-14">
-            <h2 className="text-4xl font-bold gradient-text mb-4">What users say</h2>
-            <p className="text-xl text-blue-700 max-w-2xl mx-auto">
-              Real learners. Real results. Join {userCount} people preparing right now.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((t) => (
-              <div
-                key={t.name}
-                className="bg-gradient-to-br from-white to-blue-50 rounded-2xl p-8 border border-blue-100 shadow-md hover:shadow-lg transition-shadow flex flex-col"
-              >
-                <div className="flex items-center justify-between mb-4">
-                  <span className="font-bold text-blue-900">{t.name}</span>
-                  <span className="inline-flex items-center px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-bold">
-                    {t.badge}
-                  </span>
-                </div>
-                <span className="flex text-amber-400 mb-3">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="w-4 h-4 fill-amber-400" />
-                  ))}
-                </span>
-                <p className="text-blue-800 leading-relaxed italic">"{t.quote}"</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TrustRevealTestimonials userCount={userCount} />
+
 
       {/* Benefits */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-white">
