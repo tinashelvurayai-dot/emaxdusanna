@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Award, Users, Globe, GraduationCap, Play, CheckCircle, ShieldCheck, Star, TrendingUp, ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -303,7 +303,13 @@ function Index() {
             <BenefitMarqueeRow features={platformFeatures.slice(0, 5)} direction="left" />
             <BenefitMarqueeRow features={platformFeatures.slice(5, 10)} direction="right" />
           </div>
-          <style>{`\n            .benefits-portal .benefit-marquee-row { animation: benefits-portal-in 900ms cubic-bezier(.22,1,.36,1) both; }\n            .benefits-portal .benefit-marquee-row:nth-child(2) { animation-delay: 180ms; }\n            .benefits-portal .benefit-marquee-card { animation: benefit-card-glow 6s ease-in-out infinite; animation-delay: calc(var(--benefit-index, 0) * 120ms); }\n            @keyframes benefits-portal-in { from { opacity: 0; transform: translateY(28px) scale(.96); filter: blur(5px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }\n            @keyframes benefit-card-glow { 0%, 100% { box-shadow: 0 1px 2px rgb(30 64 175 / .06); } 50% { box-shadow: 0 10px 24px rgb(56 189 248 / .16); } }\n            @media (prefers-reduced-motion: reduce) { .benefits-portal .benefit-marquee-row, .benefits-portal .benefit-marquee-card { animation: none !important; } }\n          `}</style>
+          <style>{`\n            .benefits-portal .benefit-marquee-row { animation: benefits-portal-in 900ms cubic-bezier(.22,1,.36,1) both; }\n            .benefits-portal .benefit-marquee-row:nth-child(2) { animation-delay: 180ms; }\n            .benefits-portal .benefit-marquee-card { transform-style: preserve-3d; }
+            .benefit-portal-ring { opacity: 0; transform: scale(.86); transition: opacity 240ms ease, transform 240ms ease; }
+            .benefit-portal-ring-active { opacity: 1; transform: scale(1.04); animation: benefit-portal-pulse 1.4s ease-in-out infinite; }
+            .benefit-portal-spark { opacity: 0; transform: translate(0, 8px) scale(.5); }
+            .benefit-marquee-card:hover .benefit-portal-spark { opacity: 1; animation: benefit-spark 900ms ease-out infinite; }
+            @keyframes benefit-portal-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgb(56 189 248 / .12); } 50% { box-shadow: 0 0 0 8px rgb(56 189 248 / 0); } }
+            @keyframes benefit-spark { 0% { transform: translate(0, 8px) scale(.5); } 100% { transform: translate(-16px, -12px) scale(1); opacity: 0; } }\n            @keyframes benefits-portal-in { from { opacity: 0; transform: translateY(28px) scale(.96); filter: blur(5px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }\n            @keyframes benefit-card-glow { 0%, 100% { box-shadow: 0 1px 2px rgb(30 64 175 / .06); } 50% { box-shadow: 0 10px 24px rgb(56 189 248 / .16); } }\n            @media (prefers-reduced-motion: reduce) { .benefits-portal .benefit-marquee-row, .benefits-portal .benefit-marquee-card { animation: none !important; } }\n          `}</style>
           <div className="mt-10 flex justify-center">
             <Link to="/partnership-request" id="partnership-request">
               <Button className="premium-button text-base px-7 py-3">Partner with Us</Button>
@@ -339,17 +345,49 @@ function Index() {
 
 function BenefitMarqueeRow({ features, direction }: { features: string[]; direction: "left" | "right" }) {
   const sequence = [...features, ...features];
+  const reduceMotion = useReducedMotion();
+
   return (
-    <div className="benefit-marquee-row overflow-hidden" role="list">
+    <div className="benefit-marquee-row overflow-visible" role="list">
       <div className={`benefit-marquee-track flex w-max gap-4 ${direction === "left" ? "benefit-marquee-left" : "benefit-marquee-right"}`}>
         {sequence.map((feature, index) => (
-          <div key={`${feature}-${index}`} role="listitem" style={{ "--benefit-index": index } as Record<string, number>} className="benefit-marquee-card flex w-[260px] shrink-0 items-center gap-2 rounded-xl border border-blue-100 bg-white p-4 shadow-sm transition-[box-shadow,transform] hover:-translate-y-1 hover:border-blue-300 hover:shadow-md">
-            <CheckCircle className="h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
-            <span className="text-sm font-medium text-blue-800">{feature}</span>
-          </div>
+          <BenefitPortalCard key={`${feature}-${index}`} feature={feature} index={index} reduceMotion={Boolean(reduceMotion)} />
         ))}
       </div>
     </div>
+  );
+}
+
+function BenefitPortalCard({ feature, index, reduceMotion }: { feature: string; index: number; reduceMotion: boolean }) {
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [active, setActive] = useState(false);
+  const delay = (index % 5) * 0.12;
+
+  return (
+    <motion.div
+      role="listitem"
+      className="benefit-marquee-card group relative flex w-[260px] shrink-0 items-center gap-2 rounded-xl border border-blue-100 bg-white p-4 shadow-sm transition-[border-color,box-shadow] hover:border-blue-300 hover:shadow-xl"
+      initial={reduceMotion ? { opacity: 1 } : { opacity: 0, scale: 0.72, y: 36, rotateX: 14 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+      viewport={{ once: true, amount: 0.55 }}
+      transition={{ delay, type: "spring", stiffness: 180, damping: 18, mass: 0.7 }}
+      animate={reduceMotion ? undefined : { rotateX: tilt.x, rotateY: tilt.y }}
+      onPointerEnter={() => setActive(true)}
+      onPointerLeave={() => { setActive(false); setTilt({ x: 0, y: 0 }); }}
+      onPointerMove={(event) => {
+        if (reduceMotion || window.matchMedia("(max-width: 767px)").matches) return;
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        setTilt({ x: Number((-y * 8).toFixed(2)), y: Number((x * 8).toFixed(2)) });
+      }}
+      style={{ transformStyle: "preserve-3d", perspective: 700 }}
+    >
+      <span className={`benefit-portal-ring pointer-events-none absolute -inset-2 rounded-2xl border border-sky-300/50 ${active ? "benefit-portal-ring-active" : ""}`} aria-hidden="true" />
+      <span className="benefit-portal-spark pointer-events-none absolute right-5 top-2 size-1 rounded-full bg-sky-400" aria-hidden="true" />
+      <CheckCircle className="relative z-10 h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
+      <span className="relative z-10 text-sm font-medium text-blue-800">{feature}</span>
+    </motion.div>
   );
 }
 
