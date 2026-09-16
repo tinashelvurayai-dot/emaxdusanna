@@ -42,6 +42,7 @@ export function SiteFooter() {
           <h4 className="font-semibold text-white mb-3">Explore</h4>
           <ul className="space-y-2 text-sm">
             <li><Link to="/" className="hover:text-white transition">Home</Link></li>
+            <li><Link to="/about" className="hover:text-white transition">About Edusanna</Link></li>
             <li><Link to="/courses" className="hover:text-white transition">All Courses</Link></li>
             <li><Link to="/auth" search={{ mode: "signup" }} className="hover:text-white transition">Get Started</Link></li>
             <li><Link to="/partnership-request" className="hover:text-white transition">Partner with us</Link></li>
