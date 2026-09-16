@@ -113,7 +113,7 @@ function Index() {
     initialData: { totalUsers: 104317 },
     staleTime: 30_000,
   });
-  const userCount = hideUsers ? "International Users" : community.totalUsers.toLocaleString("en-US");
+  const userCount = hideUsers ? "International" : community.totalUsers.toLocaleString("en-US");
 
   const { data: sample } = useQuery({
     queryKey: ["sample-cert"],
@@ -299,10 +299,11 @@ function Index() {
               </Card>
             ))}
           </div>
-          <div className="mt-14 space-y-4 overflow-hidden" aria-label="Edusanna platform benefits">
+          <div className="benefits-portal mt-14 space-y-4 overflow-hidden" aria-label="Edusanna Benefits for Everyone">
             <BenefitMarqueeRow features={platformFeatures.slice(0, 5)} direction="left" />
             <BenefitMarqueeRow features={platformFeatures.slice(5, 10)} direction="right" />
           </div>
+          <style>{`\n            .benefits-portal .benefit-marquee-row { animation: benefits-portal-in 900ms cubic-bezier(.22,1,.36,1) both; }\n            .benefits-portal .benefit-marquee-row:nth-child(2) { animation-delay: 180ms; }\n            .benefits-portal .benefit-marquee-card { animation: benefit-card-glow 6s ease-in-out infinite; animation-delay: calc(var(--benefit-index, 0) * 120ms); }\n            @keyframes benefits-portal-in { from { opacity: 0; transform: translateY(28px) scale(.96); filter: blur(5px); } to { opacity: 1; transform: translateY(0) scale(1); filter: blur(0); } }\n            @keyframes benefit-card-glow { 0%, 100% { box-shadow: 0 1px 2px rgb(30 64 175 / .06); } 50% { box-shadow: 0 10px 24px rgb(56 189 248 / .16); } }\n            @media (prefers-reduced-motion: reduce) { .benefits-portal .benefit-marquee-row, .benefits-portal .benefit-marquee-card { animation: none !important; } }\n          `}</style>
           <div className="mt-10 flex justify-center">
             <Link to="/partnership-request" id="partnership-request">
               <Button className="premium-button text-base px-7 py-3">Partner with Us</Button>
@@ -342,7 +343,7 @@ function BenefitMarqueeRow({ features, direction }: { features: string[]; direct
     <div className="benefit-marquee-row overflow-hidden" role="list">
       <div className={`benefit-marquee-track flex w-max gap-4 ${direction === "left" ? "benefit-marquee-left" : "benefit-marquee-right"}`}>
         {sequence.map((feature, index) => (
-          <div key={`${feature}-${index}`} role="listitem" className="benefit-marquee-card flex w-[260px] shrink-0 items-center gap-2 rounded-xl border border-blue-100 bg-white p-4 shadow-sm transition-[box-shadow,transform] hover:-translate-y-1 hover:border-blue-300 hover:shadow-md">
+          <div key={`${feature}-${index}`} role="listitem" style={{ "--benefit-index": index } as Record<string, number>} className="benefit-marquee-card flex w-[260px] shrink-0 items-center gap-2 rounded-xl border border-blue-100 bg-white p-4 shadow-sm transition-[box-shadow,transform] hover:-translate-y-1 hover:border-blue-300 hover:shadow-md">
             <CheckCircle className="h-5 w-5 shrink-0 text-blue-600" aria-hidden="true" />
             <span className="text-sm font-medium text-blue-800">{feature}</span>
           </div>
