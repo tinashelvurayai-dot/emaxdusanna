@@ -1,15 +1,32 @@
-// @lovable.dev/vite-tanstack-config already includes the following — do NOT add them manually:
-//   tanstackStart, viteReact, tailwindcss, tsConfigPaths, nitro, componentTagger (dev-only),
-//   VITE_* env injection, @ path alias, React/TanStack dedupe, error logger plugins.
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { fileURLToPath, URL } from "node:url";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
+import tailwindcss from "@tailwindcss/vite";
+import viteReact from "@vitejs/plugin-react";
+import { nitro } from "nitro/vite";
+import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
+import tsConfigPaths from "vite-tsconfig-paths";
 
 const isVercel = !!process.env.VERCEL;
 
-export default defineConfig({
-  tanstackStart: { server: { entry: "server" } },
-  nitro: isVercel ? { preset: "vercel" } : undefined,
+export default defineConfig(({ command }) => ({
+  css: { transformer: "lightningcss" },
+  resolve: {
+    alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },
+    dedupe: ["react", "react-dom", "@tanstack/react-query", "@tanstack/query-core"],
+  },
   plugins: [
+    tailwindcss(),
+    tsConfigPaths({ projects: ["./tsconfig.json"] }),
+    tanstackStart({
+      server: { entry: "server" },
+      importProtection: {
+        behavior: "error",
+        client: { files: ["**/server/**"], specifiers: ["server-only"] },
+      },
+    }),
+    ...(command === "build" ? nitro({ preset: isVercel ? "vercel" : "cloudflare-module" }) : []),
+    viteReact(),
     VitePWA({
       registerType: "autoUpdate",
       injectRegister: null,
@@ -40,9 +57,7 @@ export default defineConfig({
             },
           },
           {
-            urlPattern: ({ url }) =>
-              url.hostname.endsWith("lovable.app") ||
-              /\.(?:png|jpg|jpeg|svg|webp|avif|gif)$/.test(url.pathname),
+            urlPattern: ({ url }) => /\.(?:png|jpg|jpeg|svg|webp|avif|gif)$/.test(url.pathname),
             handler: "CacheFirst",
             options: {
               cacheName: "edusanna-images",
@@ -53,4 +68,4 @@ export default defineConfig({
       },
     }),
   ],
-});
+}));
