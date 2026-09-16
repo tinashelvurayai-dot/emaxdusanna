@@ -284,7 +284,7 @@ function Index() {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-14">
             <h2 className="text-4xl font-bold gradient-text mb-4">Why Choose EDUSANNA?</h2>
-            <p className="text-xl text-blue-700 max-w-2xl mx-auto">Africa's leading online learning platform with proven excellence.</p>
+            <p className="text-xl text-blue-700 max-w-2xl mx-auto">Africa's online learning platform.</p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature) => (
