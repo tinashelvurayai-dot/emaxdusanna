@@ -17,7 +17,7 @@ import { AuroraBg } from "../components/aurora-bg";
 import { AppErrorBoundary } from "../components/app-error-boundary";
 import { MobileBottomNav } from "../components/mobile-bottom-nav";
 import { InstallAppPrompt } from "../components/install-app-prompt";
-import { initSentry } from "../lib/sentry";
+import { captureError, initSentry } from "../lib/sentry";
 import { registerServiceWorker } from "../lib/pwa-register";
 
 function NotFoundComponent() {
