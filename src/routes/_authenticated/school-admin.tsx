@@ -84,10 +84,10 @@ function SchoolAdminPage() {
     );
   }
 
-  return <Content schoolName={data.schoolAdmin.school_name as string} contactName={data.schoolAdmin.contact_name as string | null} />;
+  return <Content schoolName={data.schoolAdmin.school_name as string} schoolCode={data.schoolAdmin.school_code as string | null} contactName={data.schoolAdmin.contact_name as string | null} />;
 }
 
-function Content({ schoolName, contactName }: { schoolName: string; contactName: string | null }) {
+function Content({ schoolName, schoolCode, contactName }: { schoolName: string; schoolCode: string | null; contactName: string | null }) {
   return (
     <div className="min-h-screen">
       <SiteNavbar />
@@ -100,7 +100,7 @@ function Content({ schoolName, contactName }: { schoolName: string; contactName:
             </div>
             <div>
               <h1 className="text-3xl md:text-4xl font-black text-blue-900 leading-tight">{schoolName}</h1>
-              <p className="text-blue-600 text-sm">School admin dashboard{contactName ? ` - ${contactName}` : ""}</p>
+              <p className="text-blue-600 text-sm">School admin dashboard{contactName ? ` - ${contactName}` : ""}</p><div className="mt-2 inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-50 px-3 py-1 text-xs font-bold tracking-wide text-sky-800"><span className="h-2 w-2 rounded-full bg-sky-500" aria-hidden="true" />Contracted school ID: {schoolCode ?? "Pending"}</div>
             </div>
             <Link to="/settings" className="ml-auto shrink-0">
               <Button variant="outline" className="min-h-11 border-blue-200 text-blue-700 hover:bg-blue-50">
@@ -109,6 +109,21 @@ function Content({ schoolName, contactName }: { schoolName: string; contactName:
             </Link>
           </div>
 
+
+          <section className="mt-6 rounded-2xl border border-sky-200 bg-sky-50/80 p-5 shadow-sm" aria-labelledby="admin-guide-title">
+            <div className="flex items-start gap-3">
+              <div className="rounded-xl bg-white p-2 text-sky-700 shadow-sm"><Sparkles className="h-5 w-5" aria-hidden="true" /></div>
+              <div className="min-w-0">
+                <h2 id="admin-guide-title" className="font-bold text-blue-950">School admin quick guide</h2>
+                <p className="mt-1 text-sm text-blue-800">Use this workflow to keep learners, payments, and support requests moving.</p>
+                <ol className="mt-4 grid gap-3 text-sm text-blue-900 sm:grid-cols-3">
+                  <li><strong>1. Confirm your roster.</strong><br /><span className="text-blue-700">Upload or review students before approving payments.</span></li>
+                  <li><strong>2. Verify paid credentials.</strong><br /><span className="text-blue-700">Select the learner and course, then issue the receipt.</span></li>
+                  <li><strong>3. Keep a clear record.</strong><br /><span className="text-blue-700">Download receipts and use analytics for reconciliation.</span></li>
+                </ol>
+              </div>
+            </div>
+          </section>
 
           <Tabs defaultValue="analytics" className="mt-8">
             <TabsList className="mb-6 flex-wrap h-auto">
@@ -739,9 +754,9 @@ function VerifyPaymentTab() {
     <div className="glass-card-light p-5 max-w-2xl space-y-4">
       <div>
         <h3 className="font-bold text-blue-900">Verify a cash payment</h3>
-        <p className="text-sm text-blue-600">
-          A student paid you at school reception. Verify it here to issue their credential and notify Edusanna admin instantly.
-        </p>
+  <p className="text-sm text-blue-600">
+  Confirm a student&apos;s payment at school reception. Approval creates an official receipt immediately in that student&apos;s Academia dashboard and notifies Edusanna admin.
+  </p>
       </div>
 
       <div>
