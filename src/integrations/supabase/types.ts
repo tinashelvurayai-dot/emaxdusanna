@@ -567,6 +567,56 @@ export type Database = {
           },
         ]
       }
+      school_partnership_onboarding: {
+        Row: {
+          certificate_handed_over: boolean
+          credentials_handed_over: boolean
+          favorable_feedback: boolean
+          manual_handed_over: boolean
+          meeting_completed: boolean
+          outreach_sent: boolean
+          recorded_by: string | null
+          school_id: string
+          terms_accepted: boolean
+          terms_accepted_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          certificate_handed_over?: boolean
+          credentials_handed_over?: boolean
+          favorable_feedback?: boolean
+          manual_handed_over?: boolean
+          meeting_completed?: boolean
+          outreach_sent?: boolean
+          recorded_by?: string | null
+          school_id: string
+          terms_accepted?: boolean
+          terms_accepted_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          certificate_handed_over?: boolean
+          credentials_handed_over?: boolean
+          favorable_feedback?: boolean
+          manual_handed_over?: boolean
+          meeting_completed?: boolean
+          outreach_sent?: boolean
+          recorded_by?: string | null
+          school_id?: string
+          terms_accepted?: boolean
+          terms_accepted_at?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "school_partnership_onboarding_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: true
+            referencedRelation: "contracted_schools"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       school_rosters: {
         Row: {
           class_name: string | null
