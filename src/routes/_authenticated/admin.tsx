@@ -39,7 +39,15 @@ import { HiddenCoursesTab } from "@/components/admin/hidden-courses-tab";
 import { SchoolPartnershipTracker } from "@/components/admin/school-partnership-tracker";
 
 export const Route = createFileRoute("/_authenticated/admin")({
-  head: () => ({ meta: [{ title: "Admin Dashboard | Edusanna" }] }),
+  head: () => ({ meta: [
+    { title: "Admin Dashboard | Edusanna" },
+    { name: "description", content: "Edusanna school partnerships, users, payments and credentials administration." },
+    { property: "og:title", content: "Admin Dashboard | Edusanna" },
+    { property: "og:description", content: "Edusanna school partnerships, users, payments and credentials administration." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+    { name: "robots", content: "noindex" },
+  ] }),
   validateSearch: (search: Record<string, unknown>): { tab?: string } => ({
     tab: typeof search.tab === "string" ? search.tab : undefined,
   }),
@@ -101,8 +109,7 @@ function AdminContent() {
   const { data: stats } = useQuery({ queryKey: ["admin-stats"], queryFn: () => fetchStats() });
   const { tab } = Route.useSearch();
   const validTabs = [
-    "userManagement", "certificates", "schools", "schoolAdmins", "sample", "health",
-    "specialProgram", "hiddenCourses", "partnershipReception",
+    "userManagement", "certificates", "contractedSchools", "programsContent", "operations",
   ];
   const initialTab = tab && validTabs.includes(tab) ? tab : "userManagement";
 
@@ -745,7 +752,10 @@ function SampleCertificateTab() {
   const value = draft ?? data?.value ?? null;
 
   const save = useMutation({
-    mutationFn: () => saveSample({ data: value! }),
+    mutationFn: () => {
+      if (!value) throw new Error("No certificate selected");
+      return saveSample({ data: value });
+    },
     onSuccess: () => {
       toast.success("Sample certificate updated");
       qc.invalidateQueries({ queryKey: ["sample-cert"] });

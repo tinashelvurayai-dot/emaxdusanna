@@ -57,7 +57,7 @@ const testimonials = [
   },
 ];
 
-function TrustRevealTestimonials({ userCount }: { userCount: number }) {
+function TrustRevealTestimonials({ userCount }: { userCount: string }) {
   const sectionRef = useRef<HTMLElement>(null);
   const [revealed, setRevealed] = useState(false);
   useEffect(() => {
