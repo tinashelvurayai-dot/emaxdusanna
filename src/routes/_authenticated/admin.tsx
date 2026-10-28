@@ -36,6 +36,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SpecialProgramTab } from "@/components/admin/special-program-tab";
 import { HiddenCoursesTab } from "@/components/admin/hidden-courses-tab";
+import { SchoolPartnershipTracker } from "@/components/admin/school-partnership-tracker";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({ meta: [{ title: "Admin Dashboard | Edusanna" }] }),
@@ -153,7 +154,7 @@ function SchoolReconciliationTab() {
 }
 
 function ContractedSchoolsTab() {
-  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Schools and school payments</h2><SchoolsTab /></section><section><SchoolReconciliationTab /></section><section><h2 className="text-xl font-bold text-blue-950 mb-4">Private school administrator onboarding</h2><SchoolAdminInvitationTab /></section></div>;
+  return <div className="flex flex-col gap-10"><section><h2 className="text-xl font-bold text-blue-950 mb-4">Schools and school payments</h2><SchoolsTab /></section><SchoolPartnershipTracker /><section><SchoolAdminsTab /></section><section><SchoolReconciliationTab /></section></div>;
 }
 
 function ProgramsContentTab() {
