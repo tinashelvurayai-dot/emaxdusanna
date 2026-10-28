@@ -613,7 +613,8 @@ export const approveSchoolAdminInvitation = createServerFn({ method: "POST" })
     const { error: adminError } = await (supabaseAdmin as any).from("school_admins").insert({ user_id: created.user.id, school_id: invite.school_id, school_name: school?.school_name, contact_name: invite.full_name, created_by: context.userId });
     if (adminError) { await supabaseAdmin.auth.admin.deleteUser(created.user.id); throw adminError; }
     await supabaseAdmin.from("user_roles").upsert({ user_id: created.user.id, role: "school_admin" }, { onConflict: "user_id,role" });
-    await supabaseAdmin.from("school_admin_permissions").insert(["manage_roster","view_progress","verify_payments","view_reports","manage_invites"].map((permission) => ({ user_id: created.user.id, school_id: invite.school_id, permission, granted_by: context.userId })));
+    const { error: permissionError } = await (supabaseAdmin as any).from("school_admin_permissions").insert(["manage_roster","view_progress","verify_payments","view_reports","manage_invites"].map((permission) => ({ user_id: created.user.id, school_id: invite.school_id, permission, granted_by: context.userId })));
+    if (permissionError) throw new Error("School account created, but permissions need administrator review.");
     await (supabaseAdmin as any).from("school_admin_invitations").update({ status: "approved", approved_user_id: created.user.id, reviewed_by: context.userId, reviewed_at: new Date().toISOString() }).eq("id", invite.id);
     return { success: true, userId: created.user.id };
   });
