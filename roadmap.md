@@ -1,7 +1,7 @@
 # Backend migration roadmap
 
 - [x] Preserve database baseline and prepare fresh-target candidate with static security checks
-- [ ] Build data and Auth transfer tooling
+- [ ] Build and run data/Auth transfer tooling — blocked: source export access and target credentials required
 - [x] Replace Lovable OAuth/runtime dependencies
 - [x] Add empty external environment template and deployment/cron instructions
 - [ ] Rehearse migration and run database security checks — blocked: no Docker or target credentials
