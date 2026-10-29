@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { privatePageHead } from "@/lib/private-page-head";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { ArrowLeft, CheckCircle2, Circle, Trophy } from "lucide-react";
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/_authenticated/learn/$courseId/$level")({
     if (!item || (params.level !== "certificate" && params.level !== "diploma")) throw notFound();
     return { item };
   },
-  head: () => ({ meta: [{ title: "Learn | Edusanna" }] }),
+  head: () => privatePageHead("Learn | Edusanna", "Continue your Edusanna course modules and quizzes."),
   component: LearnPage,
   notFoundComponent: () => (
     <div className="min-h-screen flex flex-col items-center justify-center text-center px-4">

@@ -12,7 +12,13 @@ const logo = { url: "/logo.webp" };
 import { SmartBack } from "@/components/smart-back";
 
 export const Route = createFileRoute("/admin-gate")({
-  head: () => ({ meta: [{ title: "Admin Access | Edusanna" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [
+    { title: "Admin Access | Edusanna" }, { name: "robots", content: "noindex" },
+    { name: "description", content: "Secure Edusanna administrator account access." },
+    { property: "og:title", content: "Admin Access | Edusanna" },
+    { property: "og:description", content: "Secure Edusanna administrator account access." },
+    { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary" },
+  ] }),
   component: AdminGatePage,
 });
 

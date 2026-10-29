@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { privatePageHead } from "@/lib/private-page-head";
 import { useEffect, useRef, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { CheckCircle2, Loader2, XCircle } from "lucide-react";
@@ -11,6 +12,7 @@ import { capturePayPalOrder } from "@/lib/paypal.functions";
 type Search = { courseId: string; level: CourseLevel; token?: string };
 
 export const Route = createFileRoute("/_authenticated/certificate-success")({
+  head: () => privatePageHead("Credential Payment Confirmation | Edusanna", "Review your Edusanna credential payment confirmation."),
   validateSearch: (search: Record<string, unknown>): Search => ({
     courseId: String(search.courseId ?? ""),
     level: search.level === "diploma" ? "diploma" : "certificate",

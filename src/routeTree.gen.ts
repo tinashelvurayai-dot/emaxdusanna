@@ -9,96 +9,44 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as WasteChemicalsWealthProgramRouteImport } from './routes/waste-chemicals-wealth-program'
-import { Route as VerifyRouteImport } from './routes/verify'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SupportRouteImport } from './routes/support'
-import { Route as SuccessRouteImport } from './routes/success'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PartnershipRequestRouteImport } from './routes/partnership-request'
-import { Route as GlobalAhepRouteImport } from './routes/global-ahep'
-import { Route as CoursesRouteImport } from './routes/courses'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AdminGateRouteImport } from './routes/admin-gate'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as DashboardUsersRouteImport } from './routes/dashboard.users'
-import { Route as CourseIdRouteImport } from './routes/course.$id'
-import { Route as ApiHealthRouteImport } from './routes/api/health'
-import { Route as AdminUsersRouteImport } from './routes/admin.users'
-import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
-import { Route as AdminCredentialRequestsRouteImport } from './routes/admin.credential-requests'
-import { Route as AdminCertificatesRouteImport } from './routes/admin.certificates'
-import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
-import { Route as AuthenticatedSchoolAdminRouteImport } from './routes/_authenticated/school-admin'
-import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
-import { Route as AuthenticatedCertificateSuccessRouteImport } from './routes/_authenticated/certificate-success'
-import { Route as AuthenticatedCertificatePaymentRouteImport } from './routes/_authenticated/certificate-payment'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminGateRouteImport } from './routes/admin-gate'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CoursesRouteImport } from './routes/courses'
+import { Route as GlobalAhepRouteImport } from './routes/global-ahep'
+import { Route as PartnershipRequestRouteImport } from './routes/partnership-request'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SuccessRouteImport } from './routes/success'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as VerifyRouteImport } from './routes/verify'
+import { Route as WasteChemicalsWealthProgramRouteImport } from './routes/waste-chemicals-wealth-program'
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
-import { Route as ApiPublicCronPurgeRetentionRouteImport } from './routes/api/public/cron/purge-retention'
+import { Route as AuthenticatedCertificatePaymentRouteImport } from './routes/_authenticated/certificate-payment'
+import { Route as AuthenticatedCertificateSuccessRouteImport } from './routes/_authenticated/certificate-success'
+import { Route as AuthenticatedDashboardRouteImport } from './routes/_authenticated/dashboard'
+import { Route as AuthenticatedSchoolAdminRouteImport } from './routes/_authenticated/school-admin'
+import { Route as AuthenticatedSettingsRouteImport } from './routes/_authenticated/settings'
+import { Route as AdminCertificatesRouteImport } from './routes/admin.certificates'
+import { Route as AdminCredentialRequestsRouteImport } from './routes/admin.credential-requests'
+import { Route as AdminPaymentsRouteImport } from './routes/admin.payments'
+import { Route as AdminUsersRouteImport } from './routes/admin.users'
+import { Route as ApiHealthRouteImport } from './routes/api/health'
+import { Route as CourseIdRouteImport } from './routes/course.$id'
+import { Route as DashboardUsersRouteImport } from './routes/dashboard.users'
 import { Route as AuthenticatedLearnCourseIdLevelRouteImport } from './routes/_authenticated/learn.$courseId.$level'
+import { Route as ApiPublicCronPurgeRetentionRouteImport } from './routes/api/public/cron/purge-retention'
 
-const WasteChemicalsWealthProgramRoute =
-  WasteChemicalsWealthProgramRouteImport.update({
-    id: '/waste-chemicals-wealth-program',
-    path: '/waste-chemicals-wealth-program',
-    getParentRoute: () => rootRouteImport,
-  } as any)
-const VerifyRoute = VerifyRouteImport.update({
-  id: '/verify',
-  path: '/verify',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SupportRoute = SupportRouteImport.update({
-  id: '/support',
-  path: '/support',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SuccessRoute = SuccessRouteImport.update({
-  id: '/success',
-  path: '/success',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PartnershipRequestRoute = PartnershipRequestRouteImport.update({
-  id: '/partnership-request',
-  path: '/partnership-request',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GlobalAhepRoute = GlobalAhepRouteImport.update({
-  id: '/global-ahep',
-  path: '/global-ahep',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CoursesRoute = CoursesRouteImport.update({
-  id: '/courses',
-  path: '/courses',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminGateRoute = AdminGateRouteImport.update({
-  id: '/admin-gate',
-  path: '/admin-gate',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -106,53 +54,87 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const AdminGateRoute = AdminGateRouteImport.update({
+  id: '/admin-gate',
+  path: '/admin-gate',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const DashboardUsersRoute = DashboardUsersRouteImport.update({
-  id: '/dashboard/users',
-  path: '/dashboard/users',
+const CoursesRoute = CoursesRouteImport.update({
+  id: '/courses',
+  path: '/courses',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CourseIdRoute = CourseIdRouteImport.update({
-  id: '/course/$id',
-  path: '/course/$id',
+const GlobalAhepRoute = GlobalAhepRouteImport.update({
+  id: '/global-ahep',
+  path: '/global-ahep',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ApiHealthRoute = ApiHealthRouteImport.update({
-  id: '/api/health',
-  path: '/api/health',
+const PartnershipRequestRoute = PartnershipRequestRouteImport.update({
+  id: '/partnership-request',
+  path: '/partnership-request',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminUsersRoute = AdminUsersRouteImport.update({
-  id: '/admin/users',
-  path: '/admin/users',
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminPaymentsRoute = AdminPaymentsRouteImport.update({
-  id: '/admin/payments',
-  path: '/admin/payments',
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminCredentialRequestsRoute = AdminCredentialRequestsRouteImport.update({
-  id: '/admin/credential-requests',
-  path: '/admin/credential-requests',
+const SuccessRoute = SuccessRouteImport.update({
+  id: '/success',
+  path: '/success',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminCertificatesRoute = AdminCertificatesRouteImport.update({
-  id: '/admin/certificates',
-  path: '/admin/certificates',
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
-  id: '/settings',
-  path: '/settings',
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyRoute = VerifyRouteImport.update({
+  id: '/verify',
+  path: '/verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WasteChemicalsWealthProgramRoute =
+  WasteChemicalsWealthProgramRouteImport.update({
+    id: '/waste-chemicals-wealth-program',
+    path: '/waste-chemicals-wealth-program',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCertificatePaymentRoute =
+  AuthenticatedCertificatePaymentRouteImport.update({
+    id: '/certificate-payment',
+    path: '/certificate-payment',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedCertificateSuccessRoute =
+  AuthenticatedCertificateSuccessRouteImport.update({
+    id: '/certificate-success',
+    path: '/certificate-success',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedSchoolAdminRoute =
@@ -161,39 +143,57 @@ const AuthenticatedSchoolAdminRoute =
     path: '/school-admin',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedDashboardRoute = AuthenticatedDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+const AuthenticatedSettingsRoute = AuthenticatedSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCertificateSuccessRoute =
-  AuthenticatedCertificateSuccessRouteImport.update({
-    id: '/certificate-success',
-    path: '/certificate-success',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedCertificatePaymentRoute =
-  AuthenticatedCertificatePaymentRouteImport.update({
-    id: '/certificate-payment',
-    path: '/certificate-payment',
-    getParentRoute: () => AuthenticatedRouteRoute,
-  } as any)
-const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
-  getParentRoute: () => AuthenticatedRouteRoute,
+const AdminCertificatesRoute = AdminCertificatesRouteImport.update({
+  id: '/admin/certificates',
+  path: '/admin/certificates',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const ApiPublicCronPurgeRetentionRoute =
-  ApiPublicCronPurgeRetentionRouteImport.update({
-    id: '/api/public/cron/purge-retention',
-    path: '/api/public/cron/purge-retention',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+const AdminCredentialRequestsRoute = AdminCredentialRequestsRouteImport.update({
+  id: '/admin/credential-requests',
+  path: '/admin/credential-requests',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPaymentsRoute = AdminPaymentsRouteImport.update({
+  id: '/admin/payments',
+  path: '/admin/payments',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminUsersRoute = AdminUsersRouteImport.update({
+  id: '/admin/users',
+  path: '/admin/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiHealthRoute = ApiHealthRouteImport.update({
+  id: '/api/health',
+  path: '/api/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CourseIdRoute = CourseIdRouteImport.update({
+  id: '/course/$id',
+  path: '/course/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardUsersRoute = DashboardUsersRouteImport.update({
+  id: '/dashboard/users',
+  path: '/dashboard/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthenticatedLearnCourseIdLevelRoute =
   AuthenticatedLearnCourseIdLevelRouteImport.update({
     id: '/learn/$courseId/$level',
     path: '/learn/$courseId/$level',
     getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const ApiPublicCronPurgeRetentionRoute =
+  ApiPublicCronPurgeRetentionRouteImport.update({
+    id: '/api/public/cron/purge-retention',
+    path: '/api/public/cron/purge-retention',
+    getParentRoute: () => rootRouteImport,
   } as any)
 
 export interface FileRoutesByFullPath {
@@ -416,95 +416,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/waste-chemicals-wealth-program': {
-      id: '/waste-chemicals-wealth-program'
-      path: '/waste-chemicals-wealth-program'
-      fullPath: '/waste-chemicals-wealth-program'
-      preLoaderRoute: typeof WasteChemicalsWealthProgramRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/verify': {
-      id: '/verify'
-      path: '/verify'
-      fullPath: '/verify'
-      preLoaderRoute: typeof VerifyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/support': {
-      id: '/support'
-      path: '/support'
-      fullPath: '/support'
-      preLoaderRoute: typeof SupportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/success': {
-      id: '/success'
-      path: '/success'
-      fullPath: '/success'
-      preLoaderRoute: typeof SuccessRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/partnership-request': {
-      id: '/partnership-request'
-      path: '/partnership-request'
-      fullPath: '/partnership-request'
-      preLoaderRoute: typeof PartnershipRequestRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/global-ahep': {
-      id: '/global-ahep'
-      path: '/global-ahep'
-      fullPath: '/global-ahep'
-      preLoaderRoute: typeof GlobalAhepRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/courses': {
-      id: '/courses'
-      path: '/courses'
-      fullPath: '/courses'
-      preLoaderRoute: typeof CoursesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin-gate': {
-      id: '/admin-gate'
-      path: '/admin-gate'
-      fullPath: '/admin-gate'
-      preLoaderRoute: typeof AdminGateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -514,88 +430,102 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/dashboard/users': {
-      id: '/dashboard/users'
-      path: '/dashboard/users'
-      fullPath: '/dashboard/users'
-      preLoaderRoute: typeof DashboardUsersRouteImport
+    '/admin-gate': {
+      id: '/admin-gate'
+      path: '/admin-gate'
+      fullPath: '/admin-gate'
+      preLoaderRoute: typeof AdminGateRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/course/$id': {
-      id: '/course/$id'
-      path: '/course/$id'
-      fullPath: '/course/$id'
-      preLoaderRoute: typeof CourseIdRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/api/health': {
-      id: '/api/health'
-      path: '/api/health'
-      fullPath: '/api/health'
-      preLoaderRoute: typeof ApiHealthRouteImport
+    '/courses': {
+      id: '/courses'
+      path: '/courses'
+      fullPath: '/courses'
+      preLoaderRoute: typeof CoursesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/users': {
-      id: '/admin/users'
-      path: '/admin/users'
-      fullPath: '/admin/users'
-      preLoaderRoute: typeof AdminUsersRouteImport
+    '/global-ahep': {
+      id: '/global-ahep'
+      path: '/global-ahep'
+      fullPath: '/global-ahep'
+      preLoaderRoute: typeof GlobalAhepRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/payments': {
-      id: '/admin/payments'
-      path: '/admin/payments'
-      fullPath: '/admin/payments'
-      preLoaderRoute: typeof AdminPaymentsRouteImport
+    '/partnership-request': {
+      id: '/partnership-request'
+      path: '/partnership-request'
+      fullPath: '/partnership-request'
+      preLoaderRoute: typeof PartnershipRequestRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/credential-requests': {
-      id: '/admin/credential-requests'
-      path: '/admin/credential-requests'
-      fullPath: '/admin/credential-requests'
-      preLoaderRoute: typeof AdminCredentialRequestsRouteImport
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin/certificates': {
-      id: '/admin/certificates'
-      path: '/admin/certificates'
-      fullPath: '/admin/certificates'
-      preLoaderRoute: typeof AdminCertificatesRouteImport
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/settings': {
-      id: '/_authenticated/settings'
-      path: '/settings'
-      fullPath: '/settings'
-      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/success': {
+      id: '/success'
+      path: '/success'
+      fullPath: '/success'
+      preLoaderRoute: typeof SuccessRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/school-admin': {
-      id: '/_authenticated/school-admin'
-      path: '/school-admin'
-      fullPath: '/school-admin'
-      preLoaderRoute: typeof AuthenticatedSchoolAdminRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/dashboard': {
-      id: '/_authenticated/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/certificate-success': {
-      id: '/_authenticated/certificate-success'
-      path: '/certificate-success'
-      fullPath: '/certificate-success'
-      preLoaderRoute: typeof AuthenticatedCertificateSuccessRouteImport
+    '/verify': {
+      id: '/verify'
+      path: '/verify'
+      fullPath: '/verify'
+      preLoaderRoute: typeof VerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/waste-chemicals-wealth-program': {
+      id: '/waste-chemicals-wealth-program'
+      path: '/waste-chemicals-wealth-program'
+      fullPath: '/waste-chemicals-wealth-program'
+      preLoaderRoute: typeof WasteChemicalsWealthProgramRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/certificate-payment': {
@@ -605,18 +535,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedCertificatePaymentRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/admin': {
-      id: '/_authenticated/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+    '/_authenticated/certificate-success': {
+      id: '/_authenticated/certificate-success'
+      path: '/certificate-success'
+      fullPath: '/certificate-success'
+      preLoaderRoute: typeof AuthenticatedCertificateSuccessRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/api/public/cron/purge-retention': {
-      id: '/api/public/cron/purge-retention'
-      path: '/api/public/cron/purge-retention'
-      fullPath: '/api/public/cron/purge-retention'
-      preLoaderRoute: typeof ApiPublicCronPurgeRetentionRouteImport
+    '/_authenticated/dashboard': {
+      id: '/_authenticated/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof AuthenticatedDashboardRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/school-admin': {
+      id: '/_authenticated/school-admin'
+      path: '/school-admin'
+      fullPath: '/school-admin'
+      preLoaderRoute: typeof AuthenticatedSchoolAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/settings': {
+      id: '/_authenticated/settings'
+      path: '/settings'
+      fullPath: '/settings'
+      preLoaderRoute: typeof AuthenticatedSettingsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/admin/certificates': {
+      id: '/admin/certificates'
+      path: '/admin/certificates'
+      fullPath: '/admin/certificates'
+      preLoaderRoute: typeof AdminCertificatesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/credential-requests': {
+      id: '/admin/credential-requests'
+      path: '/admin/credential-requests'
+      fullPath: '/admin/credential-requests'
+      preLoaderRoute: typeof AdminCredentialRequestsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/payments': {
+      id: '/admin/payments'
+      path: '/admin/payments'
+      fullPath: '/admin/payments'
+      preLoaderRoute: typeof AdminPaymentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/users': {
+      id: '/admin/users'
+      path: '/admin/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminUsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/health': {
+      id: '/api/health'
+      path: '/api/health'
+      fullPath: '/api/health'
+      preLoaderRoute: typeof ApiHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/course/$id': {
+      id: '/course/$id'
+      path: '/course/$id'
+      fullPath: '/course/$id'
+      preLoaderRoute: typeof CourseIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard/users': {
+      id: '/dashboard/users'
+      path: '/dashboard/users'
+      fullPath: '/dashboard/users'
+      preLoaderRoute: typeof DashboardUsersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/learn/$courseId/$level': {
@@ -625,6 +618,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/learn/$courseId/$level'
       preLoaderRoute: typeof AuthenticatedLearnCourseIdLevelRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/api/public/cron/purge-retention': {
+      id: '/api/public/cron/purge-retention'
+      path: '/api/public/cron/purge-retention'
+      fullPath: '/api/public/cron/purge-retention'
+      preLoaderRoute: typeof ApiPublicCronPurgeRetentionRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
