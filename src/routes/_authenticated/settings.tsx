@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { privatePageHead } from "@/lib/private-page-head";
 import { useEffect, useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -14,12 +15,7 @@ import { changeMyPassword } from "@/lib/account.functions";
 import { Input } from "@/components/ui/input";
 
 export const Route = createFileRoute("/_authenticated/settings")({
-  head: () => ({
-    meta: [
-      { title: "Account Settings | Edusanna" },
-      { name: "robots", content: "noindex" },
-    ],
-  }),
+  head: () => privatePageHead("Account Settings | Edusanna", "Manage your Edusanna account, password and course enrollments."),
   component: SettingsPage,
 });
 

@@ -1,12 +1,13 @@
 # Backend migration roadmap
 
-- [x] Build canonical database baseline and verification SQL
+- [x] Preserve database baseline and prepare fresh-target candidate with static security checks
 - [ ] Build data and Auth transfer tooling
 - [x] Replace Lovable OAuth/runtime dependencies
-- [ ] Add portable Vercel environment and cron configuration
-- [ ] Rehearse migration locally and run security checks
-- [ ] Import into user-owned Supabase project
-- [ ] Reconcile production data and verify major workflows
-- [ ] Remove remaining runtime Lovable dependencies and publish final report
-- [ ] Add persisted school partnership acceptance and onboarding workflow
-- [ ] Verify school acceptance controls and report external setup blockers
+- [x] Add empty external environment template and deployment/cron instructions
+- [ ] Rehearse migration and run database security checks — blocked: no Docker or target credentials
+- [ ] Import into user-owned Supabase project — blocked: target credentials were not saved
+- [ ] Reconcile production data and verify major workflows — blocked: target not provisioned or imported
+- [ ] Remove remaining runtime Lovable dependencies — blocked: target cutover not verified
+- [x] Add persisted admin-only school partnership acceptance and onboarding checklist
+- [ ] Verify school acceptance UI persistence — blocked: requesting user has no mintable admin session
+- [x] Run five partnership rule tests and report external setup blockers

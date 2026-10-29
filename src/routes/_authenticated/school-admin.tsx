@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { privatePageHead } from "@/lib/private-page-head";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
@@ -38,7 +39,7 @@ import {
 
 
 export const Route = createFileRoute("/_authenticated/school-admin")({
-  head: () => ({ meta: [{ title: "School Admin | Edusanna" }] }),
+  head: () => privatePageHead("School Admin | Edusanna", "Manage your school's Academia students, progress, payments and receipts."),
   component: SchoolAdminPage,
 });
 

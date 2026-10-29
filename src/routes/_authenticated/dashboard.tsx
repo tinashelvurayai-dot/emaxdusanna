@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { privatePageHead } from "@/lib/private-page-head";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { BookOpen, GraduationCap, Trophy, ArrowRight, Settings } from "lucide-react";
@@ -16,7 +17,7 @@ import { PriceTag } from "@/components/price-tag";
 import { PaymentReceiptDialog, type PaymentReceipt } from "@/components/payment-receipt";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
-  head: () => ({ meta: [{ title: "My Dashboard | Edusanna" }] }),
+  head: () => privatePageHead("My Dashboard | Edusanna", "Your Edusanna courses, learning progress, receipts and credentials."),
   component: Dashboard,
 });
 

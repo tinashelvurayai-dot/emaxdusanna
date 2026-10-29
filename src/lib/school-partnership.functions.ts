@@ -21,7 +21,12 @@ export const updateSchoolPartnership = createServerFn({ method: "POST" })
     const now = new Date().toISOString();
     const values = { school_id: data.schoolId, [data.field]: data.checked, recorded_by: context.userId, updated_at: now,
       ...(data.field === "terms_accepted" ? { terms_accepted_at: data.checked ? now : null } : {}) };
-    const { error } = await (context.supabase as any).from("school_partnership_onboarding").upsert(values, { onConflict: "school_id", defaultToNull: false });
+    const db = context.supabase as any;
+    const { data: existing, error: readError } = await db.from("school_partnership_onboarding").select("school_id").eq("school_id", data.schoolId).maybeSingle();
+    if (readError) throw new Error("The partnership update was not saved. Please try again.");
+    const { error } = existing
+      ? await db.from("school_partnership_onboarding").update(values).eq("school_id", data.schoolId)
+      : await db.from("school_partnership_onboarding").insert(values);
     if (error) throw new Error("The partnership update was not saved. Please try again.");
     return { success: true };
   });
